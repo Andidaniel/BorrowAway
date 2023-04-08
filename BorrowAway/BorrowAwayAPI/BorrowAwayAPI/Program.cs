@@ -1,3 +1,6 @@
+using BorrowAwayAPI.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace BorrowAwayAPI
 {
     public class Program
@@ -21,6 +24,10 @@ namespace BorrowAwayAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<BorrowAwayDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
+            });
           
             var app = builder.Build();
 
