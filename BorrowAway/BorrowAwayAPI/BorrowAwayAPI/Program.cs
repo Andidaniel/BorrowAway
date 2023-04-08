@@ -1,4 +1,6 @@
 using BorrowAwayAPI.Context;
+using BorrowAwayAPI.Services;
+using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BorrowAwayAPI
@@ -28,6 +30,8 @@ namespace BorrowAwayAPI
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
             });
+
+            builder.Services.AddTransient<IAuthService, AuthService>();
           
             var app = builder.Build();
 
