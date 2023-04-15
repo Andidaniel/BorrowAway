@@ -6,5 +6,6 @@ namespace BorrowAwayAPI.Services.Interfaces
     public interface IAuthService
     {
         Task<AppUser> RegisterUser(RegisterUserDTO userToRegister);
+        Task<string> LoginUser(LoginUserDTO userToLogin);
     }
 }

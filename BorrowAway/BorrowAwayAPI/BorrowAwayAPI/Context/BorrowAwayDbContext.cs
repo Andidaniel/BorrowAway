@@ -10,11 +10,20 @@ namespace BorrowAwayAPI.Context
         public BorrowAwayDbContext() : base()
         {
         }
+        
         public BorrowAwayDbContext(DbContextOptions<BorrowAwayDbContext> options) : base(options) 
         { 
         }
         
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<AppUser>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+        }
+
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<TokenBlackList> InvalidTokens { get; set; }
 
 
     }
