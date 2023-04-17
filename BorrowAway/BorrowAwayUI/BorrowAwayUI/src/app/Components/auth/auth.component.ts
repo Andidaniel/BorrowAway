@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
   public fieldsCompleted: number = 0;
   public emailErrors:string[] = ['asd'];
+  public emailString:string='';
   ngOnInit(): void {}
 
   public getAuthContainerClass(): string {

@@ -13,16 +13,18 @@
 
 .auth-container {
   width: 25vw;
+  height: 70vh;
   min-width: fit-content;
-  height: 65vh;
   min-height: fit-content;
   position: absolute;
   top: 10%;
   right: 2%;
-  background-color: #706f6f;
+  background-color:aliceblue;
   display: flex;
   transition: border 0.2s ease; /* Add a transition effect */
   border-radius: 20px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .green-border:hover {
@@ -39,11 +41,15 @@
   border: 5px solid #fabc2a;
 }
 
+
 .auth-header {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   justify-items: center;
+  align-items: center;
   user-select: none;
+  margin-top: 10%;
 }
 
 .auth-title {
@@ -64,15 +70,26 @@
 .auth-form {
   display: flex;
   position:relative;
-  width: auto;
-  height: auto;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-items: center;
+  align-items: center;
+  margin-top:10%;
   background-color: #4caf50;
-  justify-content: center;
 }
-.form-input {
-  background-color: #f44336;
-  margin-top: 10%;
-  width: 80%;
+.input-group{
+  width: 75%;
 }
+
+.input-label{
+  color: #fabc2a;
+  font-weight: bold;
+  font-family: "Exo2Regular";
+}
+
+
+
+
 
 

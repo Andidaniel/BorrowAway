@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Forecast } from 'src/app/Models/forecast';
 
 
 @Component({

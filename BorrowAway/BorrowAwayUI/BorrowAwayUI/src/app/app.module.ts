@@ -8,10 +8,8 @@ import { RequestsTestComponent } from './Components/requests-test/requests-test.
 import { AuthInterceptorInterceptor } from './Services/Interceptor/auth-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './Components/auth/auth.component';
+import { DxTextBoxModule } from 'devextreme-angular';
 
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -25,10 +23,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    FormsModule
+    FormsModule,
+    DxTextBoxModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptorInterceptor, multi: true}

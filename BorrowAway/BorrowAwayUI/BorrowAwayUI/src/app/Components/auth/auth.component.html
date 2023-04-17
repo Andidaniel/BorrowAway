@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html>
   <div class="main-container">
-    <mat-card [class]="getAuthContainerClass()">
-      <mat-card-header class="auth-header">
-        <mat-card-title class="auth-title"
-          >Welcome to BorrowAway!</mat-card-title
-        >
-        <mat-card-title class="auth-subtitle"
-          >Please login in order to continue.</mat-card-title
-        >
-      </mat-card-header>
-      <div class="auth-form">
-        asd
+    <div [class]="getAuthContainerClass()">
+      <div class="auth-header">
+        <div>
+          <img
+            style="display: inline-block"
+            src="../../../assets/images/borrow-away-website-favicon-color.png"
+            height="100px"
+          />
+        </div>
+        <div>
+          <div class="auth-title">Welcome to BorrowAway!</div>
+          <div class="auth-subtitle">Please login in order to continue.</div>
+        </div>
       </div>
-    </mat-card>
+
+      <div class="auth-form">
+        <div class="dx-fieldset input-group">
+          <span class="input-label">Email:</span>
+          <dx-text-box
+            [(value)]="emailString"
+            placeholder="example@example.com"
+            width="100%"
+            stylingMode="filled"
+          >
+          </dx-text-box>
+        </div>
+        
+        <div class="dx-fieldset input-group">
+          <span class="input-label">Password:</span>
+          <dx-text-box
+            [(value)]="emailString"
+            placeholder="example@example.com"
+            width="100%"
+            stylingMode="filled"
+          >
+          </dx-text-box>
+        </div>
+      </div>
+    </div>
   </div>
 </html>
