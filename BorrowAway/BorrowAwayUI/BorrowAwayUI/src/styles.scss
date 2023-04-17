@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: 'Exo2Regular';
+  src: url('../src/assets/fonts/Exo2Regular.ttf');
+}
+@font-face {
+  font-family: 'Exo2Light';
+  src: url('../src/assets/fonts/Exo2ExtraLight.ttf');
+}
