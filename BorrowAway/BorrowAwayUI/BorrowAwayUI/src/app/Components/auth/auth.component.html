@@ -1,72 +1,69 @@
-<!DOCTYPE html>
-<html>
-  <div class="main-container">
-    <div>
-    <div [class]="getAuthContainerClass()">
-      <div class="auth-header">
-        <div>
-          <img
-            style="display: inline-block"
-            src="../../../assets/images/borrow-away-website-favicon-color.png"
-            height="100px"
-          />
-        </div>
-        <div>
-          <div class="auth-title">Welcome to BorrowAway!</div>
-          <div class="auth-subtitle">Please login in order to continue.</div>
-        </div>
+<div class="main-container">
+  <div [class]="'auth-container ' + getAuthContainerClass()">
+    <div class="auth-header">
+      <div>
+        <img
+          style="display: inline-block"
+          src="../../../assets/images/borrow-away-website-favicon-color.png"
+          height="100px"
+        />
       </div>
-
-      <div class="auth-form">
-        <div class="dx-fieldset input-group">
-          <span class="input-label">Email:</span>
-          <dx-text-box
-            #emailTextBox
-            [(value)]="emailString"
-            valueChangeEvent="input"
-            placeholder="example@example.com"
-            width="100%"
-            stylingMode="filled"
-            (onInput)="calculateCompletedFields()"
-          >
-            <dx-validator>
-              <dxi-validation-rule
-                type="required"
-                message="Email is required"
-              ></dxi-validation-rule>
-              <dxi-validation-rule
-                type="email"
-                message="Email is invalid"
-              ></dxi-validation-rule>
-            </dx-validator>
-          </dx-text-box>
-        </div>
-
-        <div class="dx-fieldset input-group">
-          <span class="input-label">Password:</span>
-          <dx-text-box
-            mode="password"
-            [(value)]="passwordString"
-            placeholder="***********"
-            width="100%"
-            stylingMode="filled"
-            (onInput)="calculateCompletedFields()"
-            valueChangeEvent="input"
-          >
-          </dx-text-box>
-        </div>
+      <div>
+        <div class="auth-title">Welcome to BorrowAway!</div>
+        <div class="auth-subtitle">Please login in order to continue.</div>
       </div>
-      <div class="button-container">
-        <dx-button
-          class="button-style-login"
-          type="outlined"
-          [disabled]="emailTextBox.validationErrors != null ? true : false"
+    </div>
+
+    <div class="auth-form">
+      <div class="dx-fieldset input-group">
+        <span class="input-label">Email:</span>
+        <dx-text-box
+          #emailTextBox
+          [(value)]="emailString"
+          valueChangeEvent="input"
+          placeholder="example@example.com"
+          width="100%"
+          stylingMode="filled"
+          (onInput)="calculateCompletedFields()"
         >
-          Login
-        </dx-button>
-        <dx-button class="button-style-register">Register</dx-button>
+          <dx-validator>
+            <dxi-validation-rule
+              type="required"
+              message="Email is required"
+            ></dxi-validation-rule>
+            <dxi-validation-rule
+              type="email"
+              message="Email is invalid"
+            ></dxi-validation-rule>
+          </dx-validator>
+        </dx-text-box>
       </div>
+
+      <div class="dx-fieldset input-group">
+        <span class="input-label">Password:</span>
+        <dx-text-box
+          mode="password"
+          [(value)]="passwordString"
+          placeholder="***********"
+          width="100%"
+          stylingMode="filled"
+          (onInput)="calculateCompletedFields()"
+          valueChangeEvent="input"
+        >
+        </dx-text-box>
+      </div>
+    </div>
+    <div class="button-container">
+      <dx-button
+        #loginButton
+        class="button-style login"
+        type="outlined"
+        [disabled]="emailTextBox.validationErrors != null ? true : false"
+        (onClick)="loginClick()"
+      >
+        Login
+      </dx-button>
+      <dx-button class="button-style register">Register</dx-button>
     </div>
   </div>
 </div>
-</html>

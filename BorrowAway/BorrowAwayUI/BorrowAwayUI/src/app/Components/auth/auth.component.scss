@@ -2,8 +2,12 @@
   width: 100vw;
   height: 100vh;
   margin: 0px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
   transition: opacity 0.5s ease; /* Add a transition effect */
-  position: relative;
   background-image: url("../../../assets/images/logo-white.png");
   background-size: 70vw;
   background-position: left;
@@ -12,20 +16,53 @@
 }
 
 .auth-container {
-  width: 25vw;
-  height: 70vh;
-  min-width: max-content;
-  min-height: max-content;
-  position: absolute;
-  top: 10%;
-  right: 2%;
-  background-color:aliceblue;
+  min-width: 25vw;
+  margin-right: 48px;
+
+  background-color: aliceblue;
   display: flex;
   transition: border 0.2s ease; /* Add a transition effect */
   border-radius: 20px;
   align-items: center;
   flex-direction: column;
+  border: 5px solid transparent;
+}
 
+@media (max-width: 1300px) {
+  .main-container {
+    justify-content: center;
+
+    .auth-container {
+      margin-right: 0;
+      width: 80vw;
+    }
+  }
+}
+
+@media (max-height: 850px) {
+  .main-container {
+    overflow: scroll;
+
+    .auth-container {
+      .auth-header {
+        margin-top: 4vh;
+      }
+
+      .auth-form {
+        margin: 4vh 0;
+      }
+
+      .button-container {
+        margin-bottom: 4vh;
+      }
+    }
+  }
+}
+
+@media (max-height: 530px) {
+  .main-container {
+    align-items: flex-start;
+  }
 }
 
 .green-border:hover {
@@ -42,7 +79,6 @@
   border: 5px solid #fabc2a;
 }
 
-
 .auth-header {
   display: flex;
   flex-direction: column;
@@ -51,8 +87,6 @@
   align-items: center;
   user-select: none;
   margin-top: 10%;
-  position: absolute;
-
 }
 
 .auth-title {
@@ -61,7 +95,6 @@
   font-family: "Exo2Regular";
   font-weight: bold;
   font-size: x-large;
-
 }
 .auth-subtitle {
   font-family: "Exo2Light";
@@ -73,54 +106,47 @@
 
 .auth-form {
   display: flex;
-  position: relative;
   flex-direction: column;
-  width: 100%;
-  height: 30%;
   align-items: center;
-  margin-top:55%;
+  width: 100%;
+  margin: 10% 0;
 }
-.input-group{
+.input-group {
   width: 75%;
 }
 
-.input-label{
+.input-label {
   color: #fabc2a;
   font-weight: bold;
   font-family: "Exo2Regular";
 }
 
-.button-container{
-  position:absolute;
-  bottom: 0;
+.button-container {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-content: center;
-  height: 30%;
   width: 100%;
   border-radius: 0px 0px 20px 20px;
+  margin-bottom: 10%;
 }
-.button-style-login{
-  position:relative;
+
+.button-style{
   width: 30%;
-  height: 25%;
-  margin-top: 10%;
-  color: aliceblue;
-  background-color: #52D1DC;
+  height: 48px;
   font-weight: bold;
+  &:hover{
+    filter:contrast(125%);
+  }
+  &:active{
+    filter:contrast(75%);
+  }
+  &.login{
+    color: aliceblue;
+    background-color: #52d1dc;
+  }
+  &.register{
+    background-color: #fabc2a;
+    color: black;
+  }
+
 }
-
-.button-style-register{
-  position:relative;
-  width: 30%;
-  height: 25%;
-  margin-top: 10%;
-  background-color: #fabc2a;
-  color: black;
-  font-weight: bold;
-}
-
-
-
-

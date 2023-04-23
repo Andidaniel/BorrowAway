@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DxTextBoxComponent } from 'devextreme-angular';
+import { DxButtonComponent, DxTextBoxComponent } from 'devextreme-angular';
+import { AuthService } from 'src/app/Services/auth.service';
+import { createLogicalAnd } from 'typescript';
 
 @Component({
   selector: 'app-auth',
@@ -7,8 +9,13 @@ import { DxTextBoxComponent } from 'devextreme-angular';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
+  constructor(private _authService:AuthService){
+  }
   @ViewChild('emailTextBox', { static: false })
   emailTextBox?: DxTextBoxComponent;
+
+  @ViewChild('loginButton',{static:false})
+  loginButton?:DxButtonComponent;
 
   private _fieldsCompleted: number = 0;
   public emailString: string = '';
@@ -28,13 +35,19 @@ export class AuthComponent implements OnInit {
   public getAuthContainerClass(): string {
     switch (this._fieldsCompleted) {
       case 0:
-        return 'auth-container red-border';
+        return 'red-border';
       case 1:
-        return 'auth-container yellow-border';
+        return 'yellow-border';
       case 2:
-        return 'auth-container green-border';
+        return 'green-border';
       default:
-        return 'auth-container red-border';
+        return 'red-border';
     }
   }
+  public loginClick():void{
+    this._authService.testGet().subscribe(response=>{
+      console.log(response);
+    })
+  }
+
 }
