@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <div class="main-container">
+    <div>
     <div [class]="getAuthContainerClass()">
       <div class="auth-header">
         <div>
@@ -20,13 +21,24 @@
         <div class="dx-fieldset input-group">
           <span class="input-label">Email:</span>
           <dx-text-box
-            [(value)]='emailString'
+            #emailTextBox
+            [(value)]="emailString"
             valueChangeEvent="input"
             placeholder="example@example.com"
             width="100%"
             stylingMode="filled"
             (onInput)="calculateCompletedFields()"
           >
+            <dx-validator>
+              <dxi-validation-rule
+                type="required"
+                message="Email is required"
+              ></dxi-validation-rule>
+              <dxi-validation-rule
+                type="email"
+                message="Email is invalid"
+              ></dxi-validation-rule>
+            </dx-validator>
           </dx-text-box>
         </div>
 
@@ -45,14 +57,16 @@
         </div>
       </div>
       <div class="button-container">
-
         <dx-button
           class="button-style-login"
           type="outlined"
-        > Login </dx-button>
+          [disabled]="emailTextBox.validationErrors != null ? true : false"
+        >
+          Login
+        </dx-button>
         <dx-button class="button-style-register">Register</dx-button>
-
       </div>
     </div>
   </div>
+</div>
 </html>

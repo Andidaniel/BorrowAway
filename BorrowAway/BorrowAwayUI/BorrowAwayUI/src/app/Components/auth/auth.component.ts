@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxTextBoxComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-auth',
@@ -6,23 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
+  @ViewChild('emailTextBox', { static: false })
+  emailTextBox?: DxTextBoxComponent;
+
   private _fieldsCompleted: number = 0;
-  public emailString:string='';
-  public passwordString:string="";
+  public emailString: string = '';
+  public passwordString: string = '';
+
   ngOnInit(): void {}
 
-  public calculateCompletedFields():void{
-    console.log(this.emailString);
-    
-
-    if(this.emailString!="" && this.passwordString!="")
-    {
+  public calculateCompletedFields(): void {
+    if (this.emailString != '' && this.passwordString != '') {
       this._fieldsCompleted = 2;
-    }
-    else if(this.emailString == "" && this.passwordString ==""){
+    } else if (this.emailString == '' && this.passwordString == '') {
       this._fieldsCompleted = 0;
-    }
-    else{
+    } else {
       this._fieldsCompleted = 1;
     }
   }
@@ -38,5 +37,4 @@ export class AuthComponent implements OnInit {
         return 'auth-container red-border';
     }
   }
-
 }

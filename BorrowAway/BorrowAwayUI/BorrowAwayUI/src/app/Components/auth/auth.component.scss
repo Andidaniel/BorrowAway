@@ -14,8 +14,8 @@
 .auth-container {
   width: 25vw;
   height: 70vh;
-  min-width: fit-content;
-  min-height: fit-content;
+  min-width: max-content;
+  min-height: max-content;
   position: absolute;
   top: 10%;
   right: 2%;
@@ -25,6 +25,7 @@
   border-radius: 20px;
   align-items: center;
   flex-direction: column;
+
 }
 
 .green-border:hover {
