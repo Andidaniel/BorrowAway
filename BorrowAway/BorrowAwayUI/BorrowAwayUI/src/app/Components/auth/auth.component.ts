@@ -6,13 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  public fieldsCompleted: number = 0;
-  public emailErrors:string[] = ['asd'];
+  private _fieldsCompleted: number = 0;
   public emailString:string='';
+  public passwordString:string="";
   ngOnInit(): void {}
 
+  public calculateCompletedFields():void{
+    console.log(this.emailString);
+    
+
+    if(this.emailString!="" && this.passwordString!="")
+    {
+      this._fieldsCompleted = 2;
+    }
+    else if(this.emailString == "" && this.passwordString ==""){
+      this._fieldsCompleted = 0;
+    }
+    else{
+      this._fieldsCompleted = 1;
+    }
+  }
   public getAuthContainerClass(): string {
-    switch (this.fieldsCompleted) {
+    switch (this._fieldsCompleted) {
       case 0:
         return 'auth-container red-border';
       case 1:
@@ -22,7 +37,6 @@ export class AuthComponent implements OnInit {
       default:
         return 'auth-container red-border';
     }
-
   }
 
 }

@@ -8,7 +8,7 @@ import { RequestsTestComponent } from './Components/requests-test/requests-test.
 import { AuthInterceptorInterceptor } from './Services/Interceptor/auth-interceptor.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './Components/auth/auth.component';
-import { DxTextBoxModule } from 'devextreme-angular';
+import { DxTextBoxModule,DxButtonModule } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
 
@@ -24,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    DxTextBoxModule
+    DxTextBoxModule,
+    DxButtonModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptorInterceptor, multi: true}

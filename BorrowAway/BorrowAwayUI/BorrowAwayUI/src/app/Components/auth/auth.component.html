@@ -20,24 +20,38 @@
         <div class="dx-fieldset input-group">
           <span class="input-label">Email:</span>
           <dx-text-box
-            [(value)]="emailString"
+            [(value)]='emailString'
+            valueChangeEvent="input"
             placeholder="example@example.com"
             width="100%"
             stylingMode="filled"
+            (onInput)="calculateCompletedFields()"
           >
           </dx-text-box>
         </div>
-        
+
         <div class="dx-fieldset input-group">
           <span class="input-label">Password:</span>
           <dx-text-box
-            [(value)]="emailString"
-            placeholder="example@example.com"
+            mode="password"
+            [(value)]="passwordString"
+            placeholder="***********"
             width="100%"
             stylingMode="filled"
+            (onInput)="calculateCompletedFields()"
+            valueChangeEvent="input"
           >
           </dx-text-box>
         </div>
+      </div>
+      <div class="button-container">
+
+        <dx-button
+          class="button-style-login"
+          type="outlined"
+        > Login </dx-button>
+        <dx-button class="button-style-register">Register</dx-button>
+
       </div>
     </div>
   </div>
