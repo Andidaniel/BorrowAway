@@ -1,9 +1,6 @@
 ﻿using BorrowAwayAPI.DTOs;
 using BorrowAwayAPI.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Text.Json;
 
 namespace BorrowAwayAPI.Controllers
 {
@@ -25,7 +22,7 @@ namespace BorrowAwayAPI.Controllers
                 var createdUser = await _authService.RegisterUser(userToRegister);
                 return Ok(createdUser);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -39,26 +36,18 @@ namespace BorrowAwayAPI.Controllers
                 string token = await _authService.LoginUser(userToLogin);
                 return Ok(token);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("Test")]
         public ActionResult<string> Test()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var email = identity.FindFirst(ClaimTypes.Email).Value;
-               
 
-                return Ok(JsonSerializer.Serialize(email));
-            }
-            return BadRequest("Doesn't work");
+            return Ok("\"Works\"");
         }
 
-        
+
     }
 }

@@ -40,7 +40,7 @@ namespace BorrowAwayAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
             });
             builder.Services.AddTransient<IAuthService, AuthService>();
-          
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -50,10 +50,10 @@ namespace BorrowAwayAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(x=>
+            app.UseCors(x =>
             x.AllowAnyMethod()
             .AllowAnyHeader()
-            .WithOrigins("http://localhost:4200","https://localhost:4200")
+            .WithOrigins("http://localhost:4200", "https://localhost:4200")
             .AllowCredentials());
             app.UseHttpsRedirection();
 
