@@ -35,6 +35,7 @@ namespace BorrowAwayAPI.Services
             userToCreate.Email = userToRegister.Email;
             userToCreate.PasswordHash = passwordHash;
             userToCreate.PasswordSalt = passwordSalt;
+            userToCreate.Role = "User";
 
             await _dbContext.Users.AddAsync(userToCreate);
             await _dbContext.SaveChangesAsync();
@@ -66,7 +67,8 @@ namespace BorrowAwayAPI.Services
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.FirstName),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role)
             };
             SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

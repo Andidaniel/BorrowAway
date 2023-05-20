@@ -1,5 +1,6 @@
 ﻿using BorrowAwayAPI.DTOs;
 using BorrowAwayAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BorrowAwayAPI.Controllers
@@ -41,7 +42,9 @@ namespace BorrowAwayAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("Test")]
+        [Authorize(Roles ="Admin")]
         public ActionResult<string> Test()
         {
 
