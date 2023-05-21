@@ -9,9 +9,7 @@
     </div>
     <div>
       <div class="auth-title">Welcome to BorrowAway!</div>
-      <div class="auth-subtitle">
-        Please login in order to continue.
-      </div>
+      <div class="auth-subtitle">Please login in order to continue.</div>
     </div>
   </div>
 
@@ -20,12 +18,12 @@
       <span class="input-label">Email:</span>
       <dx-text-box
         #emailTextBox
-        [(value)]="userToLogin.email"
+        [(value)]="userToLogin.Email"
         valueChangeEvent="input"
         placeholder="example@example.com"
         width="100%"
         stylingMode="filled"
-        autocomplete="off"
+        (onInput)="calculateCompletedFields()"
       >
         <dx-validator>
           <dxi-validation-rule
@@ -44,13 +42,12 @@
       <span class="input-label">Password:</span>
       <dx-text-box
         mode="password"
-        [(value)]="userToLogin.password"
+        [(value)]="userToLogin.Password"
         placeholder="***********"
         width="100%"
         stylingMode="filled"
         (onInput)="calculateCompletedFields()"
         valueChangeEvent="input"
-        autocomplete="off"
       >
       </dx-text-box>
     </div>
@@ -60,12 +57,19 @@
       #loginButton
       class="button-style login"
       type="outlined"
-      [disabled]="emailTextBox?.validationErrors != null  || userToLogin.password =='' || userToLogin.email =='' ? true : false"
+      [disabled]="
+        emailTextBox?.validationErrors != null ||
+        userToLogin.Password == '' ||
+        userToLogin.Email == ''
+          ? true
+          : false
+      "
       (onClick)="loginClick()"
     >
       Login
     </dx-button>
-    <dx-button  class="button-style register"
-                (click)="registerClick()">Register</dx-button>
+    <dx-button class="button-style register" (click)="registerClick()"
+      >Register</dx-button
+    >
   </div>
 </div>

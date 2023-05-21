@@ -17,6 +17,30 @@
 
   <div class="auth-form">
     <div class="dx-fieldset input-group">
+      <span class="input-label">First Name:</span>
+      <dx-text-box
+        placeholder="John"
+        width="100%"
+        stylingMode="filled"
+        valueChangeEvent="input"
+        [(value)]="userToRegister.FirstName"
+      >
+      </dx-text-box>
+    </div>
+
+    <div class="dx-fieldset input-group">
+      <span class="input-label">Last Name:</span>
+      <dx-text-box
+        placeholder="Doe"
+        width="100%"
+        stylingMode="filled"
+        valueChangeEvent="input"
+        [(value)]="userToRegister.LastName"
+      >
+      </dx-text-box>
+    </div>
+
+    <div class="dx-fieldset input-group">
       <span class="input-label">Email:</span>
       <dx-text-box
         #emailTextBox
@@ -24,7 +48,8 @@
         placeholder="example@example.com"
         width="100%"
         stylingMode="filled"
-              >
+        [(value)]="userToRegister.Email"
+        >
         <dx-validator>
           <dxi-validation-rule
             type="required"
@@ -46,20 +71,22 @@
         width="100%"
         stylingMode="filled"
         valueChangeEvent="input"
+        [(value)]="userToRegister.Password"
       >
       </dx-text-box>
     </div>
   </div>
   <div class="button-container">
     <dx-button
-      #loginButton
       class="button-style login"
       type="outlined"
       (click)="backToLoginClick()"
     >
       Back to login
     </dx-button>
-    <dx-button  class="button-style register"
-                >Create Account</dx-button>
+    <dx-button
+      class="button-style register"
+      (click)="registerButtonClick()"
+    >Create Account</dx-button>
   </div>
 </div>
