@@ -1,5 +1,6 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { RegisterUser } from 'src/app/Models/register-user';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -18,12 +19,22 @@ export class RegisterFormComponent {
     Email:'',
     Password:''
   }
-  public registerButtonClick():void{
-    this._authService.registerUser(this.userToRegister).subscribe((response:any)=>{
-      console.log(response.body);
-    });
 
+  private handleError(error:HttpErrorResponse){
+    alert(error.error);
+    return "ERROR";
   }
+  public registerButtonClick():void{
+      this._authService.registerUser(this.userToRegister).subscribe({
+        next: response=>{
+          let anyResponse:any =response;
+          console.log(anyResponse.body);
+        },
+        error: err=>{
+          console.log(err.status, err.error);
+        }
+      })
+    }
 
   public backToLoginClick():void{
     this.changeFormToLoginEvent.emit();
