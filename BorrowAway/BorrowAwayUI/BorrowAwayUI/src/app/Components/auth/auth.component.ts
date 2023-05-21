@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DxButtonComponent, DxTextBoxComponent } from 'devextreme-angular';
 import { AuthService } from 'src/app/Services/auth.service';
-import { createLogicalAnd } from 'typescript';
 
 @Component({
   selector: 'app-auth',
@@ -11,43 +9,18 @@ import { createLogicalAnd } from 'typescript';
 export class AuthComponent implements OnInit {
   constructor(private _authService:AuthService){
   }
-  @ViewChild('emailTextBox', { static: false })
-  emailTextBox?: DxTextBoxComponent;
+  public loginFormVisible:boolean = true;
 
-  @ViewChild('loginButton',{static:false})
-  loginButton?:DxButtonComponent;
-
-  private _fieldsCompleted: number = 0;
-  public emailString: string = '';
-  public passwordString: string = '';
-
-  ngOnInit(): void {}
-
-  public calculateCompletedFields(): void {
-    if (this.emailString != '' && this.passwordString != '') {
-      this._fieldsCompleted = 2;
-    } else if (this.emailString == '' && this.passwordString == '') {
-      this._fieldsCompleted = 0;
-    } else {
-      this._fieldsCompleted = 1;
-    }
+  public changeFormToRegister():void{
+    this.loginFormVisible=false;
   }
-  public getAuthContainerClass(): string {
-    switch (this._fieldsCompleted) {
-      case 0:
-        return 'red-border';
-      case 1:
-        return 'yellow-border';
-      case 2:
-        return 'green-border';
-      default:
-        return 'red-border';
-    }
+  public changeFormToLogin():void{
+    this.loginFormVisible=true;
   }
-  public loginClick():void{
-    this._authService.testGet().subscribe(response=>{
-      console.log(response);
-    })
+  ngOnInit(): void {
+    this.loginFormVisible = true;
   }
+
+
 
 }

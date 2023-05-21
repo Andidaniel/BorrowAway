@@ -1,0 +1,65 @@
+<div class="auth-container">
+  <div class="auth-header">
+    <div>
+      <img
+        style="display: inline-block"
+        src="../../../assets/images/borrow-away-website-favicon-color.png"
+        height="100px"
+      />
+    </div>
+    <div>
+      <div class="auth-title">Register</div>
+      <div class="auth-subtitle">
+        Please fill in the following form to continue.
+      </div>
+    </div>
+  </div>
+
+  <div class="auth-form">
+    <div class="dx-fieldset input-group">
+      <span class="input-label">Email:</span>
+      <dx-text-box
+        #emailTextBox
+        valueChangeEvent="input"
+        placeholder="example@example.com"
+        width="100%"
+        stylingMode="filled"
+              >
+        <dx-validator>
+          <dxi-validation-rule
+            type="required"
+            message="Email is required"
+          ></dxi-validation-rule>
+          <dxi-validation-rule
+            type="email"
+            message="Email is invalid"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+    </div>
+
+    <div class="dx-fieldset input-group">
+      <span class="input-label">Password:</span>
+      <dx-text-box
+        mode="password"
+        placeholder="***********"
+        width="100%"
+        stylingMode="filled"
+        valueChangeEvent="input"
+      >
+      </dx-text-box>
+    </div>
+  </div>
+  <div class="button-container">
+    <dx-button
+      #loginButton
+      class="button-style login"
+      type="outlined"
+      (click)="backToLoginClick()"
+    >
+      Back to login
+    </dx-button>
+    <dx-button  class="button-style register"
+                >Create Account</dx-button>
+  </div>
+</div>

@@ -11,12 +11,16 @@ import { AuthComponent } from './Components/auth/auth.component';
 import { DxTextBoxModule,DxButtonModule,DxValidatorModule } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
+import { LoginFormComponent } from './Components/login-form/login-form.component';
+import { RegisterFormComponent } from './Components/register-form/register-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RequestsTestComponent,
     AuthComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,
