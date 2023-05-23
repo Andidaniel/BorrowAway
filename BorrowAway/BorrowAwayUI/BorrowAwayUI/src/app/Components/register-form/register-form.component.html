@@ -24,6 +24,7 @@
         stylingMode="filled"
         valueChangeEvent="input"
         [(value)]="userToRegister.FirstName"
+        (onInput)="calculateCreateAccountButtonStatus()"
       >
       </dx-text-box>
     </div>
@@ -36,6 +37,7 @@
         stylingMode="filled"
         valueChangeEvent="input"
         [(value)]="userToRegister.LastName"
+        (onInput)="calculateCreateAccountButtonStatus()"
       >
       </dx-text-box>
     </div>
@@ -49,6 +51,7 @@
         width="100%"
         stylingMode="filled"
         [(value)]="userToRegister.Email"
+        (onInput)="calculateCreateAccountButtonStatus()"
         >
         <dx-validator>
           <dxi-validation-rule
@@ -72,6 +75,7 @@
         stylingMode="filled"
         valueChangeEvent="input"
         [(value)]="userToRegister.Password"
+        (onInput)="calculateCreateAccountButtonStatus()"
       >
       </dx-text-box>
     </div>
@@ -87,6 +91,8 @@
     <dx-button
       class="button-style register"
       (click)="registerButtonClick()"
+      [style]="createAccountButtonStyle"
+      [disabled]="createAccountButtonDisabled"
     >Create Account</dx-button>
   </div>
 </div>
