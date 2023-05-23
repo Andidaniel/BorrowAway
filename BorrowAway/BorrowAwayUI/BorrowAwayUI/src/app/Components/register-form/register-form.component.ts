@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { RegisterUser } from 'src/app/Models/register-user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { ErrorHandlingService } from 'src/app/Services/error-handling.service';
 
 @Component({
   selector: 'register-form',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent {
-  constructor(private _authService:AuthService){}
+  constructor(private _authService:AuthService, private _errorService:ErrorHandlingService){}
   @Output() changeFormToLoginEvent = new EventEmitter<void>();
   public createAccountButtonStyle:string="opacity:10%";
   public createAccountButtonDisabled:boolean=true;
@@ -32,7 +33,8 @@ export class RegisterFormComponent {
           this.createAccountButtonStyle = "opacity:100%"
         },
         error: err=>{
-          console.log(err.status, err.error);
+          console.log(err.status,this._errorService.getError(err.error));
+
           this.createAccountButtonDisabled=false;
           this.createAccountButtonStyle = "opacity:100%"
         }

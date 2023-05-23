@@ -1,0 +1,38 @@
+[
+  {
+    "errorCode":"EMAIL_OR_PASSWORD_INVALID",
+    "errorMessage":"Invalid email or password"
+  },
+  {
+    "errorCode":"PASSWORD_EMPTY",
+    "errorMessage":"Password cannot be empty"
+  },
+  {
+    "errorCode":"FNAME_EMPTY",
+    "errorMessage":"First name cannot be empty"
+  },
+  {
+    "errorCode":"FNAME_CANNOT_CONTAIN_NUMBERS",
+    "errorMessage":"First name shouldn't contain numbers"
+  },
+  {
+    "errorCode":"LNAME_EMPTY",
+    "errorMessage":"Last name cannot be empty"
+  },
+  {
+    "errorCode":"LNAME_CANNOT_CONTAIN_NUMBERS",
+    "errorMessage":"Last name shouldn't contain numbers"
+  },
+  {
+    "errorCode":"EMAIL_EMPTY",
+    "errorMessage":"Email cannot be empty"
+  },
+  {
+    "errorCode":"EMAIL_EXISTS",
+    "errorMessage":"Email is already used"
+  },
+  {
+    "errorCode":"EMAIL_INVALID",
+    "errorMessage":"Invalid email"
+  }
+]
