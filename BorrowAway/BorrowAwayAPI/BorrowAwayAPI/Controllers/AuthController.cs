@@ -1,4 +1,5 @@
 ﻿using BorrowAwayAPI.DTOs;
+using BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,8 @@ namespace BorrowAwayAPI.Controllers
         {
             try
             {
-                var createdUser = await _authService.RegisterUser(userToRegister);
-                return Ok(createdUser);
+                AppUser createdUser = await _authService.RegisterUser(userToRegister);
+                return Ok("User created");
             }
             catch (Exception ex)
             {
@@ -51,6 +52,6 @@ namespace BorrowAwayAPI.Controllers
             return Ok("\"Works\"");
         }
 
-
+                
     }
 }

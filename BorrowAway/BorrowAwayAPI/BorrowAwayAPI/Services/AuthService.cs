@@ -27,8 +27,8 @@ namespace BorrowAwayAPI.Services
 
             AppUser userToCreate = new AppUser();
             userToRegister.Email = userToRegister.Email.ToLower();
-            CreatePasswordHash(userToRegister.Password, out byte[] passwordHash, out byte[] passwordSalt);
             ValidateUserDTO(userToRegister);
+            CreatePasswordHash(userToRegister.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             userToCreate.FirstName = userToRegister.FirstName;
             userToCreate.LastName = userToRegister.LastName;
@@ -112,12 +112,22 @@ namespace BorrowAwayAPI.Services
             ValidateEmail(userDTO.Email);
             ValidateFirstName(userDTO.FirstName);
             ValidateLastName(userDTO.LastName);
+            ValidatePassword(userDTO.Password);
         }
+
+        private void ValidatePassword(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException("PASSWORD_EMPTY");
+            }
+        }
+
         private void ValidateFirstName(string firstName)
         {
             if (string.IsNullOrEmpty(firstName))
             {
-                throw new ArgumentNullException("FNAME_EMPTY");
+                throw new ArgumentException("FNAME_EMPTY");
             }
             if (firstName.Any(char.IsDigit))
             {
@@ -128,7 +138,7 @@ namespace BorrowAwayAPI.Services
         {
             if (string.IsNullOrEmpty(lastName))
             {
-                throw new ArgumentNullException("LNAME_EMPTY");
+                throw new ArgumentException("LNAME_EMPTY");
             }
             if (lastName.Any(char.IsDigit))
             {
@@ -139,7 +149,7 @@ namespace BorrowAwayAPI.Services
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new ArgumentNullException("EMAIL_EMPTY");
+                throw new ArgumentException("EMAIL_EMPTY");
             }
             string emailRegex = @"^[\w-\.]+@([\w-]+\.)+[\w]+$";
             var match = Regex.Match(email, emailRegex, RegexOptions.IgnoreCase);
@@ -147,7 +157,7 @@ namespace BorrowAwayAPI.Services
             {
                 throw new ArgumentException("EMAIL_INVALID");
             }
-            if (_dbContext.Users.Any(u => u.Email.Equals(email)))
+            if (_dbContext.Users.Any(u => email.ToUpper().Equals(u.Email.ToUpper())))
             {
                 throw new ArgumentException("EMAIL_EXISTS");
             }
