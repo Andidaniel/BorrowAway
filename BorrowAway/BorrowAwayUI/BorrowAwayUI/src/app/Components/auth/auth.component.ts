@@ -19,9 +19,13 @@ export class AuthComponent implements OnInit {
   }
   public changeFormToLogin():void{
     this.loginFormVisible=true;
-    this.toastVisible = true;
   }
-  showErrorMessage(errorMessage:string){
+  public showCreatedUserMessage():void{
+    this.toastMessage = "User created successfully";
+    this.toastType='success';
+    this.toastVisible=true;
+  }
+  public showErrorMessage(errorMessage:string):void{
     this.toastMessage = errorMessage;
     this.toastType='error';
     this.toastVisible=true;

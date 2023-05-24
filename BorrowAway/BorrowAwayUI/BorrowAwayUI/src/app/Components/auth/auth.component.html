@@ -9,6 +9,7 @@
     <register-form
       (changeFormToLoginEvent)="changeFormToLogin()"
       (receivedErrorEvent)="showErrorMessage($event)"
+      (createdUserEvent)="showCreatedUserMessage()"
     ></register-form></div
 ></ng-template>
 <dx-toast [(visible)]="toastVisible"

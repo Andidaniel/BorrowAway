@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DxButtonComponent, DxTextBoxComponent } from 'devextreme-angular';
 import { LoginUser } from 'src/app/Models/login-user';
+import { AuthService } from 'src/app/Services/auth.service';
+import { ErrorHandlingService } from 'src/app/Services/error-handling.service';
 
 @Component({
   selector: 'login-form',
@@ -8,6 +10,7 @@ import { LoginUser } from 'src/app/Models/login-user';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent {
+  constructor(private _authService:AuthService, private _errorService:ErrorHandlingService){}
   @ViewChild('emailTextBox', { static: false })
   emailTextBox?: DxTextBoxComponent;
 
@@ -41,8 +44,15 @@ export class LoginFormComponent {
     }
   }
   public loginClick():void{
-    console.log(this.userToLogin.Email,this.userToLogin.Password);
-    //TODO: Add Request to LOGIN
+    this._authService.loginUser(this.userToLogin).subscribe({
+      next:(response:any)=>{
+        localStorage.setItem("token",response.body);
+      },
+      error:err=>{
+        console.log(this._errorService.getError(err.error));
+
+      }
+    })
   }
   public registerClick():void{
     this.changeFormToRegisterEvent.emit();

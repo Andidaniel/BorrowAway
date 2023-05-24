@@ -12,6 +12,7 @@ export class RegisterFormComponent {
   constructor(private _authService:AuthService, private _errorService:ErrorHandlingService){}
   @Output() changeFormToLoginEvent = new EventEmitter<void>();
   @Output() receivedErrorEvent = new EventEmitter<string>();
+  @Output() createdUserEvent = new EventEmitter<void>();
 
   public createAccountButtonStyle:string="opacity:10%";
   public createAccountButtonDisabled:boolean=true;
@@ -31,6 +32,8 @@ export class RegisterFormComponent {
           console.log(response.body);
           this.createAccountButtonDisabled=false;
           this.createAccountButtonStyle = "opacity:100%"
+          this.createdUserEvent.emit();
+          this.changeFormToLoginEvent.emit();
         },
         error: err=>{
           this.receivedErrorEvent.emit(this._errorService.getError(err.error))
