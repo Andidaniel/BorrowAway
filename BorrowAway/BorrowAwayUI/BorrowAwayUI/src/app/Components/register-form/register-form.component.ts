@@ -1,6 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
 import { RegisterUser } from 'src/app/Models/register-user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { ErrorHandlingService } from 'src/app/Services/error-handling.service';
@@ -13,6 +11,8 @@ import { ErrorHandlingService } from 'src/app/Services/error-handling.service';
 export class RegisterFormComponent {
   constructor(private _authService:AuthService, private _errorService:ErrorHandlingService){}
   @Output() changeFormToLoginEvent = new EventEmitter<void>();
+  @Output() receivedErrorEvent = new EventEmitter<string>();
+
   public createAccountButtonStyle:string="opacity:10%";
   public createAccountButtonDisabled:boolean=true;
 
@@ -33,8 +33,7 @@ export class RegisterFormComponent {
           this.createAccountButtonStyle = "opacity:100%"
         },
         error: err=>{
-          console.log(err.status,this._errorService.getError(err.error));
-
+          this.receivedErrorEvent.emit(this._errorService.getError(err.error))
           this.createAccountButtonDisabled=false;
           this.createAccountButtonStyle = "opacity:100%"
         }

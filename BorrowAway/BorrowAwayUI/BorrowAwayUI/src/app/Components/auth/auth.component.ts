@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { AuthService } from 'src/app/Services/auth.service';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-auth',
@@ -7,16 +7,26 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  constructor(private _authService:AuthService){
+  constructor(){
   }
   public loginFormVisible:boolean = true;
+  public toastVisible:boolean = false;
+  public toastMessage:string = ' ';
+  public toastType:string=' ';
 
   public changeFormToRegister():void{
     this.loginFormVisible=false;
   }
   public changeFormToLogin():void{
     this.loginFormVisible=true;
+    this.toastVisible = true;
   }
+  showErrorMessage(errorMessage:string){
+    this.toastMessage = errorMessage;
+    this.toastType='error';
+    this.toastVisible=true;
+  }
+
   ngOnInit(): void {
     this.loginFormVisible = true;
   }

@@ -8,11 +8,12 @@ import { RequestsTestComponent } from './Components/requests-test/requests-test.
 import { AuthInterceptor} from './Services/Interceptor/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './Components/auth/auth.component';
-import { DxTextBoxModule,DxButtonModule,DxValidatorModule } from 'devextreme-angular';
+import { DxTextBoxModule,DxButtonModule,DxValidatorModule,DxToastModule } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
 import { LoginFormComponent } from './Components/login-form/login-form.component';
 import { RegisterFormComponent } from './Components/register-form/register-form.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RegisterFormComponent } from './Components/register-form/register-form.
     FormsModule,
     DxTextBoxModule,
     DxButtonModule,
-    DxValidatorModule
+    DxValidatorModule,
+    DxToastModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}
