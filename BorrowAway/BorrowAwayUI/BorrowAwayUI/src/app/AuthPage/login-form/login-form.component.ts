@@ -14,6 +14,8 @@ export class LoginFormComponent {
   constructor(private _authService:AuthService, private _errorService:ErrorHandlingService,private _router:Router){}
   @ViewChild('emailTextBox', { static: false })
   emailTextBox?: DxTextBoxComponent;
+  @ViewChild('loginButton',{static:false})
+  loginButton?:DxButtonComponent;
 
   @Output() changeFormToRegisterEvent = new EventEmitter<void>();
   @Output() receivedLoginErrorEvent = new EventEmitter<string>();
@@ -45,15 +47,18 @@ export class LoginFormComponent {
     }
   }
   public loginClick():void{
+    this.loginButton!.disabled=true;
     this._authService.loginUser(this.userToLogin).subscribe({
       next:(response:any)=>{
         localStorage.clear();
         localStorage.setItem("token",response.body);
         this._router.navigateByUrl('requests');
+
       },
       error:err=>{
         this.receivedLoginErrorEvent.emit(this._errorService.getError(err.error))
         console.log(this._errorService.getError(err.error));
+        this.loginButton!.disabled=false;
 
       }
     })

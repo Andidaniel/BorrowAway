@@ -4,15 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RequestsTestComponent } from './Components/requests-test/requests-test.component';
+import { RequestsTestComponent } from './AuthPage/requests-test/requests-test.component';
 import { AuthInterceptor} from './Services/Interceptor/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthComponent } from './Components/auth/auth.component';
+import { AuthComponent } from './AuthPage/auth/auth.component';
 import { DxTextBoxModule,DxButtonModule,DxValidatorModule,DxToastModule } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
-import { LoginFormComponent } from './Components/login-form/login-form.component';
-import { RegisterFormComponent } from './Components/register-form/register-form.component';
+import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
+import { RegisterFormComponent } from './AuthPage/register-form/register-form.component';
 
 
 @NgModule({
