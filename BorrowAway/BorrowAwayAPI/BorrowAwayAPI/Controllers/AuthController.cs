@@ -72,31 +72,6 @@ namespace BorrowAwayAPI.Controllers
                 }
             }
             return new StatusCodeResult(StatusCodes.Status401Unauthorized);
-        }
-        [HttpGet("IsLoggedIn")]
-        [Authorize]
-        public async Task<IActionResult> IsUserLoggedIn()
-        {
-            try
-            {
-                string token = HttpContext.Request.Headers["Authorization"].ToString();
-                await _validationService.ValidateRequest(token);
-                return Ok();
-            }
-            catch(Exception)
-            {
-                return Unauthorized();
-            }
-        }
-
-        [HttpGet("Test")]
-        [Authorize(Roles ="Admin")]
-        public ActionResult<string> Test()
-        {
-
-            return Ok("\"Works\"");
-        }
-
-                
+        }               
     }
 }

@@ -34,9 +34,6 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this._authService.isUserLoggedIn()==true){
-      this._router.navigateByUrl('/requests');
-    }
     this.loginFormVisible = true;
   }
 

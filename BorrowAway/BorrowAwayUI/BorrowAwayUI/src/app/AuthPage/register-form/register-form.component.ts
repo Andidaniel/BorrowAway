@@ -29,7 +29,6 @@ export class RegisterFormComponent {
     this.createAccountButtonStyle="opacity:20%"
       this._authService.registerUser(this.userToRegister).subscribe({
         next: (response:any)=>{
-          console.log(response.body);
           this.createAccountButtonDisabled=false;
           this.createAccountButtonStyle = "opacity:100%"
           this.createdUserEvent.emit();

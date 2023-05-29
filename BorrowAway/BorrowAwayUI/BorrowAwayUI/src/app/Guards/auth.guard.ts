@@ -17,12 +17,13 @@ class AuthGuardService{
     return false;
   }
   canActivateLogin(next:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean{
-    if( this._authService.isUserLoggedIn() ==true)
+    if(this._authService.isUserLoggedIn() == true)
     {
       this._router.navigateByUrl('/requests');
-      return true;
+      return false;
     }
-    return false;
+    localStorage.clear();
+    return true;
   }
 }
 export const AuthGuard: CanActivateFn = (
@@ -38,7 +39,7 @@ export const LoginPageGuard: CanActivateFn = (
   next:ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ):boolean=>{
-  return !inject(AuthGuardService).canActivateLogin(next,state);
+  return inject(AuthGuardService).canActivateLogin(next,state);
 }
 
 

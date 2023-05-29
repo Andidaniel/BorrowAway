@@ -1,4 +1,5 @@
 ﻿using BorrowAwayAPI.Context;
+using BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +24,16 @@ namespace BorrowAwayAPI.Services
         private async void DeleteExpiredInvalidTokens()
         {
             DateTime nowTime = DateTime.Now.ToLocalTime();
-            await _dbContext.InvalidTokens.Where(it => it.ExpirationDate < nowTime)
-                .ExecuteDeleteAsync();
+            List<TokenBlackList> expiredTokens = _dbContext.InvalidTokens.Where(it => it.ExpirationDate < nowTime).ToList();
+            if(expiredTokens.Count > 0)
+            {
+                foreach(var expiredToken in expiredTokens)
+                {
+                     _dbContext.InvalidTokens.Remove(expiredToken);
+                }
+                await _dbContext.SaveChangesAsync();
+            }
+    
         }
     }
 }
