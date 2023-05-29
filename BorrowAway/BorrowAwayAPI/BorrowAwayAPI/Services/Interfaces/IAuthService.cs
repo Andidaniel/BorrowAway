@@ -7,5 +7,6 @@ namespace BorrowAwayAPI.Services.Interfaces
     {
         Task<AppUser> RegisterUser(RegisterUserDTO userToRegister);
         Task<string> LoginUser(LoginUserDTO userToLogin);
+        Task<bool> LogoutUser(string token);
     }
 }

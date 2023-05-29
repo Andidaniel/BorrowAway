@@ -60,6 +60,33 @@ namespace BorrowAwayAPI.Services
             return token;
         }
 
+        public async Task<bool> LogoutUser(string rawToken)
+        {
+            try
+            {
+                string token = rawToken.Substring(7, rawToken.Length - 7);
+                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                JwtSecurityToken decodedJWT = handler.ReadJwtToken(token);
+                DateTime expirationDate = decodedJWT.ValidTo.ToLocalTime();
+                DateTime now = DateTime.Now.ToLocalTime();
+                if (expirationDate > now) 
+                {
+                    TokenBlackList blackListedToken = new TokenBlackList
+                    {
+                        Token = token,
+                        ExpirationDate = expirationDate
+                    };
+                    _dbContext.InvalidTokens.Add(blackListedToken);
+                    return await _dbContext.SaveChangesAsync()>0;
+                }
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
         #region Security
 
         private string CreateToken(AppUser user)
@@ -84,7 +111,6 @@ namespace BorrowAwayAPI.Services
 
         }
 
-
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (HMACSHA512 hmac = new HMACSHA512(passwordSalt))
@@ -102,6 +128,8 @@ namespace BorrowAwayAPI.Services
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
+        
 
         #endregion
 

@@ -11,9 +11,11 @@ namespace BorrowAwayAPI.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
+        private readonly IValidationService _validationService;
+        public AuthController(IAuthService authService, IValidationService validationService)
         {
             _authService = authService;
+            _validationService = validationService;
         }
 
         [HttpPost("Register")]
@@ -41,6 +43,49 @@ namespace BorrowAwayAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpPost("Logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            string token = HttpContext.Request.Headers["Authorization"].ToString();
+            if (token != null)
+            {
+                try
+                {
+                    await _validationService.ValidateRequest(token);
+                }
+                catch (Exception)
+                {
+                    return Ok();
+                }
+                bool loggedOut = await _authService.LogoutUser(token);
+                if(loggedOut == true)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            return new StatusCodeResult(StatusCodes.Status401Unauthorized);
+        }
+        [HttpGet("IsLoggedIn")]
+        [Authorize]
+        public async Task<IActionResult> IsUserLoggedIn()
+        {
+            try
+            {
+                string token = HttpContext.Request.Headers["Authorization"].ToString();
+                await _validationService.ValidateRequest(token);
+                return Ok();
+            }
+            catch(Exception)
+            {
+                return Forbid();
             }
         }
 

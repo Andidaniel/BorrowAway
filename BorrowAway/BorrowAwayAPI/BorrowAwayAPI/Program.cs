@@ -26,11 +26,13 @@ namespace BorrowAwayAPI
                                               {
                                                   options.TokenValidationParameters = new TokenValidationParameters
                                                   {
+                                                      ClockSkew= TimeSpan.FromSeconds(5),
                                                       ValidateIssuerSigningKey = true,
                                                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                                                      .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+                                                        .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
                                                       ValidateIssuer = false,
-                                                      ValidateAudience = false
+                                                      ValidateAudience = false,
+                                                      ValidateLifetime = true
                                                   };
                                               });
 
@@ -40,6 +42,7 @@ namespace BorrowAwayAPI
                 options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
             });
             builder.Services.AddTransient<IAuthService, AuthService>();
+            builder.Services.AddTransient<IValidationService,ValidationService>();
 
             var app = builder.Build();
 
