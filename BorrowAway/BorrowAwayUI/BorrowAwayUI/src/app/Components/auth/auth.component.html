@@ -2,7 +2,9 @@
   *ngIf="loginFormVisible == true; else registerFormVisible"
   class="main-container"
 >
-  <login-form (changeFormToRegisterEvent)="changeFormToRegister()"></login-form>
+  <login-form (changeFormToRegisterEvent)="changeFormToRegister()"
+  (receivedLoginErrorEvent)="showErrorMessage($event)"
+  ></login-form>
 </div>
 <ng-template #registerFormVisible>
   <div class="main-container">

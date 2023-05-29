@@ -1,2 +1,12 @@
-<p>requests-test works!</p>
-<button (click)="tryGet()">Test</button>
+Information about the logged in user:
+<div>
+  <p [hidden]="isDivHidden">
+    Email: {{loggedInUserEmail}}
+    <br>
+    Name: {{loggedInUserName}}
+    <br>
+    Role: {{loggedInUserRole}}
+  </p>
+</div>
+
+<button (click)="showInfo()">{{message}}</button>

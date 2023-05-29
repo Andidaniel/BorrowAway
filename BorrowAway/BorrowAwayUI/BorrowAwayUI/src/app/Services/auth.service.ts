@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RegisterUser } from '../Models/register-user';
 import { LoginUser } from '../Models/login-user';
+import jwtDecode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,20 @@ export class AuthService {
   }
   public loginUser(userToLogin:LoginUser):Observable<HttpEvent<string>>{
     return this.http.post<string>(this._apiEndpoint+"/Login",userToLogin,this._options);
+  }
+  public isUserLoggedIn():boolean{
+    let token:string|null= localStorage.getItem("token");
+    if(token != null)
+    {
+      const decodedToken:any = jwtDecode(token);
+      let currentDate:number = new Date().getTime();
+      let expDateString:number = +(decodedToken.exp+'000');
+      if(expDateString < currentDate)
+        {
+          return false;
+        }
+      return true;
+    }
+    return false;
   }
 }

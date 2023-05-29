@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Services/auth.service';
 
 
 @Component({
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  constructor(){
+  constructor(private _authService:AuthService,private _router:Router){
   }
   public loginFormVisible:boolean = true;
   public toastVisible:boolean = false;
@@ -32,6 +34,9 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this._authService.isUserLoggedIn()==true){
+      this._router.navigateByUrl('/requests');
+    }
     this.loginFormVisible = true;
   }
 

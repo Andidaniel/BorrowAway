@@ -2,15 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RequestsTestComponent } from './Components/requests-test/requests-test.component';
 import { AuthComponent } from './Components/auth/auth.component';
+import { AuthGuard, LoginPageGuard } from './Guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'requests',
-    component: RequestsTestComponent,
+    canActivate:[AuthGuard],
+    component: RequestsTestComponent
   },
   {
     path: '**',
-    component: AuthComponent,
+    canActivate:[LoginPageGuard],
+    component: AuthComponent
   },
 ];
 

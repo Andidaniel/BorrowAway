@@ -1,5 +1,8 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DxButtonComponent } from 'devextreme-angular';
+import jwtDecode from 'jwt-decode';
+import { AuthService } from 'src/app/Services/auth.service';
 
 
 @Component({
@@ -9,26 +12,31 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class RequestsTestComponent implements OnInit{
-
-  constructor(private readonly httpClient:HttpClient){}
+  constructor(private _authservice:AuthService){}
+  loggedInUserEmail:string ='';
+  loggedInUserName:string = '';
+  loggedInUserRole:string = '';
+  isDivHidden:boolean = true;
+  message:string = "Show Info";
 
   ngOnInit(): void {
-      console.log("REQUEST COMPONENT INITED");
+    let token:string|null= localStorage.getItem("token");
+    if(token != null)
+    {
+      const decodedToken:any = jwtDecode(token);
+      this.loggedInUserEmail = decodedToken.email;
+      this.loggedInUserName = decodedToken.name;
+      this.loggedInUserRole = decodedToken.role;
+    }
   }
-  tryGet(){
-
-    const token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQW5kcmVpLURhbmllbCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFiZXJlc0B0cy5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImV4cCI6MTY4NDY3MDY1M30.fPoZ69A0YWjZp_O7EjfOZ6lbVLFyBQPbSG6QAJsR5tyOW7Ecc_SL7aQ1kT4gJSPsrbaik-U0I_n3N10hpgiRag";
-
-
-    this.httpClient.get<any>(
-      "https://localhost:8080/Auth/Test",
-      {
-        observe: 'response',
-      }
-      ).subscribe(response=>{
-        let email:string = response.body;
-        console.log(email);
-      });
-
+  showInfo(){
+    if(this.message =="Show Info"){
+      this.message = "Hide Info"
+      this.isDivHidden=false;
+    }
+    else {
+      this.message = "Show Info";
+      this.isDivHidden = true;
+    }
   }
 }
