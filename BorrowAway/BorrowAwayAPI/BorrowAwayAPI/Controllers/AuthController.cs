@@ -85,7 +85,7 @@ namespace BorrowAwayAPI.Controllers
             }
             catch(Exception)
             {
-                return Forbid();
+                return Unauthorized();
             }
         }
 
