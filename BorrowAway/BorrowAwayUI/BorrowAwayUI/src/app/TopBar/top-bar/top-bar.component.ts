@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ButtonData } from 'src/app/Models/button-data';
 
+
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',

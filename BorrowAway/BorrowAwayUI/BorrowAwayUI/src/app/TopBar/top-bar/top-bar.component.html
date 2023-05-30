@@ -1,5 +1,11 @@
 <div class="navbar">
   <div *ngFor="let buttonData of buttonsData">
-    <dx-button (click)="logButtonData(buttonData.redirectUrl)">{{buttonData.buttonText}}</dx-button>
+    <dx-button (click)="logButtonData(buttonData.redirectUrl)">
+      <div class="buttonContent">
+        <span class="material-icons-outlined">{{buttonData.iconName}}</span>
+        {{buttonData.buttonText}}
+      </div>
+
+    </dx-button>
   </div>
 </div>

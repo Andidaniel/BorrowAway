@@ -13,12 +13,14 @@ export class HomePageComponent {
   constructor(private _authService:AuthService,private _router:Router){}
   buttonsData:ButtonData[] = [
     {
-      buttonText:"Button1",
-      redirectUrl:"test"
+      buttonText:"List item",
+      redirectUrl:"test",
+      iconName:"add_circle_outline"
     },
     {
       buttonText:"Log Out",
-      redirectUrl:""
+      redirectUrl:"",
+      iconName:"logout"
     }
   ];
   public buttonClickedEventReceived(redirectUrl:string){
