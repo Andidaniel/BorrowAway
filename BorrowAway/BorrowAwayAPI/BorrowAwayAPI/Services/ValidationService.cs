@@ -15,13 +15,13 @@ namespace BorrowAwayAPI.Services
         public async Task ValidateRequest(string rawToken)
         {
             string token = rawToken.Substring(7, rawToken.Length - 7);
-            DeleteExpiredInvalidTokens();
+            await DeleteExpiredInvalidTokens();
             if (await _dbContext.InvalidTokens.AnyAsync(it => it.Token.Equals(token)))
             {
                 throw new Exception();
             }
         }
-        private async void DeleteExpiredInvalidTokens()
+        private async Task DeleteExpiredInvalidTokens()
         {
             DateTime nowTime = DateTime.Now.ToLocalTime();
             List<TokenBlackList> expiredTokens = _dbContext.InvalidTokens.Where(it => it.ExpirationDate < nowTime).ToList();
