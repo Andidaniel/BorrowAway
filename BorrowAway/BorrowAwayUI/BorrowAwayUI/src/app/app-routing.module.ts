@@ -4,6 +4,7 @@ import { RequestsTestComponent } from './AuthPage/requests-test/requests-test.co
 import { AuthComponent } from './AuthPage/auth/auth.component';
 import { AuthGuard, LoginPageGuard } from './Guards/auth.guard';
 import { HomePageComponent } from './HomePage/home-page/home-page.component';
+import { AddPostComponent } from './AddPost/add-post/add-post.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
     path:'home',
     canActivate:[AuthGuard],
     component:HomePageComponent
+  },
+  {
+    path:'listItem',
+    canActivate:[AuthGuard],
+    component:AddPostComponent
   },
   {
     path: '**',

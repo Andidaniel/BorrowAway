@@ -20,7 +20,6 @@ ngOnInit(): void {
 
 
 public logButtonData(redirectUrl:string){
-  console.log(redirectUrl);
   this.buttonClickedEvent.emit(redirectUrl);
 }
 }

@@ -15,6 +15,7 @@ import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
 import { RegisterFormComponent } from './AuthPage/register-form/register-form.component';
 import { HomePageComponent } from './HomePage/home-page/home-page.component';
 import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
+import { AddPostComponent } from './AddPost/add-post/add-post.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
     LoginFormComponent,
     RegisterFormComponent,
     HomePageComponent,
-    TopBarComponent
+    TopBarComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,

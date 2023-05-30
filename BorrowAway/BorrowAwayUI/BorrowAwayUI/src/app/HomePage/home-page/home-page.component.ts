@@ -14,7 +14,7 @@ export class HomePageComponent {
   buttonsData:ButtonData[] = [
     {
       buttonText:"List item",
-      redirectUrl:"test",
+      redirectUrl:"listItem",
       iconName:"add_circle_outline"
     },
     {
@@ -37,6 +37,9 @@ export class HomePageComponent {
           return;
         }
       });
+    }
+    else if(redirectUrl == "listItem"){
+      this._router.navigateByUrl(redirectUrl);
     }
 
   }
