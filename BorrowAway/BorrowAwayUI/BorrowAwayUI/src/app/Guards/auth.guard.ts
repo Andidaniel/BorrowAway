@@ -19,7 +19,7 @@ class AuthGuardService{
   canActivateLogin(next:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean{
     if(this._authService.isUserLoggedIn() == true)
     {
-      this._router.navigateByUrl('/requests');
+      this._router.navigateByUrl('/home');
       return false;
     }
     localStorage.clear();

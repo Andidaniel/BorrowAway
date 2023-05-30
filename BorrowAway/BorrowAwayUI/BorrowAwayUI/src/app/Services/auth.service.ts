@@ -39,6 +39,13 @@ export class AuthService {
       this._options
     );
   }
+  public logoutUser():Observable<HttpEvent<string>>{
+    return this.http.post<string>(
+      this._apiEndpoint+'/Logout',
+      "",
+      this._options
+    );
+  }
   public isUserLoggedIn(): boolean {
     let token: string | null = localStorage.getItem('token');
     if (token != null) {

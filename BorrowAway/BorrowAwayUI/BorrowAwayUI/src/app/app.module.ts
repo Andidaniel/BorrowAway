@@ -13,6 +13,8 @@ import { DxTextBoxModule,DxButtonModule,DxValidatorModule,DxToastModule } from '
 import { FormsModule } from '@angular/forms';
 import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
 import { RegisterFormComponent } from './AuthPage/register-form/register-form.component';
+import { HomePageComponent } from './HomePage/home-page/home-page.component';
+import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { RegisterFormComponent } from './AuthPage/register-form/register-form.co
     AuthComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    HomePageComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,

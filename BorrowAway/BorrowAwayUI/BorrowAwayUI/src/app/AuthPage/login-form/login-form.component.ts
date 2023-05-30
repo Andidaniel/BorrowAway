@@ -52,7 +52,7 @@ export class LoginFormComponent {
       next:(response:any)=>{
         localStorage.clear();
         localStorage.setItem("token",response.body);
-        this._router.navigateByUrl('requests');
+        this._router.navigateByUrl('home');
 
       },
       error:err=>{

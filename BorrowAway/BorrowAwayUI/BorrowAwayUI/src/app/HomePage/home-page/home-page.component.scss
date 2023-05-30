@@ -1,0 +1,12 @@
+.mainContainer{
+  width:100%;
+  height: 100vh;
+  background-color: #52D1DC;
+  overflow:hidden;
+}
+.topbar{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  overflow:hidden;
+}
