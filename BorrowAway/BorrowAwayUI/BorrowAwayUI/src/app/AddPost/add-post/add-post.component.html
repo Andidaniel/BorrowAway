@@ -2,11 +2,10 @@
     #fileUploader
     accept="image/jpg, image/jpeg, image/png"
     uploadMode="instanly"
-    [maxFileSize]="1048576"
-    invalidMaxFileSizeMessage="File is too large, max size is 1MB."
+    [maxFileSize]="5048576"
+    invalidMaxFileSizeMessage="File is too large, max size is 5MB."
     [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
     (onValueChanged)="onValueChanged($event)"
-    [(value)]="image1"
   ></dx-file-uploader>
 <img
   class="annoncement-picture"

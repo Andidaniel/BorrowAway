@@ -1,6 +1,7 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Announcement } from '../Models/announcement';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,14 @@ export class AnnouncementService {
       return this.http.post<string>(
         this._apiEndpoint +'/Test',
         formData,
+        this._options
+      )
+    }
+    public postAnnouncement(announcement:Announcement):Observable<HttpEvent<string>>{
+
+      return this.http.post<string>(
+        this._apiEndpoint +'/Test',
+        announcement,
         this._options
       )
     }

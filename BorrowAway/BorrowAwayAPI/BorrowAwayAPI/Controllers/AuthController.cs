@@ -3,6 +3,7 @@ using BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace BorrowAwayAPI.Controllers
 {
@@ -74,16 +75,27 @@ namespace BorrowAwayAPI.Controllers
             return new StatusCodeResult(StatusCodes.Status401Unauthorized);
         }
 
+        [Authorize]
         [HttpPost("Test")]
-        public async Task<ActionResult<string>> Test([FromForm] IFormFile file)
+        public async Task<ActionResult<string>> Test([FromBody] AnnouncementDTO announcementToAdd)
         {
-            string downloadDirectory = @"../Images";
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email);
+            string downloadDirectory = @"..\\Images";
             Directory.CreateDirectory(downloadDirectory);
-            string uniqueFileName = Guid.NewGuid().ToString() + ".jpg";
+            string uniqueFileName = userEmail?.Value.ToString().ToLower() + ".png";
             string filePath = Path.Combine(downloadDirectory, uniqueFileName);
-            using(var stream = new FileStream(filePath,FileMode.Create))
+            byte[] bytes = Convert.FromBase64String(
+                announcementToAdd.ImagesData[0]
+                .Substring(
+                    announcementToAdd.ImagesData[0]
+                    .LastIndexOf(',') + 1));
+
+            using (var stream = new FileStream(filePath,FileMode.Create))
             {
-                file.CopyTo(stream);
+                using (var memoryStream = new MemoryStream(bytes))
+                {
+                    memoryStream.CopyTo(stream);
+                }
             }
             return Ok("imgAsBase64");
         }
