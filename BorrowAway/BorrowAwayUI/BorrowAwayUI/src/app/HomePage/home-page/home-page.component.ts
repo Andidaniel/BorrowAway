@@ -18,10 +18,16 @@ export class HomePageComponent {
       iconName:"add_circle_outline"
     },
     {
+      buttonText:"Profile",
+      redirectUrl:"editProfile",
+      iconName:"account_circle"
+    },
+    {
       buttonText:"Log Out",
       redirectUrl:"",
       iconName:"logout"
     }
+
   ];
   public buttonClickedEventReceived(redirectUrl:string){
     if(redirectUrl==""){
@@ -39,6 +45,9 @@ export class HomePageComponent {
       });
     }
     else if(redirectUrl == "listItem"){
+      this._router.navigateByUrl(redirectUrl);
+    }
+    else if(redirectUrl == "editProfile"){
       this._router.navigateByUrl(redirectUrl);
     }
 

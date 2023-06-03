@@ -72,6 +72,20 @@ namespace BorrowAwayAPI.Controllers
                 }
             }
             return new StatusCodeResult(StatusCodes.Status401Unauthorized);
-        }               
+        }
+
+        [HttpPost("Test")]
+        public async Task<ActionResult<string>> Test([FromForm] IFormFile file)
+        {
+            string downloadDirectory = @"../Images";
+            Directory.CreateDirectory(downloadDirectory);
+            string uniqueFileName = Guid.NewGuid().ToString() + ".jpg";
+            string filePath = Path.Combine(downloadDirectory, uniqueFileName);
+            using(var stream = new FileStream(filePath,FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+            return Ok("imgAsBase64");
+        }
     }
 }

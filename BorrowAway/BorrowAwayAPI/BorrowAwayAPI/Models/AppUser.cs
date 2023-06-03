@@ -12,6 +12,7 @@ namespace BorrowAwayAPI.Models
         public byte[] PasswordSalt { get; set; }
         public string Role { get; set; }
 
+        public virtual ICollection<Announcement> Announcements { get; set; }
 
     }
 }

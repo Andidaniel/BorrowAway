@@ -1,1 +1,15 @@
-<p>add-post works!</p>
+  <dx-file-uploader
+    #fileUploader
+    accept="image/jpg, image/jpeg, image/png"
+    uploadMode="instanly"
+    [maxFileSize]="1048576"
+    invalidMaxFileSizeMessage="File is too large, max size is 1MB."
+    [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+    (onValueChanged)="onValueChanged($event)"
+    [(value)]="image1"
+  ></dx-file-uploader>
+<img
+  class="annoncement-picture"
+  *ngIf="image1Preview"
+  [src]="image1Preview"
+/>
