@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BorrowAwayAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class AnnouncementsIntegration : Migration
+    public partial class announcements : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,8 +61,6 @@ namespace BorrowAwayAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfImages = table.Column<int>(type: "int", nullable: false),
@@ -70,7 +68,9 @@ namespace BorrowAwayAPI.Migrations
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ContactMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImagesDirectoryPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImagesDirectoryPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
