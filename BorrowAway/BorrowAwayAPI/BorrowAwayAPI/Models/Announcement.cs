@@ -13,7 +13,8 @@
             public string ContactMethod { get; set; }
             public string Location { get; set; }
             public string ImagesDirectoryPath { get; set; }
-
+            public Guid UserId { get; set; }
+            public int CategoryId { get; set; }
 
             public AppUser User { get; set; }
             public Category Category { get; set; }

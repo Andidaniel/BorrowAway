@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BorrowAwayAPI.Migrations
 {
     [DbContext(typeof(BorrowAwayDbContext))]
-    [Migration("20230603183044_announcements")]
-    partial class announcements
+    [Migration("20230603183728_DB")]
+    partial class DB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
