@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using BorrowAwayAPI.Models.BorrowAwayAPI.Models;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace BorrowAwayAPI.Models
 {
