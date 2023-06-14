@@ -43,6 +43,8 @@ namespace BorrowAwayAPI
             });
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IValidationService,ValidationService>();
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+            builder.Services.AddTransient<IAnnouncementService, AnnouncementService>();
 
             var app = builder.Build();
 

@@ -1,12 +1,12 @@
 export interface Announcement {
-  Title:string;
-  Description:string,
-  NumberOfImages:number,
-  PricePerDay:number,
+  Title:string|null;
+  Description:string|null,
+  NumberOfImages:number|null,
+  PricePerDay:number|null,
   CreationDate:Date,
-  ContactMethod:string,
-  Location:string,
-  CategoryId:number,
-  UserId:number
+  ContactMethod:string|null,
+  Location:string|null,
+  CategoryId:number|null,
+  UserId:string|null
   ImagesData:string[]
 }

@@ -34,5 +34,9 @@
   {
     "errorCode":"EMAIL_INVALID",
     "errorMessage":"Invalid email"
+  },
+  {
+    "errorCode":"ERROR_SAVING_ANNOUNCEMENT",
+    "errorMessage":"There was an error saving the announcement, please try again."
   }
 ]

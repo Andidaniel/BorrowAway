@@ -1,4 +1,6 @@
-﻿namespace BorrowAwayAPI.DTOs
+﻿using System.Text.Json.Serialization;
+
+namespace BorrowAwayAPI.DTOs
 {
     public class AnnouncementDTO
     {
@@ -10,7 +12,8 @@
         public string ContactMethod { get; set; }
         public string  Location { get; set; }
         public int CategoryId { get; set; }
-        public int UserId { get; set; }
+        [JsonIgnore]
+        public Guid UserId { get; set; }
         public List<string> ImagesData{ get; set; }
     }
 }

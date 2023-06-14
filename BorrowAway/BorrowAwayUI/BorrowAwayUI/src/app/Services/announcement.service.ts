@@ -9,7 +9,7 @@ import { Announcement } from '../Models/announcement';
 export class AnnouncementService {
 
   constructor(private http:HttpClient) { }
-    private _apiEndpoint: string = 'https://localhost:8080/Auth';
+    private _apiEndpoint: string = 'https://localhost:8080/Announcement';
     private _options: any = {
       observe: 'response',
       responseType: 'text',
@@ -27,12 +27,16 @@ export class AnnouncementService {
       )
     }
     public postAnnouncement(announcement:Announcement):Observable<HttpEvent<string>>{
-
       return this.http.post<string>(
-        this._apiEndpoint +'/Test',
+        this._apiEndpoint +'/Add',
         announcement,
         this._options
       )
+    }
+    public getAllAnnouncements():Observable<Announcement[]>{
+      return this.http.get<Announcement[]>(
+        this._apiEndpoint+'/GetAll'
+      );
     }
 
 }

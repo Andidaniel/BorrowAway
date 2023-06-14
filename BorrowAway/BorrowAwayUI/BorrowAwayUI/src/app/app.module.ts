@@ -8,7 +8,14 @@ import { RequestsTestComponent } from './AuthPage/requests-test/requests-test.co
 import { AuthInterceptor} from './Services/Interceptor/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './AuthPage/auth/auth.component';
-import { DxTextBoxModule,DxButtonModule,DxValidatorModule,DxToastModule, DxFileUploaderModule } from 'devextreme-angular';
+import { DxTextBoxModule,
+  DxButtonModule,
+  DxValidatorModule,
+  DxToastModule,
+  DxSelectBoxModule,
+  DxFileUploaderModule,
+DxTextAreaModule,
+DxNumberBoxModule  } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
 import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
@@ -39,7 +46,10 @@ import { AddPostComponent } from './AddPost/add-post/add-post.component';
     DxButtonModule,
     DxValidatorModule,
     DxToastModule,
-    DxFileUploaderModule
+    DxFileUploaderModule,
+    DxSelectBoxModule,
+    DxTextAreaModule,
+    DxNumberBoxModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}

@@ -3,3 +3,39 @@
   width: 300px;
   object-fit: contain;
 }
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  h2{
+    font-size: 30px;
+  }
+  .form-content {
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    justify-content: space-evenly;
+  }
+  .form-input{
+    margin-bottom:5%;
+    height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    .form-content {
+      padding: 20px;
+    }
+  }
+}

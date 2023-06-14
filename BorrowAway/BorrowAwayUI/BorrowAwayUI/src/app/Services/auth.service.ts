@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
 import { RegisterUser } from '../Models/register-user';
 import { LoginUser } from '../Models/login-user';
 import jwtDecode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private _router:Router) {}
 
   private _apiEndpoint: string = 'https://localhost:8080/Auth';
   private _options: any = {
@@ -53,11 +54,13 @@ export class AuthService {
       let currentDate: number = new Date().getTime();
       let expDateString: number = +(decodedToken.exp + '000');
       if (expDateString < currentDate) {
+        localStorage.clear();
         return false;
       } else {
         return true;
       }
     } else {
+      localStorage.clear();
       return false;
     }
   }
