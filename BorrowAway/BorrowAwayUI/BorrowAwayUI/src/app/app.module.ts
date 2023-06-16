@@ -23,6 +23,7 @@ import { RegisterFormComponent } from './AuthPage/register-form/register-form.co
 import { HomePageComponent } from './HomePage/home-page/home-page.component';
 import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
 import { AddPostComponent } from './AddPost/add-post/add-post.component';
+import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AddPostComponent } from './AddPost/add-post/add-post.component';
     RegisterFormComponent,
     HomePageComponent,
     TopBarComponent,
-    AddPostComponent
+    AddPostComponent,
+    AnnouncementComponent
   ],
   imports: [
     BrowserModule,

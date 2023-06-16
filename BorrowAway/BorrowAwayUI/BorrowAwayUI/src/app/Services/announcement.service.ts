@@ -43,5 +43,9 @@ export class AnnouncementService {
         this._apiEndpoint+"/GetLast"+"/6"
       );
     }
-
+    public getAnnouncementById(id:number):Observable<Announcement>{
+      return this.http.get<Announcement>(
+        this._apiEndpoint+"/GetById"+"/"+id
+      );
+    }
 }

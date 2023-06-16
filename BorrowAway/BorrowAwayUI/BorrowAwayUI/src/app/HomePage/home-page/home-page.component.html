@@ -26,7 +26,13 @@
           <img *ngIf="announcement.imagesData[0]" [src]="announcement.imagesData[0]" alt="Announcement Image">
           <span *ngIf="!announcement.imagesData[0]">No image provided</span>
         </div>
-        <div class="price">Price: ${{ announcement.pricePerDay }}</div>
+        <div class="price">Price/day: ${{ announcement.pricePerDay }}</div>
+        <div
+        (click)="onViewAnnouncementClick(announcement.id!)"
+        class="goto-button">
+          <span class="material-icons-outlined">visibility</span>
+          View Announcement
+        </div>
       </div>
 
     </div>

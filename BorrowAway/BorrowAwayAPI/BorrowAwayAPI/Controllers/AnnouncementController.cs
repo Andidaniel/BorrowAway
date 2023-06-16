@@ -18,7 +18,7 @@ namespace BorrowAwayAPI.Controllers
 
         [Authorize]
         [HttpPost("Add")]
-        public async Task<ActionResult<string>> Test([FromBody] AnnouncementDTO announcementToAdd)
+        public async Task<ActionResult<string>> AddAnnouncement([FromBody] AnnouncementDTO announcementToAdd)
         {
 
             var userEmail = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
@@ -31,10 +31,23 @@ namespace BorrowAwayAPI.Controllers
             return BadRequest("ERROR_SAVING_ANNOUNCEMENT");
         }
         [Authorize]
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<List<AnnouncementDTO>>> GetAll()
-         {
-            return Ok(await _announcementService.GetAllAnnouncementsAsync());
+        [HttpGet("GetLast/{n}")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> GetLastNAnnouncements(int n)
+        {
+            return Ok(await _announcementService.GetLastNAnnouncementsAsync(n));
         }
+        [Authorize]
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<AnnouncementDTO>> GetAnnouncementById(int id)
+        {
+            AnnouncementDTO announcementToReturn = await _announcementService.GetAnnouncementById(id);
+            if (announcementToReturn != null)
+            {
+                return Ok(announcementToReturn);
+            }
+            return NotFound();
+        }
+
+
     }
 }

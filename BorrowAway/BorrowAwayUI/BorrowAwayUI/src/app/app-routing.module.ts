@@ -5,6 +5,7 @@ import { AuthComponent } from './AuthPage/auth/auth.component';
 import { AuthGuard, LoginPageGuard } from './Guards/auth.guard';
 import { HomePageComponent } from './HomePage/home-page/home-page.component';
 import { AddPostComponent } from './AddPost/add-post/add-post.component';
+import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
     path:'listItem',
     canActivate:[AuthGuard],
     component:AddPostComponent
+  },
+  {
+    path:'announcement/:id',
+    canActivate:[AuthGuard],
+    component:AnnouncementComponent
   },
   {
     path: '**',

@@ -26,6 +26,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
       this.announcements = ann;
+      console.log(this.announcements);
+
     });
     this._categoryService.getAllCategories().subscribe((cat)=>{
       this.categories = cat;
@@ -55,6 +57,10 @@ export class HomePageComponent implements OnInit {
     return category ? category.title : '';
   }
 
+  onViewAnnouncementClick(id:number){
+    this._router.navigateByUrl('announcement/'+id);
+    return;
+  }
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {
       this._authService.logoutUser().subscribe({

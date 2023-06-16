@@ -85,6 +85,7 @@ export class AddPostComponent implements OnInit {
   public image3Preview: string | undefined;
 
   public announcement: Announcement = {
+    id:0,
     title: null,
     description: null,
     numberOfImages: null,

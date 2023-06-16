@@ -6,5 +6,7 @@ namespace BorrowAwayAPI.Services.Interfaces
     {
         Task<bool> AddAnnouncementAsync(AnnouncementDTO announcementToAdd,string userEmail);
         Task<List<AnnouncementDTO>> GetAllAnnouncementsAsync();
+        Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n);
+        Task<AnnouncementDTO> GetAnnouncementById(int id); 
     }
 }

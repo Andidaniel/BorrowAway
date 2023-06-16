@@ -1,5 +1,6 @@
 export interface Announcement {
-  title:string|null;
+  id:number|null,
+  title:string|null,
   description:string|null,
   numberOfImages:number|null,
   pricePerDay:number|null,

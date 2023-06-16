@@ -2,11 +2,12 @@
 using BorrowAwayAPI.DTOs;
 using BorrowAwayAPI.Models.BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace BorrowAwayAPI.Services
 {
-    public class AnnouncementService:IAnnouncementService
+    public class AnnouncementService : IAnnouncementService
     {
         private readonly BorrowAwayDbContext _dbContext;
         public AnnouncementService(BorrowAwayDbContext dbContext)
@@ -14,7 +15,7 @@ namespace BorrowAwayAPI.Services
             _dbContext = dbContext;
         }
 
-        public async Task<bool> AddAnnouncementAsync(AnnouncementDTO announcementToAdd,string userEmail)
+        public async Task<bool> AddAnnouncementAsync(AnnouncementDTO announcementToAdd, string userEmail)
         {
             Announcement announcementToSave = new Announcement();
             announcementToSave.Title = announcementToAdd.Title;
@@ -56,22 +57,23 @@ namespace BorrowAwayAPI.Services
                 }
 
             }
-            
+
             _dbContext.Announcements.Add(announcementToSave);
             return await _dbContext.SaveChangesAsync() > 0;
- 
 
- 
-            
+
+
+
         }
 
         public async Task<List<AnnouncementDTO>> GetAllAnnouncementsAsync()
         {
             List<Announcement> announcementsFromDb = _dbContext.Announcements.ToList();
             List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
-            foreach(var ann in announcementsFromDb)
+            foreach (var ann in announcementsFromDb)
             {
                 AnnouncementDTO announcement = new AnnouncementDTO();
+                announcement.Id = ann.Id;
                 announcement.Title = ann.Title;
                 announcement.Description = ann.Description;
                 announcement.NumberOfImages = ann.NumberOfImages;
@@ -82,17 +84,75 @@ namespace BorrowAwayAPI.Services
                 announcement.CategoryId = ann.CategoryId;
                 announcement.UserId = ann.UserId;
                 announcement.ImagesData = new List<string>();
-                 for(int i = 0; i < ann.NumberOfImages; i++)
+                for (int i = 0; i < ann.NumberOfImages; i++)
                 {
                     string path = ann.ImagesDirectoryPath + $"\\{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
-                    announcement.ImagesData.Add(base64ImageRepresentation);
+                    announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
                 }
                 announcementsToReturn.Add(announcement);
             }
             return announcementsToReturn;
-           
+        }
+        public async Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n)
+        {
+            List<Announcement> announcementsFromDb =  _dbContext.Announcements.OrderBy(a=>a.CreationDate).ToList();
+            announcementsFromDb = announcementsFromDb.Skip(Math.Max(0, announcementsFromDb.Count - n)).ToList();
+            List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
+            foreach (var ann in announcementsFromDb)
+            {
+                AnnouncementDTO announcement = new AnnouncementDTO();
+                announcement.Id = ann.Id;
+                announcement.Title = ann.Title;
+                announcement.Description = ann.Description;
+                announcement.NumberOfImages = ann.NumberOfImages;
+                announcement.PricePerDay = ann.PricePerDay;
+                announcement.CreationDate = ann.CreationDate;
+                announcement.ContactMethod = ann.ContactMethod;
+                announcement.Location = ann.Location;
+                announcement.CategoryId = ann.CategoryId;
+                announcement.UserId = ann.UserId;
+                announcement.ImagesData = new List<string>();
+                for (int i = 0; i < ann.NumberOfImages; i++)
+                {
+                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                    string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                    announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                }
+                announcementsToReturn.Add(announcement);
+            }
+            return announcementsToReturn;
+        }
+        public async Task<AnnouncementDTO> GetAnnouncementById(int id)
+        {
+            Announcement announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
+            if (announcementFromDb!= null)
+            {
+                AnnouncementDTO announcement = new AnnouncementDTO();
+                announcement.Id = announcementFromDb.Id;
+                announcement.Title = announcementFromDb.Title;
+                announcement.Description = announcementFromDb.Description;
+                announcement.NumberOfImages = announcementFromDb.NumberOfImages;
+                announcement.PricePerDay = announcementFromDb.PricePerDay;
+                announcement.CreationDate = announcementFromDb.CreationDate;
+                announcement.ContactMethod = announcementFromDb.ContactMethod;
+                announcement.Location = announcementFromDb.Location;
+                announcement.CategoryId = announcementFromDb.CategoryId;
+                announcement.UserId = announcementFromDb.UserId;
+                announcement.ImagesData = new List<string>();
+                for (int i = 0; i < announcementFromDb.NumberOfImages; i++)
+                {
+                    string path = announcementFromDb.ImagesDirectoryPath + $"\\{i}.png";
+                    byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                    string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                    announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                }
+                return announcement;
+            }
+            else 
+                return null;
         }
     }
 }
