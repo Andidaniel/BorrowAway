@@ -77,7 +77,7 @@ export class AddPostComponent implements OnInit {
     }
   }
   public onCategorySelected(event: any) {
-    this.announcement.CategoryId = event.value;
+    this.announcement.categoryId = event.value;
   }
 
   public image1Preview: string | undefined;
@@ -85,16 +85,16 @@ export class AddPostComponent implements OnInit {
   public image3Preview: string | undefined;
 
   public announcement: Announcement = {
-    Title: null,
-    Description: null,
-    NumberOfImages: null,
-    PricePerDay: null,
-    CreationDate: new Date(),
-    ContactMethod: null,
-    Location: null,
-    CategoryId: null,
-    UserId: null,
-    ImagesData: [],
+    title: null,
+    description: null,
+    numberOfImages: null,
+    pricePerDay: null,
+    creationDate: new Date(),
+    contactMethod: null,
+    location: null,
+    categoryId: null,
+    userId: null,
+    imagesData: [],
   };
 
   public onImage1Uploaded(event: any): void {
@@ -148,16 +148,16 @@ export class AddPostComponent implements OnInit {
 
   public calculateCreateButtonDisabled() {
     if (
-      this.announcement.CategoryId != null &&
-      this.announcement.Description != null &&
-      this.announcement.Location != null &&
-      this.announcement.PricePerDay != null &&
-      this.announcement.Title != null &&
-      this.announcement.ContactMethod != null &&
-      this.announcement.Description != '' &&
-      this.announcement.Location != '' &&
-      this.announcement.Title != '' &&
-      this.announcement.ContactMethod != ''
+      this.announcement.categoryId != null &&
+      this.announcement.description != null &&
+      this.announcement.location != null &&
+      this.announcement.pricePerDay != null &&
+      this.announcement.title != null &&
+      this.announcement.contactMethod != null &&
+      this.announcement.description != '' &&
+      this.announcement.location != '' &&
+      this.announcement.title != '' &&
+      this.announcement.contactMethod != ''
     ) {
       this.createButtonDisabled = false;
     } else {
@@ -167,17 +167,17 @@ export class AddPostComponent implements OnInit {
 
   public onCreateButtonClick() {
     this.createButtonDisabled = true;
-    this.announcement.ImagesData = [];
+    this.announcement.imagesData = [];
     if (this.image1Preview != undefined) {
-      this.announcement.ImagesData.push(this.image1Preview);
+      this.announcement.imagesData.push(this.image1Preview);
     }
     if (this.image2Preview != undefined) {
-      this.announcement.ImagesData.push(this.image2Preview);
+      this.announcement.imagesData.push(this.image2Preview);
     }
     if (this.image3Preview != undefined) {
-      this.announcement.ImagesData.push(this.image3Preview);
+      this.announcement.imagesData.push(this.image3Preview);
     }
-    this.announcement.NumberOfImages = this.announcement.ImagesData.length;
+    this.announcement.numberOfImages = this.announcement.imagesData.length;
 
 
     this._announcementService.postAnnouncement(this.announcement).subscribe({

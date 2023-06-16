@@ -38,5 +38,10 @@ export class AnnouncementService {
         this._apiEndpoint+'/GetAll'
       );
     }
+    public getLastSixAnnouncements():Observable<Announcement[]>{
+      return this.http.get<Announcement[]>(
+        this._apiEndpoint+"/GetLast"+"/6"
+      );
+    }
 
 }

@@ -1,7 +1,35 @@
-<app-top-bar [buttonsData]="buttonsData"
-(buttonClickedEvent)="buttonClickedEventReceived($event)"
-class="topbar"></app-top-bar>
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+    class="topmar"
+  ></app-top-bar>
 
-<div class="mainContainer">
+  <div class="mainContainer">
 
+    <div class="search-bar-div">
+      <dx-text-box
+        class="search-box"
+      placeholder="Search">
+      </dx-text-box>
+      <dx-button class="search-button" type="default">Search</dx-button>
+    </div>
+
+
+    <div class="card-container">
+      <div class="card" *ngFor="let announcement of announcements">
+        <div class="title">Title: <b>{{ announcement.title }}</b></div>
+        <div class="category">Category: <b>{{ getCategoryNameById(announcement.categoryId!)}}</b></div>
+        <div class="date-label">Posted: <b>{{ announcement.creationDate | date:'dd-MM-yyyy' }}</b></div>
+
+        <div class="image-container">
+          <img *ngIf="announcement.imagesData[0]" [src]="announcement.imagesData[0]" alt="Announcement Image">
+          <span *ngIf="!announcement.imagesData[0]">No image provided</span>
+        </div>
+        <div class="price">Price: ${{ announcement.pricePerDay }}</div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
