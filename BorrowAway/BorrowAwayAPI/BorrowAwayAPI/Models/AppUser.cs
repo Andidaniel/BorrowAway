@@ -14,6 +14,7 @@ namespace BorrowAwayAPI.Models
         public string Role { get; set; }
 
         public virtual ICollection<Announcement> Announcements { get; set; }
+        public virtual ICollection<BorrowRequest> BorrowRequests { get; set; }
 
     }
 }

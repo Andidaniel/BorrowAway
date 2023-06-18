@@ -1,2 +1,40 @@
-<p>announcement works!</p>
-{{currentAnnouncement.id}}
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  >
+  </app-top-bar>
+  <div class="mainContainer">
+    <div class="announcement-container">
+      <div class="carousel-container">
+        <dx-gallery
+          [dataSource]="currentAnnouncement.imagesData"
+          width="600px"
+          height="400px"
+          [loop]="true"
+          [showNavButtons]="true"
+          [showIndicator]="true"
+          noDataText="No images provided"
+          [stretchImages]="false"
+        ></dx-gallery>
+        <h2 class="announcement-title">{{ currentAnnouncement.title }}</h2>
+        <p class="announcement-description">{{currentAnnouncement.description}}</p>
+      </div>
+      <div class="announcement-details">
+
+          <p>
+            <strong>Creation Date:</strong>
+            {{ currentAnnouncement.creationDate | date:'dd-MM-yyyy'}}
+          </p>
+          <pre><strong>Contact:</strong> {{ currentAnnouncement.contactMethod }}
+        </pre>
+          <p>
+            <strong>Price per Day:</strong>
+            {{ currentAnnouncement.pricePerDay }}
+          </p>
+          <p><strong>Posted By:</strong> {{ posterName }}</p>
+          <p><strong>Category:</strong> {{ categoryName}}</p>
+        </div>
+    </div>
+  </div>
+</div>

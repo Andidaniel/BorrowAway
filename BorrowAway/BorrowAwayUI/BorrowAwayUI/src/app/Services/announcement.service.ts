@@ -13,7 +13,6 @@ export class AnnouncementService {
     private _options: any = {
       observe: 'response',
       responseType: 'text',
-
     };
 
     public postImage(imgAsBase64:any):Observable<HttpEvent<string>>{
@@ -48,4 +47,11 @@ export class AnnouncementService {
         this._apiEndpoint+"/GetById"+"/"+id
       );
     }
+    public getUserNameById(id:string):Observable<HttpEvent<string>>{
+      return this.http.get<string>(
+        this._apiEndpoint+"/GetUserName/"+id,
+        this._options
+        );
+    }
+
 }

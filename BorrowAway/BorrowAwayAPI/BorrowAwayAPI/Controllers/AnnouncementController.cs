@@ -36,6 +36,7 @@ namespace BorrowAwayAPI.Controllers
         {
             return Ok(await _announcementService.GetLastNAnnouncementsAsync(n));
         }
+        
         [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<AnnouncementDTO>> GetAnnouncementById(int id)
@@ -48,6 +49,12 @@ namespace BorrowAwayAPI.Controllers
             return NotFound();
         }
 
-
+        [Authorize]
+        [HttpGet("GetUserName/{id}")]
+        public async Task<ActionResult<string>> GetUserNameById(Guid id)
+        {
+            string name = await _announcementService.GetPosterNameById(id);
+            return Ok(name);
+        }
     }
 }

@@ -2,7 +2,6 @@
   <app-top-bar
     [buttonsData]="buttonsData"
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
-    class="topmar"
   ></app-top-bar>
 
   <div class="mainContainer">
@@ -12,7 +11,9 @@
         class="search-box"
       placeholder="Search">
       </dx-text-box>
-      <dx-button class="search-button" type="default">Search</dx-button>
+      <dx-button class="search-button" type="default">
+        <span class="material-icons-outlined">search</span>
+        Search</dx-button>
     </div>
 
 

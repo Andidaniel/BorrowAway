@@ -27,7 +27,7 @@ namespace BorrowAwayAPI.Context
         public DbSet<TokenBlackList> InvalidTokens { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<BorrowRequest> BorrowRequests { get; set; }
 
     }
 }

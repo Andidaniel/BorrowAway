@@ -16,4 +16,10 @@ export class CategoryService {
       this._apiEndpoint + '/GetAll'
     );
   }
+
+  public getCategoryById(id:number):Observable<Category>{
+    return this.http.get<Category>(
+      this._apiEndpoint + "/GetById/"+ id.toString()
+    );
+  }
 }

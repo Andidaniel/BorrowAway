@@ -26,9 +26,8 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
       this.announcements = ann;
-      console.log(this.announcements);
-
     });
+    
     this._categoryService.getAllCategories().subscribe((cat)=>{
       this.categories = cat;
     });

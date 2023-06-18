@@ -15,7 +15,8 @@ import { DxTextBoxModule,
   DxSelectBoxModule,
   DxFileUploaderModule,
 DxTextAreaModule,
-DxNumberBoxModule  } from 'devextreme-angular';
+DxNumberBoxModule,
+DxGalleryModule  } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
 import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
@@ -51,7 +52,8 @@ import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcem
     DxFileUploaderModule,
     DxSelectBoxModule,
     DxTextAreaModule,
-    DxNumberBoxModule
+    DxNumberBoxModule,
+    DxGalleryModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}

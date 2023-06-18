@@ -20,6 +20,7 @@ namespace BorrowAwayAPI.Controllers
             this._categoryService = categoryService;
         }
 
+        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<Category>>> GetAll()
         {
@@ -27,6 +28,13 @@ namespace BorrowAwayAPI.Controllers
             await _validationService.ValidateRequest(token);
 
             return Ok(await _categoryService.GetAllCategoriesAsync());
+        }
+
+        [Authorize]
+        [HttpGet("GetById/{id}")]
+        public async Task<ActionResult<Category>> GetCategoryById(int id)
+        {
+            return Ok(await _categoryService.GetCategoryByIdAsync(id));
         }
     }
 }

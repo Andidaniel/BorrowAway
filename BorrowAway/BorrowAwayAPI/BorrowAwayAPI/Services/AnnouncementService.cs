@@ -1,5 +1,6 @@
 ﻿using BorrowAwayAPI.Context;
 using BorrowAwayAPI.DTOs;
+using BorrowAwayAPI.Models;
 using BorrowAwayAPI.Models.BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -154,5 +155,11 @@ namespace BorrowAwayAPI.Services
             else 
                 return null;
         }
+        public async Task<string> GetPosterNameById(Guid userId)
+        {
+            AppUser user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+            return user.FirstName;
+        }
+
     }
 }

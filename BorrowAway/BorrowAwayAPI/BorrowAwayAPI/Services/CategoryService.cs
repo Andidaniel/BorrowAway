@@ -18,5 +18,9 @@ namespace BorrowAwayAPI.Services
         {
             return await _dbContext.Categories.ToListAsync();
         }
+        public async Task<Category> GetCategoryByIdAsync(int id)
+        {
+            return await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        }
     }
 }
