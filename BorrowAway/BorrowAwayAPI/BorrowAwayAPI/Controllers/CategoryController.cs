@@ -8,7 +8,6 @@ namespace BorrowAwayAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IValidationService _validationService;
@@ -20,7 +19,6 @@ namespace BorrowAwayAPI.Controllers
             this._categoryService = categoryService;
         }
 
-        [Authorize]
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<Category>>> GetAll()
         {

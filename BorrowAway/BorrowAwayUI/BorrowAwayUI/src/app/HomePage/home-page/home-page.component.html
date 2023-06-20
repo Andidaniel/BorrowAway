@@ -7,13 +7,22 @@
   <div class="mainContainer">
 
     <div class="search-bar-div">
+
+      <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</option>
+      </select>
+
       <dx-text-box
-        class="search-box"
+        class="search-bar"
       placeholder="Search">
       </dx-text-box>
       <dx-button class="search-button" type="default">
         <span class="material-icons-outlined">search</span>
         Search</dx-button>
+
+
+
     </div>
 
 

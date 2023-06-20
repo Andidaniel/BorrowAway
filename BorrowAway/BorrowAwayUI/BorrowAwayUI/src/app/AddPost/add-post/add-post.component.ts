@@ -100,7 +100,6 @@ export class AddPostComponent implements OnInit {
 
   public onImage1Uploaded(event: any): void {
     if (event.value.length == 0) {
-      console.log('Image1 removed');
       this.image1Preview = undefined;
       return;
     }
@@ -109,7 +108,6 @@ export class AddPostComponent implements OnInit {
 
     reader.onload = (event: any): void => {
       this.image1Preview = event.target.result;
-      console.log('Uploaded Img1');
     };
 
     reader.readAsDataURL(event.value[0] ?? null);
@@ -117,7 +115,6 @@ export class AddPostComponent implements OnInit {
 
   public onImage2Uploaded(event: any): void {
     if (event.value.length == 0) {
-      console.log('Image2 removed');
       this.image2Preview = undefined;
       return;
     }
@@ -126,14 +123,12 @@ export class AddPostComponent implements OnInit {
 
     reader.onload = (event: any): void => {
       this.image2Preview = event.target.result;
-      console.log('Uploaded Img2');
     };
     reader.readAsDataURL(event.value[0] ?? null);
   }
 
   public onImage3Uploaded(event: any): void {
     if (event.value.length == 0) {
-      console.log('Image3 removed');
       this.image3Preview = undefined;
       return;
     }
@@ -142,7 +137,6 @@ export class AddPostComponent implements OnInit {
 
     reader.onload = (event: any): void => {
       this.image3Preview = event.target.result;
-      console.log('Uploaded Img3');
     };
     reader.readAsDataURL(event.value[0] ?? null);
   }

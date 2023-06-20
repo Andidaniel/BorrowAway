@@ -27,11 +27,22 @@ export class HomePageComponent implements OnInit {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
       this.announcements = ann;
     });
-    
+
     this._categoryService.getAllCategories().subscribe((cat)=>{
       this.categories = cat;
     });
   }
+
+  selectedCategory: number | undefined;
+
+// Metoda care se activează la schimbarea selecției de categorie
+onCategoryChange() {
+  if (this.selectedCategory) {
+    // Inițiază căutarea anunțurilor pe baza categoriei selectate
+  } else {
+    // Dacă nu este selectată nicio categorie, afișează toate anunțurile
+  }
+}
 
   buttonsData: ButtonData[] = [
     {
