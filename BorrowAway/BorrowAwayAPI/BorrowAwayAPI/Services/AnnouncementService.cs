@@ -226,5 +226,53 @@ namespace BorrowAwayAPI.Services
 
             return announcementDTOs;
         }
+
+        public async Task<List<AnnouncementDTO>> GetAllAnnouncementsBySearchText(string searchText)
+        {
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.ToListAsync();
+            List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
+
+            string[] keywords = searchText.ToLower().Split(new char[] { ' ',',','.','\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (Announcement ann in announcementsFromDb)
+            {
+                bool isMatch = false;
+
+                foreach (string keyword in keywords)
+                {
+                    if (ann.Title.ToLower().Contains(keyword) || ann.Description.ToLower().Contains(keyword))
+                    {
+                        isMatch = true;
+                        break;
+                    }
+                }
+
+                if (isMatch)
+                {
+                    AnnouncementDTO dtoToAdd = new AnnouncementDTO();
+                    dtoToAdd.Id = ann.Id;
+                    dtoToAdd.Title = ann.Title;
+                    dtoToAdd.Description = ann.Description;
+                    dtoToAdd.NumberOfImages = ann.NumberOfImages;
+                    dtoToAdd.PricePerDay = ann.PricePerDay;
+                    dtoToAdd.CreationDate = ann.CreationDate;
+                    dtoToAdd.ContactMethod = ann.ContactMethod;
+                    dtoToAdd.Location = ann.Location;
+                    dtoToAdd.CategoryId = ann.CategoryId;
+                    dtoToAdd.UserId = ann.UserId;
+                    dtoToAdd.ImagesData = new List<string>();
+                    for (int i = 0; i < ann.NumberOfImages; i++)
+                    {
+                        string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                        byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                        string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                        dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                    }
+                    announcementDTOs.Add(dtoToAdd);
+                }
+            }
+
+            return announcementDTOs;
+        }
     } 
 }

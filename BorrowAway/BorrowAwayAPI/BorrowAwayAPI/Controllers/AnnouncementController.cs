@@ -37,7 +37,7 @@ namespace BorrowAwayAPI.Controllers
         {
             return Ok(await _announcementService.GetLastNAnnouncementsAsync(n));
         }
-        
+
         [Authorize]
         [HttpGet("GetById/{id}")]
         public async Task<ActionResult<AnnouncementDTO>> GetAnnouncementById(int id)
@@ -78,5 +78,17 @@ namespace BorrowAwayAPI.Controllers
             return Ok(announcements);
         }
 
-    }
+        [Authorize]
+        [HttpPost("SearchAnnouncements")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromBody] string searchText){
+            List<AnnouncementDTO> result =await _announcementService.GetAllAnnouncementsBySearchText(searchText);
+            if (result.Count != 0)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
+
+
+}
 }
