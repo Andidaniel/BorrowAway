@@ -5,18 +5,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RequestsTestComponent } from './AuthPage/requests-test/requests-test.component';
-import { AuthInterceptor} from './Services/Interceptor/auth.interceptor';
+import { AuthInterceptor } from './Services/Interceptor/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './AuthPage/auth/auth.component';
-import { DxTextBoxModule,
+import {
+  DxTextBoxModule,
   DxButtonModule,
   DxValidatorModule,
   DxToastModule,
   DxSelectBoxModule,
   DxFileUploaderModule,
-DxTextAreaModule,
-DxNumberBoxModule,
-DxGalleryModule  } from 'devextreme-angular';
+  DxTextAreaModule,
+  DxNumberBoxModule,
+  DxGalleryModule,
+} from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
 import { LoginFormComponent } from './AuthPage/login-form/login-form.component';
@@ -25,7 +27,8 @@ import { HomePageComponent } from './HomePage/home-page/home-page.component';
 import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
 import { AddPostComponent } from './AddPost/add-post/add-post.component';
 import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
-
+import { AnnouncementsPageComponent } from './announcements-page/announcements-page.component';
+import { AnnouncementCardComponent } from './shared/announcement-card/announcement-card.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcem
     HomePageComponent,
     TopBarComponent,
     AddPostComponent,
-    AnnouncementComponent
+    AnnouncementComponent,
+    AnnouncementsPageComponent,
+    AnnouncementCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,11 +58,11 @@ import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcem
     DxSelectBoxModule,
     DxTextAreaModule,
     DxNumberBoxModule,
-    DxGalleryModule
+    DxGalleryModule,
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

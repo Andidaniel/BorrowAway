@@ -1,14 +1,13 @@
-.annoncement-picture{
+.annoncement-picture {
   height: 300px;
   width: 300px;
   object-fit: contain;
 }
+
 .form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  h2{
+  background-color: white;
+
+  h2 {
     font-size: 30px;
   }
   .form-content {
@@ -25,9 +24,18 @@
     justify-content: center;
     margin-top: 20px;
     justify-content: space-evenly;
+
+    .create-button {
+      font-size: 24px;
+      background-color: #8d1e1e;
+
+      &:hover {
+        background-color: #b53636;
+      }
+    }
   }
-  .form-input{
-    margin-bottom:5%;
+  .form-input {
+    margin-bottom: 5%;
     height: 50px;
   }
 }

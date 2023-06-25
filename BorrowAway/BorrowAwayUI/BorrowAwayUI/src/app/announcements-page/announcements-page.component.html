@@ -1,0 +1,16 @@
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  ></app-top-bar>
+
+  <!-- Latest Announcements -->
+  <div class="card-container">
+    <h1 class="card-container-title">Announcements</h1>
+    <app-announcement-card
+      [announcement]="announcement"
+      [categories]="categories"
+      *ngFor="let announcement of announcements"
+    />
+  </div>
+</div>

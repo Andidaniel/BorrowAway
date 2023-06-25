@@ -1,0 +1,86 @@
+.card {
+  display: flex;
+  flex-direction: column;
+
+  width: 250px;
+  height: 400px;
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 16px;
+  user-select: none;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: white;
+  float: left;
+
+  transition: box-shadow 0.3s ease;
+
+  &-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #8d1e1e;
+
+    & .goto-button {
+      background-color: #fff0f0;
+      border-radius: 5px;
+    }
+  }
+}
+.card:hover {
+  box-shadow: 0 0 40px rgba(33, 33, 33, 0.2);
+}
+
+.image-container {
+  margin-bottom: 8px;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+}
+
+.date-label {
+  margin-bottom: 4px;
+}
+
+.creation-date {
+  margin-bottom: 8px;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 25px;
+  font-size: 24px;
+}
+
+.goto-button {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  font-family: Exo2Regular;
+  font-weight: bold;
+  -webkit-user-select: none;
+  user-select: none;
+  height: 30px;
+  transition: background-color 0.3s ease;
+  color: #8d1e1e;
+}

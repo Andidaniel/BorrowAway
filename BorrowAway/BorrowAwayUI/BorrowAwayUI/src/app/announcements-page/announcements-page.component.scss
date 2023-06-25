@@ -1,0 +1,11 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+
+  &-title {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,25 @@
+<div (click)="onViewAnnouncementClick(announcement.id!)" class="card">
+  <div class="card-title">
+    <b>{{ announcement.title }}</b>
+  </div>
+
+  <div class="image-container">
+    <img
+      *ngIf="announcement.imagesData[0]"
+      [src]="announcement.imagesData[0]"
+      alt="Announcement Image"
+    />
+    <span *ngIf="!announcement.imagesData[0]">No image provided</span>
+  </div>
+  <div class="category">
+    Category: <b>{{ getCategoryNameById(announcement.categoryId!) }}</b>
+  </div>
+  <div class="date-label">
+    Posted: <b>{{ announcement.creationDate | date : "dd-MM-yyyy" }}</b>
+  </div>
+  <div class="price">${{ announcement.pricePerDay }} / day</div>
+  <div class="goto-button">
+    <span class="material-icons-outlined">visibility</span>
+    View Announcement
+  </div>
+</div>
