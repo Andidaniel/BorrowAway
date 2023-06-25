@@ -56,5 +56,19 @@ namespace BorrowAwayAPI.Controllers
             string name = await _announcementService.GetPosterNameById(id);
             return Ok(name);
         }
+
+        [Authorize]
+        [HttpGet("GetAllByUserId/{id}")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> GetAnnouncementsByUserId(Guid id)
+        {
+            List<AnnouncementDTO> announcements = await _announcementService.GetAllAnnouncementsByUserIdAsync(id);
+            if (announcements.Count != 0)
+            {
+                return Ok(announcements);
+            }
+            return NotFound();
+        }
+
+
     }
 }

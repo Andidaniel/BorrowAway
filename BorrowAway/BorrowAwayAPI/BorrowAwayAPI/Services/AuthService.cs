@@ -86,6 +86,11 @@ namespace BorrowAwayAPI.Services
                 return false;
             }
         }
+        public async Task<Guid> GetUserIdByEmail(string email)
+        {
+            AppUser? userFromDb = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+            return userFromDb!.Id;
+        }
 
         #region Security
 
