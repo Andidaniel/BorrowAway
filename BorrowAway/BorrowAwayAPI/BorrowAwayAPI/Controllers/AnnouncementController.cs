@@ -51,6 +51,13 @@ namespace BorrowAwayAPI.Controllers
         }
 
         [Authorize]
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> GetAllAnnouncements()
+        {
+            return Ok(await _announcementService.GetAllAnnouncementsAsync());
+        }
+
+        [Authorize]
         [HttpGet("GetUserName/{id}")]
         public async Task<ActionResult<string>> GetUserNameById(Guid id)
         {
@@ -88,6 +95,7 @@ namespace BorrowAwayAPI.Controllers
             }
             return NotFound();
         }
+
 
 
 }
