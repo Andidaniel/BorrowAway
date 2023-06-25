@@ -17,32 +17,26 @@ export class HomePageComponent implements OnInit {
     private _authService: AuthService,
     private _router: Router,
     private _announcementService: AnnouncementService,
-    private _categoryService:CategoryService
+    private _categoryService: CategoryService
   ) {}
 
-  announcements:Announcement[]=[];
-  categories:any[]=[];
+  announcements: Announcement[] = [];
+  categories: any[] = [];
 
   ngOnInit(): void {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
       this.announcements = ann;
+      this.announcements.push(this.announcements[0]);
+      this.announcements.push(this.announcements[0]);
+      this.announcements.push(this.announcements[0]);
+      this.announcements.push(this.announcements[0]);
+      this.announcements.push(this.announcements[0]);
     });
 
-    this._categoryService.getAllCategories().subscribe((cat)=>{
+    this._categoryService.getAllCategories().subscribe((cat) => {
       this.categories = cat;
     });
   }
-
-  selectedCategory: number | undefined;
-
-// Metoda care se activează la schimbarea selecției de categorie
-onCategoryChange() {
-  if (this.selectedCategory) {
-    // Inițiază căutarea anunțurilor pe baza categoriei selectate
-  } else {
-    // Dacă nu este selectată nicio categorie, afișează toate anunțurile
-  }
-}
 
   buttonsData: ButtonData[] = [
     {
@@ -63,14 +57,26 @@ onCategoryChange() {
   ];
 
   getCategoryNameById(id: number): string {
-    const category = this.categories.find(c => c.id === id);
+    const category = this.categories.find((c) => c.id === id);
     return category ? category.title : '';
   }
 
-  onViewAnnouncementClick(id:number){
-    this._router.navigateByUrl('announcement/'+id);
+  onViewAnnouncementClick(id: number) {
+    this._router.navigateByUrl('announcement/' + id);
     return;
   }
+
+  goToAnnouncements(selectedCategory: number | null) {
+    this._router.navigate(
+      ['/announcements'],
+      selectedCategory
+        ? {
+            queryParams: { category: selectedCategory },
+          }
+        : undefined
+    );
+  }
+
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {
       this._authService.logoutUser().subscribe({

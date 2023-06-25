@@ -1,18 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'material-icons/iconfont/material-icons.css';
+@import "material-icons/iconfont/material-icons.css";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-@font-face {
-  font-family: 'Exo2Regular';
-  src: url('../src/assets/fonts/Exo2Regular.ttf');
+html,
+body {
+  height: 100%;
 }
-@font-face {
-  font-family: 'Exo2Light';
-  src: url('../src/assets/fonts/Exo2ExtraLight.ttf');
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-@import '~devextreme/dist/css/dx.common.css';
-@import '~devextreme/dist/css/dx.light.css';
+  padding: 40px 0;
+  background-color: #f2f4f5;
+}
+
+@font-face {
+  font-family: "Exo2Regular";
+  src: url("../src/assets/fonts/Exo2Regular.ttf");
+}
+@font-face {
+  font-family: "Exo2Light";
+  src: url("../src/assets/fonts/Exo2ExtraLight.ttf");
+}
+
+@import "~devextreme/dist/css/dx.common.css";
+@import "~devextreme/dist/css/dx.light.css";

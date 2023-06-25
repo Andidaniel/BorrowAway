@@ -4,48 +4,62 @@
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
   ></app-top-bar>
 
-  <div class="mainContainer">
+  <div class="page-container">
+    <div class="mainContainer">
+      <div class="search-bar-div">
+        <dx-text-box class="search-bar" placeholder="Search"> </dx-text-box>
+        <dx-button class="search-button" type="default">
+          <span class="material-icons-outlined">search</span>
+          Search</dx-button
+        >
+      </div>
 
-    <div class="search-bar-div">
+      <div class="categories-container">
+        <span class="categories-container-title">Categories:</span>
+        <span
+          *ngFor="let category of categories"
+          (click)="goToAnnouncements(category.id)"
+          class="category"
+          >{{ category.title }}</span
+        >
+      </div>
 
-      <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
-        <option value="">All Categories</option>
-        <option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</option>
-      </select>
-
-      <dx-text-box
-        class="search-bar"
-      placeholder="Search">
-      </dx-text-box>
-      <dx-button class="search-button" type="default">
-        <span class="material-icons-outlined">search</span>
-        Search</dx-button>
-
-
-
-    </div>
-
-
-    <div class="card-container">
-      <div class="card" *ngFor="let announcement of announcements">
-        <div class="title">Title: <b>{{ announcement.title }}</b></div>
-        <div class="category">Category: <b>{{ getCategoryNameById(announcement.categoryId!)}}</b></div>
-        <div class="date-label">Posted: <b>{{ announcement.creationDate | date:'dd-MM-yyyy' }}</b></div>
-
-        <div class="image-container">
-          <img *ngIf="announcement.imagesData[0]" [src]="announcement.imagesData[0]" alt="Announcement Image">
-          <span *ngIf="!announcement.imagesData[0]">No image provided</span>
-        </div>
-        <div class="price">Price/day: ${{ announcement.pricePerDay }}</div>
+      <div class="card-container">
         <div
-        (click)="onViewAnnouncementClick(announcement.id!)"
-        class="goto-button">
-          <span class="material-icons-outlined">visibility</span>
-          View Announcement
+          (click)="onViewAnnouncementClick(announcement.id!)"
+          class="card"
+          *ngFor="let announcement of announcements"
+        >
+          <div class="card-title">
+            <b>{{ announcement.title }}</b>
+          </div>
+
+          <div class="image-container">
+            <img
+              *ngIf="announcement.imagesData[0]"
+              [src]="announcement.imagesData[0]"
+              alt="Announcement Image"
+            />
+            <span *ngIf="!announcement.imagesData[0]">No image provided</span>
+          </div>
+          <div class="category">
+            Category: <b>{{ getCategoryNameById(announcement.categoryId!) }}</b>
+          </div>
+          <div class="date-label">
+            Posted: <b>{{ announcement.creationDate | date : "dd-MM-yyyy" }}</b>
+          </div>
+          <div class="price">Price/day: ${{ announcement.pricePerDay }}</div>
+          <div class="goto-button">
+            <span class="material-icons-outlined">visibility</span>
+            View Announcement
+          </div>
         </div>
       </div>
 
+      <dx-button class="view-all-button">
+        <span class="material-icons-outlined">grid_view</span>
+        View All Announcements</dx-button
+      >
     </div>
-
   </div>
 </div>

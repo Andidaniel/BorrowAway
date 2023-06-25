@@ -2,7 +2,7 @@
   [buttonsData]="buttonsData"
   (buttonClickedEvent)="buttonClickedEventReceived($event)"
 ></app-top-bar>
-<div class="page">
+<div class="page-container">
   <div class="form-container">
     <div class="form-content">
       <h2>Create Announcement</h2>
@@ -131,9 +131,8 @@
       />
 
       <div class="button-container">
-        <dx-button text="Back" [stylingMode]="'contained'" [type]="'default'">
-        </dx-button>
         <dx-button
+          class="create-button"
           [disabled]="createButtonDisabled"
           text="Create"
           [stylingMode]="'contained'"
@@ -143,6 +142,7 @@
       </div>
     </div>
   </div>
+
   <dx-toast
     [(visible)]="toastVisible"
     [message]="toastMessage"

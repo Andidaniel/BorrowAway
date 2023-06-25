@@ -1,9 +1,14 @@
 <div class="navbar">
-  <div *ngFor="let buttonData of buttonsData">
-    <div class="topmar-button" (click)="logButtonData(buttonData.redirectUrl)">
-      <div class="buttonContent">
-        <span class="material-icons-outlined">{{ buttonData.iconName }}</span>
-        {{ buttonData.buttonText }}
+  <div class="navbar-content">
+    <div class="topmar-button-container" *ngFor="let buttonData of buttonsData">
+      <div
+        class="topmar-button"
+        (click)="logButtonData(buttonData.redirectUrl)"
+      >
+        <div class="buttonContent">
+          <span class="material-icons-outlined">{{ buttonData.iconName }}</span>
+          {{ buttonData.buttonText }}
+        </div>
       </div>
     </div>
   </div>
