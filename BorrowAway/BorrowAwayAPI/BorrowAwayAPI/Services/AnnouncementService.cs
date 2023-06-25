@@ -28,7 +28,7 @@ namespace BorrowAwayAPI.Services
             announcementToSave.Location = announcementToAdd.Location;
             announcementToSave.CategoryId = announcementToAdd.CategoryId;
             announcementToSave.UserId = _dbContext.Users.First(u => u.Email.Equals(userEmail)).Id;
-            string downloadDirectory = @"..\\Images\\" + userEmail + "\\" + Guid.NewGuid();
+            string downloadDirectory = @"./Images/" + userEmail + "/" + Guid.NewGuid();
             Directory.CreateDirectory(downloadDirectory);
             announcementToSave.ImagesDirectoryPath = downloadDirectory;
 
@@ -87,7 +87,7 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -98,7 +98,7 @@ namespace BorrowAwayAPI.Services
         }
         public async Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n)
         {
-            List<Announcement> announcementsFromDb =  _dbContext.Announcements.OrderBy(a=>a.CreationDate).ToList();
+            List<Announcement> announcementsFromDb = _dbContext.Announcements.OrderBy(a => a.CreationDate).ToList();
             announcementsFromDb = announcementsFromDb.Skip(Math.Max(0, announcementsFromDb.Count - n)).ToList();
             List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
             foreach (var ann in announcementsFromDb)
@@ -117,7 +117,7 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -129,7 +129,7 @@ namespace BorrowAwayAPI.Services
         public async Task<AnnouncementDTO> GetAnnouncementById(int id)
         {
             Announcement announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
-            if (announcementFromDb!= null)
+            if (announcementFromDb != null)
             {
                 AnnouncementDTO announcement = new AnnouncementDTO();
                 announcement.Id = announcementFromDb.Id;
@@ -145,14 +145,14 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < announcementFromDb.NumberOfImages; i++)
                 {
-                    string path = announcementFromDb.ImagesDirectoryPath + $"\\{i}.png";
+                    string path = announcementFromDb.ImagesDirectoryPath + $"/{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
                 }
                 return announcement;
             }
-            else 
+            else
                 return null;
         }
         public async Task<string> GetPosterNameById(Guid userId)
