@@ -22,15 +22,11 @@ export class HomePageComponent implements OnInit {
 
   announcements: Announcement[] = [];
   categories: any[] = [];
+  searchBoxText: string;
 
   ngOnInit(): void {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
       this.announcements = ann;
-      this.announcements.push(this.announcements[0]);
-      this.announcements.push(this.announcements[0]);
-      this.announcements.push(this.announcements[0]);
-      this.announcements.push(this.announcements[0]);
-      this.announcements.push(this.announcements[0]);
     });
 
     this._categoryService.getAllCategories().subscribe((cat) => {
@@ -56,22 +52,16 @@ export class HomePageComponent implements OnInit {
     },
   ];
 
-  getCategoryNameById(id: number): string {
-    const category = this.categories.find((c) => c.id === id);
-    return category ? category.title : '';
-  }
-
-  onViewAnnouncementClick(id: number) {
-    this._router.navigateByUrl('announcement/' + id);
-    return;
-  }
-
-  goToAnnouncements(selectedCategory: number | null) {
+  goToAnnouncements(selectedCategory: number | null, searchText?: string) {
     this._router.navigate(
       ['/announcements'],
       selectedCategory
         ? {
             queryParams: { category: selectedCategory },
+          }
+        : searchText
+        ? {
+            queryParams: { search: searchText },
           }
         : undefined
     );

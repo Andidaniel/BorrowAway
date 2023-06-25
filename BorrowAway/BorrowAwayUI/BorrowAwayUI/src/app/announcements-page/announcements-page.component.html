@@ -4,5 +4,13 @@
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
   ></app-top-bar>
 
-  <span>TODO: ANNOUNCEMENTS</span>
+  <!-- Latest Announcements -->
+  <div class="card-container">
+    <h1 class="card-container-title">Announcements</h1>
+    <app-announcement-card
+      [announcement]="announcement"
+      [categories]="categories"
+      *ngFor="let announcement of announcements"
+    />
+  </div>
 </div>

@@ -28,6 +28,7 @@ import { TopBarComponent } from './TopBar/top-bar/top-bar.component';
 import { AddPostComponent } from './AddPost/add-post/add-post.component';
 import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
 import { AnnouncementsPageComponent } from './announcements-page/announcements-page.component';
+import { AnnouncementCardComponent } from './shared/announcement-card/announcement-card.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AnnouncementsPageComponent } from './announcements-page/announcements-p
     AddPostComponent,
     AnnouncementComponent,
     AnnouncementsPageComponent,
+    AnnouncementCardComponent,
   ],
   imports: [
     BrowserModule,

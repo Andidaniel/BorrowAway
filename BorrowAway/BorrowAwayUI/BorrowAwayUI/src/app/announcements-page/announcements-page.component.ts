@@ -4,6 +4,7 @@ import { ButtonData } from '../Models/button-data';
 import { AnnouncementService } from '../Services/announcement.service';
 import { AuthService } from '../Services/auth.service';
 import { CategoryService } from '../Services/category.service';
+import { Announcement } from '../Models/announcement';
 
 @Component({
   selector: 'app-announcements-page',
@@ -11,13 +12,6 @@ import { CategoryService } from '../Services/category.service';
   styleUrls: ['./announcements-page.component.scss'],
 })
 export class AnnouncementsPageComponent {
-  constructor(
-    private _authService: AuthService,
-    private _router: Router,
-    private _announcementService: AnnouncementService,
-    private _categoryService: CategoryService
-  ) {}
-
   buttonsData: ButtonData[] = [
     {
       buttonText: 'Home',
@@ -36,6 +30,26 @@ export class AnnouncementsPageComponent {
     },
   ];
 
+  announcements: Announcement[] = [];
+  categories: any[] = [];
+
+  constructor(
+    private _authService: AuthService,
+    private _router: Router,
+    private _announcementService: AnnouncementService,
+    private _categoryService: CategoryService
+  ) {}
+
+  ngOnInit(): void {
+    this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
+      this.announcements = ann;
+    });
+
+    this._categoryService.getAllCategories().subscribe((cat) => {
+      this.categories = cat;
+    });
+  }
+
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {
       this._authService.logoutUser().subscribe({
@@ -50,7 +64,7 @@ export class AnnouncementsPageComponent {
           return;
         },
       });
-    } else if (redirectUrl == 'listItem') {
+    } else if (redirectUrl == 'home') {
       this._router.navigateByUrl(redirectUrl);
       return;
     } else if (redirectUrl == 'editProfile') {
