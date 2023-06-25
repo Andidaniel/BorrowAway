@@ -22,11 +22,27 @@ namespace BorrowAwayAPI.Controllers
 
         [Authorize]
         [HttpPost("PostRequest")]
-        public async Task<ActionResult<string>> Test([FromBody] BorrowRequestDTO requestDTO) {
+        public async Task<ActionResult<string>> PostRequest([FromBody] BorrowRequestDTO requestDTO) {
             string userEmail = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)!.Value;
             Guid userId = await _authService.GetUserIdByEmail(userEmail);
             bool createRequestResult = await _requestService.AddRequest(requestDTO, userId);
-            return Ok(createRequestResult);
+            if (createRequestResult == true)
+            {
+                return Ok("Created");
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            
+        }
+
+        [Authorize]
+        [HttpGet("GetBusyDaysForAnnouncement/{announcementId}")]
+        public async Task<ActionResult<List<DateTime>>> GetBusyDaysForAnnouncement(int announcementId)
+        {
+            var result = await _requestService.GetDisabledDatesForAnnouncement(announcementId);
+            return Ok(result);
         }
     }
 }

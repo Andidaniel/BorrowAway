@@ -18,6 +18,7 @@
 
             public AppUser User { get; set; }
             public Category Category { get; set; }
+            public virtual ICollection<BorrowRequest> BorrowRequests { get; set; }
         }
     }
 

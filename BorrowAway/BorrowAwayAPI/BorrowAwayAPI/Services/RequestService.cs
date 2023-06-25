@@ -3,6 +3,7 @@ using BorrowAwayAPI.DTOs;
 using BorrowAwayAPI.Models;
 using BorrowAwayAPI.Services.Interfaces;
 using BorrowAwayAPI.Models.BorrowAwayAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BorrowAwayAPI.Services
 {
@@ -36,6 +37,29 @@ namespace BorrowAwayAPI.Services
             _dbContext.BorrowRequests.Add(requestToCreate);
             return await _dbContext.SaveChangesAsync() > 0;
 
+        }
+
+        public async Task<List<DateTime>> GetDisabledDatesForAnnouncement(int announcementId)
+        {
+            Announcement? result = await _dbContext.Announcements.Include(a => a.BorrowRequests).FirstOrDefaultAsync(a => a.Id == announcementId);
+            List<DateTime> daysInRange = new List<DateTime>();
+
+            foreach (var request in result.BorrowRequests)
+            {
+                if(request.Status == "Approved")
+                {
+                    DateTime currentDate = request.StartDate;
+
+                    while (currentDate <= request.EndDate)
+                    {
+                        daysInRange.Add(currentDate);
+                        currentDate = currentDate.AddDays(1);
+                    }
+                }
+               
+            }
+
+            return daysInRange;
         }
     }
 }
