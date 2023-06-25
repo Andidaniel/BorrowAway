@@ -39,15 +39,14 @@ namespace BorrowAwayAPI
 
             builder.Services.AddDbContext<BorrowAwayDbContext>(options =>
             {
-                // options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
                 options.UseNpgsql(builder.Configuration.GetConnectionString("BAConnectionString"));
-                // /Users/I565663/Documents/Temporary/BorrowAway/BorrowAway/BorrowAwayAPI/Images/t@t.com/f18a6089-7f08-4881-a57d-5223560fe902/0.png
-                // /Users/I565663/Documents/Temporary/BorrowAway/BorrowAway/BorrowAwayAPI/Images/t@t.com/f18a6089-7f08-4881-a57d-5223560fe902\0.png
+
             });
             builder.Services.AddTransient<IAuthService, AuthService>();
             builder.Services.AddTransient<IValidationService, ValidationService>();
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<IAnnouncementService, AnnouncementService>();
+            builder.Services.AddTransient<IRequestService, RequestService>();
 
             var app = builder.Build();
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

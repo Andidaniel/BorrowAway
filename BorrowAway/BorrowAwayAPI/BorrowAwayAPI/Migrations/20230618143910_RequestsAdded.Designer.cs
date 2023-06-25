@@ -4,6 +4,7 @@ using BorrowAwayAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BorrowAwayAPI.Migrations
 {
     [DbContext(typeof(BorrowAwayDbContext))]
-    partial class BorrowAwayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230618143910_RequestsAdded")]
+    partial class RequestsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,7 +207,7 @@ namespace BorrowAwayAPI.Migrations
             modelBuilder.Entity("BorrowAwayAPI.Models.BorrowRequest", b =>
                 {
                     b.HasOne("BorrowAwayAPI.Models.BorrowAwayAPI.Models.Announcement", "Announcement")
-                        .WithMany("BorrowRequests")
+                        .WithMany()
                         .HasForeignKey("AnnouncementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -222,11 +225,6 @@ namespace BorrowAwayAPI.Migrations
                 {
                     b.Navigation("Announcements");
 
-                    b.Navigation("BorrowRequests");
-                });
-
-            modelBuilder.Entity("BorrowAwayAPI.Models.BorrowAwayAPI.Models.Announcement", b =>
-                {
                     b.Navigation("BorrowRequests");
                 });
 

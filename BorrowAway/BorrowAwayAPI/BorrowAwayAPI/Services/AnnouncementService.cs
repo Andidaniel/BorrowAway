@@ -69,7 +69,7 @@ namespace BorrowAwayAPI.Services
 
         public async Task<List<AnnouncementDTO>> GetAllAnnouncementsAsync()
         {
-            List<Announcement> announcementsFromDb = _dbContext.Announcements.ToList();
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.ToListAsync();
             List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
             foreach (var ann in announcementsFromDb)
             {
@@ -96,9 +96,10 @@ namespace BorrowAwayAPI.Services
             }
             return announcementsToReturn;
         }
+
         public async Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n)
         {
-            List<Announcement> announcementsFromDb = _dbContext.Announcements.OrderBy(a => a.CreationDate).ToList();
+            List<Announcement> announcementsFromDb =  await _dbContext.Announcements.OrderBy(a=>a.CreationDate).ToListAsync();
             announcementsFromDb = announcementsFromDb.Skip(Math.Max(0, announcementsFromDb.Count - n)).ToList();
             List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
             foreach (var ann in announcementsFromDb)
@@ -126,6 +127,7 @@ namespace BorrowAwayAPI.Services
             }
             return announcementsToReturn;
         }
+
         public async Task<AnnouncementDTO> GetAnnouncementById(int id)
         {
             Announcement announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
@@ -155,11 +157,122 @@ namespace BorrowAwayAPI.Services
             else
                 return null;
         }
+
         public async Task<string> GetPosterNameById(Guid userId)
         {
             AppUser user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
             return user.FirstName;
         }
 
-    }
+        public async Task<List<AnnouncementDTO>> GetAllAnnouncementsByUserIdAsync(Guid userId)
+        {
+            AppUser? user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
+            List<Announcement> announcements = await _dbContext.Announcements.Where(a => a.UserId.Equals(userId)).ToListAsync();
+            List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
+            foreach(Announcement ann in announcements)
+            {
+                AnnouncementDTO dtoToAdd = new AnnouncementDTO();
+                dtoToAdd.Id = ann.Id;
+                dtoToAdd.Title = ann.Title;
+                dtoToAdd.Description = ann.Description;
+                dtoToAdd.NumberOfImages = ann.NumberOfImages;
+                dtoToAdd.PricePerDay = ann.PricePerDay;
+                dtoToAdd.CreationDate = ann.CreationDate;
+                dtoToAdd.ContactMethod = ann.ContactMethod;
+                dtoToAdd.Location = ann.Location;
+                dtoToAdd.CategoryId = ann.CategoryId;
+                dtoToAdd.UserId = ann.UserId;
+                dtoToAdd.ImagesData = new List<string>();
+                for (int i = 0; i < ann.NumberOfImages; i++)
+                {
+                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                    string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                    dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                }
+                announcementDTOs.Add(dtoToAdd);
+            }
+
+            return announcementDTOs;
+        }
+
+        public async Task<List<AnnouncementDTO>> GetAllAnnouncementsByCategory(int categoryId)
+        {
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.Where(a => a.CategoryId == categoryId).OrderBy(a=>a.CreationDate).ToListAsync();
+            List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
+            foreach (Announcement ann in announcementsFromDb)
+            {
+                AnnouncementDTO dtoToAdd = new AnnouncementDTO();
+                dtoToAdd.Id = ann.Id;
+                dtoToAdd.Title = ann.Title;
+                dtoToAdd.Description = ann.Description;
+                dtoToAdd.NumberOfImages = ann.NumberOfImages;
+                dtoToAdd.PricePerDay = ann.PricePerDay;
+                dtoToAdd.CreationDate = ann.CreationDate;
+                dtoToAdd.ContactMethod = ann.ContactMethod;
+                dtoToAdd.Location = ann.Location;
+                dtoToAdd.CategoryId = ann.CategoryId;
+                dtoToAdd.UserId = ann.UserId;
+                dtoToAdd.ImagesData = new List<string>();
+                for (int i = 0; i < ann.NumberOfImages; i++)
+                {
+                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                    string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                    dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                }
+                announcementDTOs.Add(dtoToAdd);
+            }
+
+            return announcementDTOs;
+        }
+
+        public async Task<List<AnnouncementDTO>> GetAllAnnouncementsBySearchText(string searchText)
+        {
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.ToListAsync();
+            List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
+
+            string[] keywords = searchText.ToLower().Split(new char[] { ' ',',','.','\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (Announcement ann in announcementsFromDb)
+            {
+                bool isMatch = false;
+
+                foreach (string keyword in keywords)
+                {
+                    if (ann.Title.ToLower().Contains(keyword) || ann.Description.ToLower().Contains(keyword))
+                    {
+                        isMatch = true;
+                        break;
+                    }
+                }
+
+                if (isMatch)
+                {
+                    AnnouncementDTO dtoToAdd = new AnnouncementDTO();
+                    dtoToAdd.Id = ann.Id;
+                    dtoToAdd.Title = ann.Title;
+                    dtoToAdd.Description = ann.Description;
+                    dtoToAdd.NumberOfImages = ann.NumberOfImages;
+                    dtoToAdd.PricePerDay = ann.PricePerDay;
+                    dtoToAdd.CreationDate = ann.CreationDate;
+                    dtoToAdd.ContactMethod = ann.ContactMethod;
+                    dtoToAdd.Location = ann.Location;
+                    dtoToAdd.CategoryId = ann.CategoryId;
+                    dtoToAdd.UserId = ann.UserId;
+                    dtoToAdd.ImagesData = new List<string>();
+                    for (int i = 0; i < ann.NumberOfImages; i++)
+                    {
+                        string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                        byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                        string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                        dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                    }
+                    announcementDTOs.Add(dtoToAdd);
+                }
+            }
+
+            return announcementDTOs;
+        }
+    } 
 }
