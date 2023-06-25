@@ -99,7 +99,7 @@ namespace BorrowAwayAPI.Services
 
         public async Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n)
         {
-            List<Announcement> announcementsFromDb =  await _dbContext.Announcements.OrderBy(a=>a.CreationDate).ToListAsync();
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.OrderBy(a => a.CreationDate).ToListAsync();
             announcementsFromDb = announcementsFromDb.Skip(Math.Max(0, announcementsFromDb.Count - n)).ToList();
             List<AnnouncementDTO> announcementsToReturn = new List<AnnouncementDTO>();
             foreach (var ann in announcementsFromDb)
@@ -169,7 +169,7 @@ namespace BorrowAwayAPI.Services
             AppUser? user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
             List<Announcement> announcements = await _dbContext.Announcements.Where(a => a.UserId.Equals(userId)).ToListAsync();
             List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
-            foreach(Announcement ann in announcements)
+            foreach (Announcement ann in announcements)
             {
                 AnnouncementDTO dtoToAdd = new AnnouncementDTO();
                 dtoToAdd.Id = ann.Id;
@@ -198,7 +198,7 @@ namespace BorrowAwayAPI.Services
 
         public async Task<List<AnnouncementDTO>> GetAllAnnouncementsByCategory(int categoryId)
         {
-            List<Announcement> announcementsFromDb = await _dbContext.Announcements.Where(a => a.CategoryId == categoryId).OrderBy(a=>a.CreationDate).ToListAsync();
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.Where(a => a.CategoryId == categoryId).OrderBy(a => a.CreationDate).ToListAsync();
             List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
             foreach (Announcement ann in announcementsFromDb)
             {
@@ -232,7 +232,7 @@ namespace BorrowAwayAPI.Services
             List<Announcement> announcementsFromDb = await _dbContext.Announcements.ToListAsync();
             List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
 
-            string[] keywords = searchText.ToLower().Split(new char[] { ' ',',','.','\n' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] keywords = searchText.ToLower().Split(new char[] { ' ', ',', '.', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (Announcement ann in announcementsFromDb)
             {
@@ -274,5 +274,5 @@ namespace BorrowAwayAPI.Services
 
             return announcementDTOs;
         }
-    } 
+    }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonData } from '../Models/button-data';
 import { AnnouncementService } from '../Services/announcement.service';
 import { AuthService } from '../Services/auth.service';
@@ -34,16 +34,41 @@ export class AnnouncementsPageComponent {
   categories: any[] = [];
 
   constructor(
-    private _authService: AuthService,
-    private _router: Router,
-    private _announcementService: AnnouncementService,
-    private _categoryService: CategoryService
+    private readonly _authService: AuthService,
+    private readonly _router: Router,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _announcementService: AnnouncementService,
+    private readonly _categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
-    this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
-      this.announcements = ann;
-    });
+    const searchPredicate = this._activatedRoute.snapshot.queryParams['search'];
+    const categoryId = this._activatedRoute.snapshot.queryParams['category'];
+
+    // search predicate filter
+    if (searchPredicate) {
+      this._announcementService
+        .getAnnouncementBySearchPredicate(searchPredicate)
+        .subscribe((ann) => {
+          this.announcements = ann;
+        });
+    }
+
+    // category filter
+    else if (categoryId) {
+      this._announcementService
+        .getAnnouncementByCategoryId(categoryId)
+        .subscribe((ann) => {
+          this.announcements = ann;
+        });
+    }
+
+    // no filter (get all)
+    else {
+      this._announcementService.getAllAnnouncements().subscribe((ann) => {
+        this.announcements = ann;
+      });
+    }
 
     this._categoryService.getAllCategories().subscribe((cat) => {
       this.categories = cat;

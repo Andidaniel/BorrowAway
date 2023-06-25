@@ -26,7 +26,7 @@ namespace BorrowAwayAPI
                                               {
                                                   options.TokenValidationParameters = new TokenValidationParameters
                                                   {
-                                                      ClockSkew= TimeSpan.FromSeconds(5),
+                                                      ClockSkew = TimeSpan.FromSeconds(5),
                                                       ValidateIssuerSigningKey = true,
                                                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                                                         .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
@@ -39,15 +39,17 @@ namespace BorrowAwayAPI
 
             builder.Services.AddDbContext<BorrowAwayDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("BAConnectionString"));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("BAConnectionString"));
+
             });
             builder.Services.AddTransient<IAuthService, AuthService>();
-            builder.Services.AddTransient<IValidationService,ValidationService>();
+            builder.Services.AddTransient<IValidationService, ValidationService>();
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<IAnnouncementService, AnnouncementService>();
             builder.Services.AddTransient<IRequestService, RequestService>();
 
             var app = builder.Build();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
