@@ -10,5 +10,6 @@ namespace BorrowAwayAPI.Services.Interfaces
         Task<AnnouncementDTO> GetAnnouncementById(int id);
         Task<string> GetPosterNameById(Guid userId);
         Task<List<AnnouncementDTO>> GetAllAnnouncementsByUserIdAsync(Guid userId);
+        Task<List<AnnouncementDTO>> GetAllAnnouncementsByCategory(int categoryId);
     }
 }

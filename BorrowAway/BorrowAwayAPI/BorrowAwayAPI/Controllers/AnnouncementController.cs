@@ -30,6 +30,7 @@ namespace BorrowAwayAPI.Controllers
 
             return BadRequest("ERROR_SAVING_ANNOUNCEMENT");
         }
+
         [Authorize]
         [HttpGet("GetLast/{n}")]
         public async Task<ActionResult<List<AnnouncementDTO>>> GetLastNAnnouncements(int n)
@@ -69,6 +70,13 @@ namespace BorrowAwayAPI.Controllers
             return NotFound();
         }
 
+        [Authorize]
+        [HttpGet("GetAllByCategoryId/{id}")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> GetAnnouncementsByCategory(int id)
+        {
+            List<AnnouncementDTO> announcements = await _announcementService.GetAllAnnouncementsByCategory(id);
+            return Ok(announcements);
+        }
 
     }
 }

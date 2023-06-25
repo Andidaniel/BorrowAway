@@ -96,6 +96,7 @@ namespace BorrowAwayAPI.Services
             }
             return announcementsToReturn;
         }
+
         public async Task<List<AnnouncementDTO>> GetLastNAnnouncementsAsync(int n)
         {
             List<Announcement> announcementsFromDb =  await _dbContext.Announcements.OrderBy(a=>a.CreationDate).ToListAsync();
@@ -126,6 +127,7 @@ namespace BorrowAwayAPI.Services
             }
             return announcementsToReturn;
         }
+
         public async Task<AnnouncementDTO> GetAnnouncementById(int id)
         {
             Announcement announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
@@ -155,6 +157,7 @@ namespace BorrowAwayAPI.Services
             else 
                 return null;
         }
+
         public async Task<string> GetPosterNameById(Guid userId)
         {
             AppUser user = _dbContext.Users.FirstOrDefault(u => u.Id == userId);
@@ -192,5 +195,36 @@ namespace BorrowAwayAPI.Services
 
             return announcementDTOs;
         }
-    }
+
+        public async Task<List<AnnouncementDTO>> GetAllAnnouncementsByCategory(int categoryId)
+        {
+            List<Announcement> announcementsFromDb = await _dbContext.Announcements.Where(a => a.CategoryId == categoryId).OrderBy(a=>a.CreationDate).ToListAsync();
+            List<AnnouncementDTO> announcementDTOs = new List<AnnouncementDTO>();
+            foreach (Announcement ann in announcementsFromDb)
+            {
+                AnnouncementDTO dtoToAdd = new AnnouncementDTO();
+                dtoToAdd.Id = ann.Id;
+                dtoToAdd.Title = ann.Title;
+                dtoToAdd.Description = ann.Description;
+                dtoToAdd.NumberOfImages = ann.NumberOfImages;
+                dtoToAdd.PricePerDay = ann.PricePerDay;
+                dtoToAdd.CreationDate = ann.CreationDate;
+                dtoToAdd.ContactMethod = ann.ContactMethod;
+                dtoToAdd.Location = ann.Location;
+                dtoToAdd.CategoryId = ann.CategoryId;
+                dtoToAdd.UserId = ann.UserId;
+                dtoToAdd.ImagesData = new List<string>();
+                for (int i = 0; i < ann.NumberOfImages; i++)
+                {
+                    string path = ann.ImagesDirectoryPath + $"\\{i}.png";
+                    byte[] imageArray = System.IO.File.ReadAllBytes(path);
+                    string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                    dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
+                }
+                announcementDTOs.Add(dtoToAdd);
+            }
+
+            return announcementDTOs;
+        }
+    } 
 }
