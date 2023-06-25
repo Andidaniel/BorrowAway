@@ -11,9 +11,12 @@ namespace BorrowAwayAPI.Controllers
     public class AnnouncementController : ControllerBase
     {
         private readonly IAnnouncementService _announcementService;
-        public AnnouncementController(IAnnouncementService announcementService)
+        private readonly IAuthService _authService;
+
+        public AnnouncementController(IAnnouncementService announcementService, IAuthService authService)
         {
             _announcementService = announcementService;
+            _authService = authService;
         }
 
         [Authorize]
@@ -66,10 +69,13 @@ namespace BorrowAwayAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetAllByUserId/{id}")]
-        public async Task<ActionResult<List<AnnouncementDTO>>> GetAnnouncementsByUserId(Guid id)
+        [HttpGet("GetAllByUserEmail")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> GetAnnouncementsByUserEmail()
         {
-            List<AnnouncementDTO> announcements = await _announcementService.GetAllAnnouncementsByUserIdAsync(id);
+            string userEmail = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)!.Value;
+            Guid userId = await _authService.GetUserIdByEmail(userEmail);
+
+            List<AnnouncementDTO> announcements = await _announcementService.GetAllAnnouncementsByUserIdAsync(userId);
             if (announcements.Count != 0)
             {
                 return Ok(announcements);
