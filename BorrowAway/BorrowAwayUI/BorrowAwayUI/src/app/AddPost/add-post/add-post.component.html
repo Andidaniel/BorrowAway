@@ -2,151 +2,153 @@
   [buttonsData]="buttonsData"
   (buttonClickedEvent)="buttonClickedEventReceived($event)"
 ></app-top-bar>
-<div class="form-container">
-  <div class="form-content">
-    <h2>Create Announcement</h2>
+<div class="page">
+  <div class="form-container">
+    <div class="form-content">
+      <h2>Create Announcement</h2>
 
-    <dx-text-box
-      class="form-input"
-      labelMode="floating"
-      label="Title"
-      [(ngModel)]="announcement.title"
-      valueChangeEvent="input"
-      (onInput)="calculateCreateButtonDisabled()"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required"> </dxi-validation-rule>
-      </dx-validator>
-    </dx-text-box>
+      <dx-text-box
+        class="form-input"
+        labelMode="floating"
+        label="Title"
+        [(ngModel)]="announcement.title"
+        valueChangeEvent="input"
+        (onInput)="calculateCreateButtonDisabled()"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required"> </dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
 
-    <dx-text-area
-      class="form-input"
-      height="150px"
-      labelMode="floating"
-      label="Description"
-      [(ngModel)]="announcement.description"
-      valueChangeEvent="input"
-      (onInput)="calculateCreateButtonDisabled()"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required">
-        </dxi-validation-rule> </dx-validator
-    ></dx-text-area>
+      <dx-text-area
+        class="form-input"
+        height="150px"
+        labelMode="floating"
+        label="Description"
+        [(ngModel)]="announcement.description"
+        valueChangeEvent="input"
+        (onInput)="calculateCreateButtonDisabled()"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required">
+          </dxi-validation-rule> </dx-validator
+      ></dx-text-area>
 
-    <dx-number-box
-      class="form-input"
-      labelMode="floating"
-      label="Price per Day ($)"
-      [(ngModel)]="announcement.pricePerDay"
-      valueChangeEvent="input"
-      (onInput)="calculateCreateButtonDisabled()"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required"> </dxi-validation-rule>
-        <dxi-validation-rule type="numeric" message="You must enter a number">
-        </dxi-validation-rule></dx-validator
-    ></dx-number-box>
+      <dx-number-box
+        class="form-input"
+        labelMode="floating"
+        label="Price per Day ($)"
+        [(ngModel)]="announcement.pricePerDay"
+        valueChangeEvent="input"
+        (onInput)="calculateCreateButtonDisabled()"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required"> </dxi-validation-rule>
+          <dxi-validation-rule type="numeric" message="You must enter a number">
+          </dxi-validation-rule></dx-validator
+      ></dx-number-box>
 
-    <dx-text-area
-      class="form-input"
-      labelMode="floating"
-      height="100px"
-      label="Contact Method"
-      [(ngModel)]="announcement.contactMethod"
-      valueChangeEvent="input"
-      (onInput)="calculateCreateButtonDisabled()"
-      placeholder="e.g: Phone number, Email"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required">
-        </dxi-validation-rule> </dx-validator
-    ></dx-text-area>
+      <dx-text-area
+        class="form-input"
+        labelMode="floating"
+        height="100px"
+        label="Contact Method"
+        [(ngModel)]="announcement.contactMethod"
+        valueChangeEvent="input"
+        (onInput)="calculateCreateButtonDisabled()"
+        placeholder="e.g: Phone number, Email"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required">
+          </dxi-validation-rule> </dx-validator
+      ></dx-text-area>
 
-    <dx-text-box
-      class="form-input"
-      labelMode="floating"
-      label="Location"
-      [(ngModel)]="announcement.location"
-      valueChangeEvent="input"
-      (onInput)="calculateCreateButtonDisabled()"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required">
-        </dxi-validation-rule> </dx-validator
-    ></dx-text-box>
-    <dx-select-box
-      class="form-input"
-      labelMode="floating"
-      label="Category"
-      [dataSource]="categorySelectBoxData"
-      displayExpr="title"
-      valueExpr="id"
-      (onValueChanged)="onCategorySelected($event)"
-      valueChangeEvent="input"
-      (onValueChanged)="calculateCreateButtonDisabled()"
-    >
-      <dx-validator>
-        <dxi-validation-rule type="required">
-        </dxi-validation-rule> </dx-validator
-    ></dx-select-box>
+      <dx-text-box
+        class="form-input"
+        labelMode="floating"
+        label="Location"
+        [(ngModel)]="announcement.location"
+        valueChangeEvent="input"
+        (onInput)="calculateCreateButtonDisabled()"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required">
+          </dxi-validation-rule> </dx-validator
+      ></dx-text-box>
+      <dx-select-box
+        class="form-input"
+        labelMode="floating"
+        label="Category"
+        [dataSource]="categorySelectBoxData"
+        displayExpr="title"
+        valueExpr="id"
+        (onValueChanged)="onCategorySelected($event)"
+        valueChangeEvent="input"
+        (onValueChanged)="calculateCreateButtonDisabled()"
+      >
+        <dx-validator>
+          <dxi-validation-rule type="required">
+          </dxi-validation-rule> </dx-validator
+      ></dx-select-box>
 
-    <!-- Images Data Input omitted for now -->
-    <h3>Images (max. 3):</h3>
-    <dx-file-uploader
-      #fileUploader
-      accept="image/jpg, image/jpeg, image/png"
-      uploadMode="instanly"
-      [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-      (onValueChanged)="onImage1Uploaded($event)"
-    ></dx-file-uploader>
-    <img
-      class="annoncement-picture"
-      *ngIf="image1Preview"
-      [src]="image1Preview"
-    />
-    <dx-file-uploader
-      #fileUploader
-      accept="image/jpg, image/jpeg, image/png"
-      uploadMode="instanly"
-      [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-      (onValueChanged)="onImage2Uploaded($event)"
-    ></dx-file-uploader>
-    <img
-      class="annoncement-picture"
-      *ngIf="image2Preview"
-      [src]="image2Preview"
-    />
-    <dx-file-uploader
-      #fileUploader
-      accept="image/jpg, image/jpeg, image/png"
-      uploadMode="instanly"
-      [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
-      (onValueChanged)="onImage3Uploaded($event)"
-    ></dx-file-uploader>
-    <img
-      class="annoncement-picture"
-      *ngIf="image3Preview"
-      [src]="image3Preview"
-    />
+      <!-- Images Data Input omitted for now -->
+      <h3>Images (max. 3):</h3>
+      <dx-file-uploader
+        #fileUploader
+        accept="image/jpg, image/jpeg, image/png"
+        uploadMode="instanly"
+        [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+        (onValueChanged)="onImage1Uploaded($event)"
+      ></dx-file-uploader>
+      <img
+        class="annoncement-picture"
+        *ngIf="image1Preview"
+        [src]="image1Preview"
+      />
+      <dx-file-uploader
+        #fileUploader
+        accept="image/jpg, image/jpeg, image/png"
+        uploadMode="instanly"
+        [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+        (onValueChanged)="onImage2Uploaded($event)"
+      ></dx-file-uploader>
+      <img
+        class="annoncement-picture"
+        *ngIf="image2Preview"
+        [src]="image2Preview"
+      />
+      <dx-file-uploader
+        #fileUploader
+        accept="image/jpg, image/jpeg, image/png"
+        uploadMode="instanly"
+        [allowedFileExtensions]="['.jpg', '.jpeg', '.png']"
+        (onValueChanged)="onImage3Uploaded($event)"
+      ></dx-file-uploader>
+      <img
+        class="annoncement-picture"
+        *ngIf="image3Preview"
+        [src]="image3Preview"
+      />
 
-    <div class="button-container">
-      <dx-button text="Back" [stylingMode]="'contained'" [type]="'default'">
-      </dx-button>
-      <dx-button
-        [disabled]="createButtonDisabled"
-        text="Create"
-        [stylingMode]="'contained'"
-        [type]="'success'"
-        (click)="onCreateButtonClick()"
-      ></dx-button>
+      <div class="button-container">
+        <dx-button text="Back" [stylingMode]="'contained'" [type]="'default'">
+        </dx-button>
+        <dx-button
+          [disabled]="createButtonDisabled"
+          text="Create"
+          [stylingMode]="'contained'"
+          [type]="'success'"
+          (click)="onCreateButtonClick()"
+        ></dx-button>
+      </div>
     </div>
   </div>
+  <dx-toast
+    [(visible)]="toastVisible"
+    [message]="toastMessage"
+    [type]="toastType"
+    height="50px"
+    width="auto"
+    style="align-items: center"
+  ></dx-toast>
 </div>
-<dx-toast
-  [(visible)]="toastVisible"
-  [message]="toastMessage"
-  [type]="toastType"
-  height="50px"
-  width="auto"
-  style="align-items: center"
-></dx-toast>
