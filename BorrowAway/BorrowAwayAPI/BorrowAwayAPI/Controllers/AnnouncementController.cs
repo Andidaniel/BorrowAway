@@ -92,8 +92,8 @@ namespace BorrowAwayAPI.Controllers
         }
 
         [Authorize]
-        [HttpPost("SearchAnnouncements")]
-        public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromBody] string searchText){
+        [HttpGet("SearchAnnouncements")]
+        public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromQuery] string searchText){
             List<AnnouncementDTO> result =await _announcementService.GetAllAnnouncementsBySearchText(searchText);
             if (result.Count != 0)
             {
