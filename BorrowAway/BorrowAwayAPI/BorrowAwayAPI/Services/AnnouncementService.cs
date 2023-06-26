@@ -287,6 +287,7 @@ namespace BorrowAwayAPI.Services
         public async Task<bool> DeleteAnnouncementAsync(int id)
         {
             var announcementToDelete = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
+            Directory.Delete(announcementToDelete.ImagesDirectoryPath,true);
             _dbContext.Announcements.Remove(announcementToDelete);
             return await _dbContext.SaveChangesAsync() > 0;
         }
