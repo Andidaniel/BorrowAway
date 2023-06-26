@@ -20,19 +20,3 @@
   padding-bottom: 40px;
   margin-top: 20px;
 }
-
-.empty-announcements {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  &-icon {
-    width: 256px;
-  }
-
-  &-text {
-    color: $primary;
-    text-align: center;
-  }
-}

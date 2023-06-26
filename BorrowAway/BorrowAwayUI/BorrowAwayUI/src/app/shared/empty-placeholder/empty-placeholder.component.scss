@@ -1,0 +1,17 @@
+@import "src/colors";
+
+.empty-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &-icon {
+    width: 256px;
+  }
+
+  &-text {
+    color: $primary;
+    text-align: center;
+  }
+}
