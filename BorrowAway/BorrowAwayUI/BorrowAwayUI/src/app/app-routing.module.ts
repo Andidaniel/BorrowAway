@@ -8,6 +8,7 @@ import { AddAnnouncementComponent } from './pages/add-announcement/add-announcem
 import { ViewAnnouncementComponent } from './pages/view-announcement/view-announcement.component';
 import { AnnouncementsPageComponent } from './pages/announcements-page/announcements-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { EditAnnouncementComponent } from './pages/edit-announcement/edit-announcement.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [AuthGuard],
     component: ProfilePageComponent,
+  },
+  {
+    path: 'editAnnouncement/:id',
+    canActivate:[AuthGuard],
+    component:EditAnnouncementComponent,
   },
   {
     path: 'listItem',

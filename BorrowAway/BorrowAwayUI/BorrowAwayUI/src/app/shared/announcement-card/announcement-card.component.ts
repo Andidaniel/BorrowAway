@@ -64,11 +64,10 @@ export class AnnouncementCardComponent {
     return;
   }
 
-  onEdit() {
+  onEdit(id: number) {
     if (this.editable === false) return;
 
-    console.log('EDIT');
-    // TODO
+    this._router.navigateByUrl('editAnnouncement/'+id);
   }
 
   onDelete() {

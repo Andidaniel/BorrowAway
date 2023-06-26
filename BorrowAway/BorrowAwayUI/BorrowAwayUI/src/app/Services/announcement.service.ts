@@ -14,16 +14,6 @@ export class AnnouncementService {
     responseType: 'text',
   };
 
-  public postImage(imgAsBase64: any): Observable<HttpEvent<string>> {
-    const formData = new FormData();
-    formData.append('file', imgAsBase64, imgAsBase64.name);
-
-    return this.http.post<string>(
-      this._apiEndpoint + '/Test',
-      formData,
-      this._options
-    );
-  }
   public postAnnouncement(
     announcement: Announcement
   ): Observable<HttpEvent<string>> {
@@ -33,23 +23,38 @@ export class AnnouncementService {
       this._options
     );
   }
+
+  public updateAnnouncement(
+    announcemnent: Announcement
+  ): Observable<HttpEvent<string>> {
+    return this.http.put<string>(
+      this._apiEndpoint + '/UpdateAnnouncement',
+      announcemnent,
+      this._options
+    );
+  }
+
   public getAllAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this._apiEndpoint + '/GetAll');
   }
+
   public getLastSixAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(this._apiEndpoint + '/GetLast' + '/6');
   }
+
   public getAnnouncementById(id: number): Observable<Announcement> {
     return this.http.get<Announcement>(
       this._apiEndpoint + '/GetById' + '/' + id
     );
   }
+
   public getUserNameById(id: string): Observable<HttpEvent<string>> {
     return this.http.get<string>(
       this._apiEndpoint + '/GetUserName/' + id,
       this._options
     );
   }
+
   public getAnnouncementByCategoryId(
     categoryId: number
   ): Observable<Announcement[]> {
@@ -57,6 +62,7 @@ export class AnnouncementService {
       this._apiEndpoint + '/GetAllByCategoryId/' + categoryId
     );
   }
+
   public getAnnouncementBySearchPredicate(
     searchPredicate: string
   ): Observable<Announcement[]> {
@@ -64,11 +70,13 @@ export class AnnouncementService {
       this._apiEndpoint + `/SearchAnnouncements?searchText=${searchPredicate}`
     );
   }
+
   public getAllUserAnnouncements(): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(
       this._apiEndpoint + '/GetAllByUserEmail'
     );
   }
+
   public deleteAnnouncement(id: number): Observable<HttpEvent<string>> {
     return this.http.delete<string>(
       this._apiEndpoint + '/DeleteAnnouncement/' + id,
