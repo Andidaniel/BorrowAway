@@ -1,4 +1,7 @@
-<div (click)="onViewAnnouncementClick(announcement.id!)" class="card">
+<div
+  (click)="editable === false ? onView(announcement.id!) : undefined"
+  class="card"
+>
   <div class="card-title">
     <b>{{ announcement.title }}</b>
   </div>
@@ -18,8 +21,56 @@
     Posted: <b>{{ announcement.creationDate | date : "dd-MM-yyyy" }}</b>
   </div>
   <div class="price">${{ announcement.pricePerDay }} / day</div>
-  <div class="goto-button">
+
+  <!-- Buttons -->
+  <div
+    [ngClass]="{ 'view-only': !editable, 'view-button': true }"
+    (click)="editable ? onView(announcement.id) : undefined"
+  >
     <span class="material-icons-outlined">visibility</span>
     View Announcement
   </div>
+  <div *ngIf="editable" class="action-buttons">
+    <div (click)="onDelete()" class="delete-button">
+      <span class="material-icons-outlined">delete</span>
+      Delete
+    </div>
+    <div (click)="onEdit()" class="edit-button">
+      <span class="material-icons-outlined">edit</span>
+      Edit
+    </div>
+  </div>
+
+  <!-- Delete Popup -->
+  <dx-popup
+    [width]="300"
+    [height]="200"
+    [showTitle]="true"
+    title="Delete Announcement"
+    [dragEnabled]="false"
+    [hideOnOutsideClick]="true"
+    [showCloseButton]="false"
+    container=".dx-viewport"
+    [(visible)]="deletePopupVisible"
+  >
+    <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="before"
+      [options]="deleteButtonOptions"
+    >
+    </dxi-toolbar-item>
+    <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="after"
+      [options]="closeButtonOptions"
+    >
+    </dxi-toolbar-item>
+    <div *dxTemplate="let data of 'content'">
+      Are you sure you want to delete your announcement for "{{
+        announcement.title
+      }}"?
+    </div>
+  </dx-popup>
 </div>

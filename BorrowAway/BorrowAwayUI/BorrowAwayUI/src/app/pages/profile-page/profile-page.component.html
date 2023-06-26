@@ -1,0 +1,61 @@
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  ></app-top-bar>
+
+  <!-- Profile Header -->
+  <div class="profile-container">
+    <img
+      class="profile-container-decoration"
+      src="/assets/images/objects1.png"
+    />
+    <div class="profile">
+      <img class="profile-icon" src="/assets/images/profile-icon.png" />
+      <div class="profile-data">
+        <span class="profile-welcome">Welcome back</span>
+        <span class="profile-data-name">{{ userName }}</span>
+        <span class="profile-data-email">{{ userEmail }}</span>
+      </div>
+    </div>
+    <img
+      class="profile-container-decoration"
+      src="/assets/images/objects2.png"
+    />
+  </div>
+
+  <hr />
+
+  <!-- My Announcements -->
+  <div class="card-container">
+    <h1 class="card-container-title">Your Announcements</h1>
+    <app-announcement-card
+      [announcement]="announcement"
+      [categories]="categories"
+      [editable]="true"
+      (deletedEvent)="onAnnouncementDelete($event)"
+      (errorEvent)="onDeleteError($event)"
+      *ngFor="let announcement of userAnnouncements"
+    />
+
+    <!-- No Announcements -->
+    <app-empty-placeholder
+      *ngIf="!userAnnouncements || userAnnouncements.length === 0"
+    >
+      <span class="empty-announcements-text">
+        You currently have no active announcements <br />
+        Create one from the <a routerLink="/listItem">List Item</a> menu
+      </span>
+    </app-empty-placeholder>
+  </div>
+
+  <!-- Toast -->
+  <dx-toast
+    [(visible)]="toastVisible"
+    [message]="toastMessage"
+    [type]="toastType"
+    height="50px"
+    width="auto"
+    style="align-items: center"
+  ></dx-toast>
+</div>

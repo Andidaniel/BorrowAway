@@ -1,0 +1,22 @@
+@import "src/colors";
+
+.announcements-title {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.announcements-subtitle {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: $primary;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 40px;
+  margin-top: 20px;
+}

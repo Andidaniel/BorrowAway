@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Announcement } from '../Models/announcement';
+import { Announcement } from '../models/announcement';
 
 @Injectable({
   providedIn: 'root',
@@ -62,6 +62,17 @@ export class AnnouncementService {
   ): Observable<Announcement[]> {
     return this.http.get<Announcement[]>(
       this._apiEndpoint + `/SearchAnnouncements?searchText=${searchPredicate}`
+    );
+  }
+  public getAllUserAnnouncements(): Observable<Announcement[]> {
+    return this.http.get<Announcement[]>(
+      this._apiEndpoint + '/GetAllByUserEmail'
+    );
+  }
+  public deleteAnnouncement(id: number): Observable<HttpEvent<string>> {
+    return this.http.delete<string>(
+      this._apiEndpoint + '/DeleteAnnouncement/' + id,
+      this._options
     );
   }
 }

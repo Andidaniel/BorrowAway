@@ -6,8 +6,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RegisterUser } from '../Models/register-user';
-import { LoginUser } from '../Models/login-user';
+import { RegisterUser } from '../models/register-user';
+import { LoginUser } from '../models/login-user';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient,private _router:Router) {}
+  constructor(private http: HttpClient, private _router: Router) {}
 
   private _apiEndpoint: string = 'https://localhost:8080/Auth';
   private _options: any = {
@@ -40,10 +40,10 @@ export class AuthService {
       this._options
     );
   }
-  public logoutUser():Observable<HttpEvent<string>>{
+  public logoutUser(): Observable<HttpEvent<string>> {
     return this.http.post<string>(
-      this._apiEndpoint+'/Logout',
-      "",
+      this._apiEndpoint + '/Logout',
+      '',
       this._options
     );
   }
@@ -62,6 +62,18 @@ export class AuthService {
     } else {
       localStorage.clear();
       return false;
+    }
+  }
+  public getUserData(): any {
+    let token: string | null = localStorage.getItem('token');
+    if (token != null) {
+      const decodedToken: any = jwtDecode(token);
+      return {
+        name: decodedToken.name,
+        email: decodedToken.email,
+      };
+    } else {
+      return null;
     }
   }
 }

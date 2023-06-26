@@ -1,0 +1,58 @@
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  ></app-top-bar>
+
+  <div class="page-container">
+    <div class="mainContainer">
+      <!-- View All Banner Button -->
+      <div (click)="goToAnnouncements(null)" class="view-all">
+        <!-- <img class="view-all-image" src="/assets/images/all-items.jpg" alt="" /> -->
+        <div class="view-all-text">
+          <span class="icon material-icons-outlined">grid_view</span>
+          <span>View All Announcements</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bar-div">
+        <dx-text-box
+          class="search-bar"
+          placeholder="Search for an Announcement"
+          [(ngModel)]="searchBoxText"
+        >
+        </dx-text-box>
+        <dx-button
+          (click)="goToAnnouncements(null, searchBoxText)"
+          class="search-button"
+          type="default"
+        >
+          <span class="material-icons-outlined">search</span>
+          Search</dx-button
+        >
+      </div>
+
+      <!-- Categories -->
+      <div class="categories-container">
+        <span class="categories-container-title">Categories:</span>
+        <span
+          *ngFor="let category of categories"
+          (click)="goToAnnouncements(category.id)"
+          class="category"
+          >{{ category.title }}</span
+        >
+      </div>
+
+      <!-- Latest Announcements -->
+      <div class="card-container">
+        <h1 class="card-container-title">Latest Announcements</h1>
+        <app-announcement-card
+          [announcement]="announcement"
+          [categories]="categories"
+          *ngFor="let announcement of announcements"
+        />
+      </div>
+    </div>
+  </div>
+</div>

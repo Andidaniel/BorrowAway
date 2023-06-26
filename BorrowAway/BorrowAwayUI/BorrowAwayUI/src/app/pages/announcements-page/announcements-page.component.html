@@ -1,0 +1,25 @@
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  ></app-top-bar>
+
+  <!-- Title -->
+  <h1 class="announcements-title">Announcements</h1>
+  <h3 class="announcements-subtitle">{{ filterStatus }} {{ filterValue }}</h3>
+
+  <!-- Announcements -->
+  <div class="card-container">
+    <app-announcement-card
+      [announcement]="announcement"
+      [categories]="categories"
+      *ngFor="let announcement of announcements"
+    />
+  </div>
+
+  <!-- No Announcements -->
+  <app-empty-placeholder *ngIf="!announcements || announcements.length === 0">
+    No Announcements Found <br />
+    <a routerLink="/home">Go Back</a>
+  </app-empty-placeholder>
+</div>
