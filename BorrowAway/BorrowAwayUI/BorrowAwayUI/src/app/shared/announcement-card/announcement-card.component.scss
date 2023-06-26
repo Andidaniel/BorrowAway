@@ -26,7 +26,7 @@
     cursor: pointer;
     border: 1px solid #8d1e1e;
 
-    & .goto-button {
+    & .view-button.view-only {
       background-color: #fff0f0;
       border-radius: 4px;
     }
@@ -69,18 +69,75 @@
   font-size: 24px;
 }
 
-.goto-button {
-  margin-top: 10%;
+.view-button {
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  flex: 2;
+
   width: 100%;
+  height: 30px;
   font-family: Exo2Regular;
   font-weight: bold;
   -webkit-user-select: none;
   user-select: none;
-  height: 30px;
-  transition: background-color 0.3s ease;
   color: #8d1e1e;
+
+  padding: 5px 0;
+  border-radius: 4px;
+
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #fff0f0;
+    border-radius: 4px;
+  }
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  margin-top: 10px;
+
+  .edit-button,
+  .delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+
+    padding: 5px;
+    border-radius: 4px;
+
+    transition: background-color 0.3s ease;
+
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  .edit-button {
+    color: #cd9000;
+
+    &:hover {
+      background-color: #cd90002e;
+    }
+  }
+
+  .delete-button {
+    color: #f44336;
+
+    &:hover {
+      background-color: #f443362e;
+    }
+  }
 }

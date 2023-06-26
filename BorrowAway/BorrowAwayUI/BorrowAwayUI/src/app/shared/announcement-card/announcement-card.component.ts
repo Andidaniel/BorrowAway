@@ -10,6 +10,7 @@ export class AnnouncementCardComponent {
   @Input() announcement: any;
   @Input() categories: any[] = [];
   @Input() clickFunction: any;
+  @Input() editable: boolean = false;
 
   constructor(private _router: Router) {}
 
@@ -18,8 +19,22 @@ export class AnnouncementCardComponent {
     return category ? category.title : '';
   }
 
-  onViewAnnouncementClick(id: number) {
+  onView(id: number) {
     this._router.navigateByUrl('announcement/' + id);
     return;
+  }
+
+  onEdit() {
+    if (this.editable === false) return;
+
+    console.log('EDIT');
+    // TODO
+  }
+
+  onDelete() {
+    if (this.editable === false) return;
+
+    console.log('DELETE');
+    // TODO
   }
 }
