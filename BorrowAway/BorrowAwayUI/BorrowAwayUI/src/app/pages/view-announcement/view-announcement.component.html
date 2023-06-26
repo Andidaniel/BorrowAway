@@ -74,6 +74,7 @@
           [(value)]="startDate"
           [min]="minStartDate"
           [disabledDates]="unavailableDates"
+          (onValueChanged)="onDatesChange()"
         >
         </dx-date-box>
         <br />
@@ -83,10 +84,13 @@
           [(value)]="endDate"
           [min]="startDate"
           [disabledDates]="unavailableDates"
+          (onValueChanged)="onDatesChange()"
         >
         </dx-date-box>
 
-        <div class="borrow-popup-total"><strong> Total:</strong> $10000</div>
+        <div class="borrow-popup-total">
+          Total Price: <strong>${{ totalPrice }}</strong>
+        </div>
       </div>
     </div>
   </dx-popup>

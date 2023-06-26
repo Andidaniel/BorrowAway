@@ -20,6 +20,7 @@ export class ViewAnnouncementComponent implements OnInit {
   public minStartDate: Date = new Date();
   public startDate: Date | string | number = new Date();
   public endDate: Date | string | number;
+  public totalPrice: number = 0;
 
   public currentAnnouncement: Announcement = {
     id: null,
@@ -135,6 +136,16 @@ export class ViewAnnouncementComponent implements OnInit {
       });
   }
 
+  public onDatesChange() {
+    if (!this.startDate || !this.endDate) return;
+
+    let days = this.getDaysBetweenDates(
+      this.startDate as Date,
+      this.endDate as Date
+    );
+    this.totalPrice = days * this.currentAnnouncement.pricePerDay!;
+  }
+
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {
       this._authService.logoutUser().subscribe({
@@ -156,5 +167,28 @@ export class ViewAnnouncementComponent implements OnInit {
       this._router.navigateByUrl(redirectUrl);
       return;
     }
+  }
+
+  private getDaysBetweenDates(startDate: Date, endDate: Date): number {
+    // Convert both dates to UTC to ensure accurate calculations
+    const utcStartDate = Date.UTC(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    );
+    const utcEndDate = Date.UTC(
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      endDate.getDate()
+    );
+
+    // Calculate the number of milliseconds between the two dates
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    const timeDifference = Math.abs(utcEndDate - utcStartDate);
+
+    // Calculate the number of days by dividing the time difference by milliseconds per day
+    const days = Math.floor(timeDifference / millisecondsPerDay);
+
+    return days;
   }
 }
