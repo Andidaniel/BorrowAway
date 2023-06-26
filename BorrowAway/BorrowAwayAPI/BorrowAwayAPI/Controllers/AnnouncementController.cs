@@ -93,7 +93,8 @@ namespace BorrowAwayAPI.Controllers
 
         [Authorize]
         [HttpGet("SearchAnnouncements")]
-        public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromQuery] string searchText){
+        public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromQuery] string searchText)
+        {
             List<AnnouncementDTO> result = await _announcementService.GetAllAnnouncementsBySearchText(searchText);
             if (result.Count != 0)
             {
@@ -102,7 +103,29 @@ namespace BorrowAwayAPI.Controllers
             return NotFound();
         }
 
+        [Authorize]
+        [HttpGet("UpdateAnnouncement")]
+        public async Task<ActionResult<string>> UpdateAnnouncement([FromBody] AnnouncementDTO announcementDTO)
+        {
+            bool result = await _announcementService.UpdateAnnouncement(announcementDTO);
+            if (result == true)
+            {
+                return Ok("Updated");
+            }
+            return NotFound("Not Found");
+        }
 
+        [Authorize]
+        [HttpDelete("DeleteAnnouncement/{id}")]
+        public async Task<ActionResult<string>> DeleteAnnouncemnet(int id)
+        {
+            bool result = await _announcementService.DeleteAnnouncementAsync(id);
+            if(result == true)
+            {
+                return Ok("Deleted");
+            }
+            return NotFound("Not Found");
+        }
 
     }
 }

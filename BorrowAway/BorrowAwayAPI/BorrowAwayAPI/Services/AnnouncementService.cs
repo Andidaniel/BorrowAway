@@ -61,10 +61,6 @@ namespace BorrowAwayAPI.Services
 
             _dbContext.Announcements.Add(announcementToSave);
             return await _dbContext.SaveChangesAsync() > 0;
-
-
-
-
         }
 
         public async Task<List<AnnouncementDTO>> GetAllAnnouncementsAsync()
@@ -273,6 +269,26 @@ namespace BorrowAwayAPI.Services
             }
 
             return announcementDTOs;
+        }
+
+        public async Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO)
+        {
+            Announcement? announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == announcementDTO.Id);
+
+            announcementFromDb.Title = announcementDTO.Title;
+            announcementFromDb.PricePerDay = announcementDTO.PricePerDay;
+            announcementFromDb.Description = announcementDTO.Description;
+            announcementFromDb.ContactMethod = announcementDTO.ContactMethod;
+
+            _dbContext.Announcements.Update(announcementFromDb);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteAnnouncementAsync(int id)
+        {
+            var announcementToDelete = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
+            _dbContext.Announcements.Remove(announcementToDelete);
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }
