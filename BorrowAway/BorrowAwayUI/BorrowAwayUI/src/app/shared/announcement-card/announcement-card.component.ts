@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnnouncementService } from 'src/app/Services/announcement.service';
+import { AnnouncementService } from 'src/app/services/announcement.service';
 import { Output, EventEmitter } from '@angular/core';
-import { Announcement } from 'src/app/Models/announcement';
+import { Announcement } from 'src/app/models/announcement';
 
 @Component({
   selector: 'app-announcement-card',

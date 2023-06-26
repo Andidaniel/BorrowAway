@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Announcement } from 'src/app/Models/announcement';
-import { ButtonData } from 'src/app/Models/button-data';
-import { Category } from 'src/app/Models/category';
-import { AnnouncementService } from 'src/app/Services/announcement.service';
-import { AuthService } from 'src/app/Services/auth.service';
-import { CategoryService } from 'src/app/Services/category.service';
+import { Announcement } from 'src/app/models/announcement';
+import { ButtonData } from 'src/app/models/button-data';
+import { Category } from 'src/app/models/category';
+import { AnnouncementService } from 'src/app/services/announcement.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-home-page',

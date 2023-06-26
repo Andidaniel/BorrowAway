@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ButtonData } from '../Models/button-data';
-import { Announcement } from '../Models/announcement';
+import { ButtonData } from '../../models/button-data';
+import { Announcement } from '../../models/announcement';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AnnouncementService } from '../Services/announcement.service';
-import { AuthService } from '../Services/auth.service';
-import { CategoryService } from '../Services/category.service';
+import { AnnouncementService } from '../../services/announcement.service';
+import { AuthService } from '../../services/auth.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-profile-page',

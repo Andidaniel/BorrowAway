@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ButtonData } from '../Models/button-data';
-import { AnnouncementService } from '../Services/announcement.service';
-import { AuthService } from '../Services/auth.service';
-import { CategoryService } from '../Services/category.service';
-import { Announcement } from '../Models/announcement';
+import { ButtonData } from '../../models/button-data';
+import { AnnouncementService } from '../../services/announcement.service';
+import { AuthService } from '../../services/auth.service';
+import { CategoryService } from '../../services/category.service';
+import { Announcement } from '../../models/announcement';
 
 @Component({
   selector: 'app-announcements-page',

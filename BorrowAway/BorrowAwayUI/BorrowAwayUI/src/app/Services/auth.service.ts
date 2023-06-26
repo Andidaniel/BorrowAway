@@ -6,8 +6,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RegisterUser } from '../Models/register-user';
-import { LoginUser } from '../Models/login-user';
+import { RegisterUser } from '../models/register-user';
+import { LoginUser } from '../models/login-user';
 import jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 

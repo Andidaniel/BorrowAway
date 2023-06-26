@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DxFormComponent } from 'devextreme-angular';
 import ArrayStore from 'devextreme/data/array_store';
-import { Announcement } from 'src/app/Models/announcement';
-import { ButtonData } from 'src/app/Models/button-data';
-import { AnnouncementService } from 'src/app/Services/announcement.service';
-import { AuthService } from 'src/app/Services/auth.service';
-import { CategoryService } from 'src/app/Services/category.service';
-import { ErrorHandlingService } from 'src/app/Services/error-handling.service';
+import { Announcement } from 'src/app/models/announcement';
+import { ButtonData } from 'src/app/models/button-data';
+import { AnnouncementService } from 'src/app/services/announcement.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
   selector: 'app-add-post',
