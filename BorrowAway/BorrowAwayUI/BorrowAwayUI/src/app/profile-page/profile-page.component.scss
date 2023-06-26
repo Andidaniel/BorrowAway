@@ -1,3 +1,5 @@
+@import "src/colors";
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -22,12 +24,12 @@
   }
 
   &-text {
-    color: #8d1e1e;
+    color: $primary;
   }
 }
 
 .profile-welcome {
-  color: #8d1e1e;
+  color: $primary;
   font-style: italic;
 }
 
@@ -51,7 +53,7 @@
     justify-content: center;
 
     padding: 20px;
-    border: 1px solid #8d1e1e;
+    border: 1px solid $primary;
     border-radius: 4px;
     max-width: 640px;
     min-width: 280px;

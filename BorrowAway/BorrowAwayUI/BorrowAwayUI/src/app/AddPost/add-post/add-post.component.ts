@@ -193,7 +193,7 @@ export class AddPostComponent implements OnInit {
   public toastVisible: boolean = false;
 
   private showCreatedAnnouncementMessage(): void {
-    this.toastMessage = 'Announcement created successfully';
+    this.toastMessage = 'Announcement created successfully. Redirecting...';
     this.toastType = 'success';
     this.toastVisible = true;
   }
