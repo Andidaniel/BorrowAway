@@ -72,7 +72,7 @@ namespace BorrowAwayAPI.Controllers
         [HttpPut("ApproveRequest/{id}")]
         public async Task<ActionResult<string>> ApproveRequest(int id)
         {
-            var approveResult = await _requestService.DenyRequest(id);
+            var approveResult = await _requestService.ApproveRequest(id);
             if (approveResult == true)
             {
                 return Ok("Approved");

@@ -39,7 +39,7 @@ namespace BorrowAwayAPI.Services
 
         }
 
-        public async Task<bool> DenyRequest(int requestId)
+        public async Task<bool> ApproveRequest(int requestId)
         {
             var request = _dbContext.BorrowRequests.FirstOrDefault(r => r.Id == requestId);
             request!.Status = "Approved";

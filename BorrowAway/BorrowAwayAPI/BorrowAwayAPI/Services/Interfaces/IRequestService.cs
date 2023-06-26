@@ -8,7 +8,7 @@ namespace BorrowAwayAPI.Services.Interfaces
         Task<List<DateTime>> GetDisabledDatesForAnnouncement(int announcementId);
         Task<List<RequestViewDTO>> GetAllRequestsForLoggedInUser(Guid userId);
         Task<List<RequestViewDTO>> GetAllRequestsMadeByLoggedInUser(Guid userId);
-        Task<bool> DenyRequest(int requestId);
+        Task<bool> ApproveRequest(int requestId);
         Task<bool> DenyRequest(int requestId);
     }
 }
