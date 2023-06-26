@@ -13,6 +13,50 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./view-announcement.component.scss'],
 })
 export class ViewAnnouncementComponent implements OnInit {
+  public unavailableDates: Date[] = [];
+  public categoryName: string = '';
+  public posterName: string = '';
+
+  public minStartDate: Date = new Date();
+  public startDate: Date | string | number = new Date();
+  public endDate: Date | string | number;
+
+  public currentAnnouncement: Announcement = {
+    id: null,
+    title: null,
+    description: null,
+    numberOfImages: null,
+    pricePerDay: null,
+    creationDate: new Date(),
+    contactMethod: null,
+    location: null,
+    categoryId: null,
+    userId: null,
+    imagesData: [],
+  };
+
+  buttonsData: ButtonData[] = [
+    {
+      buttonText: 'Home Page',
+      redirectUrl: 'home',
+      iconName: 'home',
+    },
+    {
+      buttonText: 'Profile',
+      redirectUrl: 'profile',
+      iconName: 'account_circle',
+    },
+    {
+      buttonText: 'Log Out',
+      redirectUrl: '',
+      iconName: 'logout',
+    },
+  ];
+
+  borrowPopupVisible: boolean = false;
+  borrowButtonOptions: any;
+  closeButtonOptions: any;
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _announcementService: AnnouncementService,
@@ -20,7 +64,26 @@ export class ViewAnnouncementComponent implements OnInit {
     private _authService: AuthService,
     private _requestService: BorrowRequestService,
     private _router: Router
-  ) {}
+  ) {
+    const that = this;
+
+    this.borrowButtonOptions = {
+      icon: 'cart',
+      text: 'Borrow',
+      onClick(e: any) {
+        // TODO
+      },
+    };
+
+    this.closeButtonOptions = {
+      icon: 'remove',
+      text: 'Close',
+      onClick(e: any) {
+        that.borrowPopupVisible = false;
+      },
+    };
+  }
+
   ngOnInit(): void {
     this.currentAnnouncement.id = this._activatedRoute.snapshot.params['id'];
     this._announcementService
@@ -44,8 +107,6 @@ export class ViewAnnouncementComponent implements OnInit {
                     )
                   );
                 });
-
-                console.log(this.unavailableDates);
               },
             });
 
@@ -73,44 +134,6 @@ export class ViewAnnouncementComponent implements OnInit {
         },
       });
   }
-  public unavailableDates: Date[] = [];
-  public categoryName: string = '';
-  public posterName: string = '';
-
-  public minStartDate: Date = new Date();
-  public startDate: Date | string | number = new Date();
-  public endDate: Date | string | number;
-
-  public currentAnnouncement: Announcement = {
-    id: null,
-    title: null,
-    description: null,
-    numberOfImages: null,
-    pricePerDay: null,
-    creationDate: new Date(),
-    contactMethod: null,
-    location: null,
-    categoryId: null,
-    userId: null,
-    imagesData: [],
-  };
-  buttonsData: ButtonData[] = [
-    {
-      buttonText: 'Home Page',
-      redirectUrl: 'home',
-      iconName: 'home',
-    },
-    {
-      buttonText: 'Profile',
-      redirectUrl: 'profile',
-      iconName: 'account_circle',
-    },
-    {
-      buttonText: 'Log Out',
-      redirectUrl: '',
-      iconName: 'logout',
-    },
-  ];
 
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {

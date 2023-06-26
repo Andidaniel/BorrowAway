@@ -1,60 +1,89 @@
 <div class="app-container">
+  <!-- Top Bar -->
   <app-top-bar
     [buttonsData]="buttonsData"
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
   >
   </app-top-bar>
-  <div class="mainContainer">
-    <div class="announcement-container">
-      <div class="carousel-container">
-        <dx-gallery
-          [dataSource]="currentAnnouncement.imagesData"
-          width="600px"
-          height="400px"
-          [loop]="true"
-          [showNavButtons]="true"
-          [showIndicator]="true"
-          noDataText="No images provided"
-          [stretchImages]="false"
-          [loop]="false"
-        ></dx-gallery>
-        <h2 class="announcement-title">{{ currentAnnouncement.title }}</h2>
-        <p class="announcement-description">
+
+  <!-- Announcement Card -->
+  <div class="announcement-container">
+    <div class="product-img">
+      <img [src]="image" *ngFor="let image of currentAnnouncement.imagesData" />
+    </div>
+    <div class="product-info">
+      <div class="product-text">
+        <h1>{{ currentAnnouncement.title }}</h1>
+        <h2>
+          <span class="material-icons-outlined"> category </span>
+          {{ categoryName }}
+        </h2>
+        <h2>
+          <span class="material-icons-outlined"> account_circle </span>
+          {{ posterName }}
+        </h2>
+        <p>
           {{ currentAnnouncement.description }}
         </p>
       </div>
-      <div class="announcement-details">
+      <div class="product-price-btn">
         <p>
-          <strong>Creation Date:</strong>
-          {{ currentAnnouncement.creationDate | date : "dd-MM-yyyy" }}
+          $<span>{{ currentAnnouncement.pricePerDay }}</span> / day
         </p>
-        <pre><strong>Contact:</strong> {{ currentAnnouncement.contactMethod }}
-        </pre>
-        <p>
-          <strong>Price per Day:</strong>
-          {{ currentAnnouncement.pricePerDay }}
-        </p>
-        <p><strong>Posted By:</strong> {{ posterName }}</p>
-        <p><strong>Category:</strong> {{ categoryName }}</p>
-        <p>
-          <strong>Reserve From: </strong>
-          <dx-date-box
-            type="date"
-            [(value)]="startDate"
-            [min]="minStartDate"
-            [disabledDates]="unavailableDates"
-          >
-          </dx-date-box>
-          <strong> To:</strong>
-          <dx-date-box
-            type="date"
-            [(value)]="endDate"
-            [min]="startDate"
-            [disabledDates]="unavailableDates"
-          >
-          </dx-date-box>
-        </p>
+        <button (click)="borrowPopupVisible = true" type="button">
+          Borrow
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- Borrow Popup -->
+  <dx-popup
+    [width]="300"
+    [height]="'auto'"
+    [showTitle]="true"
+    title="Borrow Item"
+    [dragEnabled]="false"
+    [hideOnOutsideClick]="true"
+    [showCloseButton]="false"
+    container=".dx-viewport"
+    [(visible)]="borrowPopupVisible"
+  >
+    <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="before"
+      [options]="borrowButtonOptions"
+    >
+    </dxi-toolbar-item>
+    <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="after"
+      [options]="closeButtonOptions"
+    >
+    </dxi-toolbar-item>
+    <div *dxTemplate="let data of 'content'">
+      When would you want to borrow "{{ currentAnnouncement.title }}"?
+      <br />
+      <p>
+        <strong>Reserve From: </strong>
+        <dx-date-box
+          type="date"
+          [(value)]="startDate"
+          [min]="minStartDate"
+          [disabledDates]="unavailableDates"
+        >
+        </dx-date-box>
+        <strong> To:</strong>
+        <dx-date-box
+          type="date"
+          [(value)]="endDate"
+          [min]="startDate"
+          [disabledDates]="unavailableDates"
+        >
+        </dx-date-box>
+      </p>
+    </div>
+  </dx-popup>
 </div>
