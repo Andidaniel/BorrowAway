@@ -10,5 +10,6 @@ namespace BorrowAwayAPI.Services.Interfaces
         Task<List<RequestViewDTO>> GetAllRequestsMadeByLoggedInUser(Guid userId);
         Task<bool> ApproveRequest(int requestId);
         Task<bool> DenyRequest(int requestId);
+        Task<bool> DeleteRequest(int requestId);
     }
 }

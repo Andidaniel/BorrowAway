@@ -94,5 +94,17 @@ namespace BorrowAwayAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, "Error");
         }
 
+        [Authorize]
+        [HttpDelete("DeleteRequest/{id}")]
+        public async Task<ActionResult<string>> DeleteRequest(int id)
+        {
+            var deleteResult = await _requestService.DeleteRequest(id);
+            if (deleteResult == true)
+            {
+                return Ok("Deleted");
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError,"Error");
+        }
+
     }
 }
