@@ -106,6 +106,14 @@
 
   transition: color 0.3s ease, border-color 0.3s ease;
 
+  @media (max-width: 680px) {
+    width: 80vw;
+
+    &-text::before {
+      width: 80vw !important;
+    }
+  }
+
   &:hover {
     color: white;
     border-color: $primary;
