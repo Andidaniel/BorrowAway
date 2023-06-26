@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AnnouncementService } from '../../services/announcement.service';
 import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
+import { BorrowRequest } from 'src/app/models/borrow-request';
 
 @Component({
   selector: 'app-profile-page',
@@ -30,10 +31,13 @@ export class ProfilePageComponent {
     },
   ];
 
+  categories: any[] = [];
+
   userName: string = '?';
   userEmail: string = '?';
   userAnnouncements: Announcement[] = [];
-  categories: any[] = [];
+  userBorrowRequests: any[] = [];
+  userLendProposals: any[] = [];
 
   constructor(
     private readonly _authService: AuthService,
@@ -89,6 +93,16 @@ export class ProfilePageComponent {
       this._router.navigateByUrl(redirectUrl);
       return;
     }
+  }
+
+  // Profile Navbar
+  public readonly SUBPAGE_ANNOUNCEMENTS = 0;
+  public readonly SUBPAGE_BORROW = 1;
+  public readonly SUBPAGE_LEND = 2;
+  public currentSubpage = this.SUBPAGE_ANNOUNCEMENTS;
+
+  public navigateToSubpage(subpage: number) {
+    this.currentSubpage = subpage;
   }
 
   // Toast

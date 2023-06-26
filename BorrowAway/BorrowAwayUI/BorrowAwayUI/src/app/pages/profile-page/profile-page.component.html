@@ -1,4 +1,5 @@
 <div class="app-container">
+  <!-- Top Bar -->
   <app-top-bar
     [buttonsData]="buttonsData"
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
@@ -24,10 +25,42 @@
     />
   </div>
 
-  <hr />
+  <!-- Profile Navbar -->
+  <div class="profile-navbar">
+    <dx-button
+      (click)="navigateToSubpage(SUBPAGE_ANNOUNCEMENTS)"
+      [disabled]="currentSubpage === SUBPAGE_ANNOUNCEMENTS"
+      class="profile-navbar-button"
+      type="default"
+    >
+      <span class="material-icons-outlined">sell</span>
+      Announcements</dx-button
+    >
+    <dx-button
+      (click)="navigateToSubpage(SUBPAGE_BORROW)"
+      [disabled]="currentSubpage === SUBPAGE_BORROW"
+      class="profile-navbar-button"
+      type="default"
+    >
+      <span class="material-icons-outlined">request_quote</span>
+      Borrow Requests</dx-button
+    >
+    <dx-button
+      (click)="navigateToSubpage(SUBPAGE_LEND)"
+      [disabled]="currentSubpage === SUBPAGE_LEND"
+      class="profile-navbar-button"
+      type="default"
+    >
+      <span class="material-icons-outlined">payments</span>
+      Lend Proposals</dx-button
+    >
+  </div>
 
-  <!-- My Announcements -->
-  <div class="card-container">
+  <!-- 0. My Announcements -->
+  <div
+    class="card-container announcements"
+    *ngIf="currentSubpage === SUBPAGE_ANNOUNCEMENTS"
+  >
     <h1 class="card-container-title">Your Announcements</h1>
     <app-announcement-card
       [announcement]="announcement"
@@ -45,6 +78,59 @@
       <span class="empty-announcements-text">
         You currently have no active announcements <br />
         Create one from the <a routerLink="/listItem">List Item</a> menu
+      </span>
+    </app-empty-placeholder>
+  </div>
+
+  <!-- 1. My Borrow Requests -->
+  <div
+    class="card-container borrow-requests"
+    *ngIf="currentSubpage === SUBPAGE_BORROW"
+  >
+    <h1 class="card-container-title">Sent Borrow Requests</h1>
+    <!-- <app-announcement-card
+      *ngFor="let borrowRequest of userBorrowRequests"
+      [announcement]="announcement"
+      [categories]="categories"
+      [editable]="true"
+      (deletedEvent)="onAnnouncementDelete($event)"
+      (errorEvent)="onDeleteError($event)"
+    /> -->
+
+    <!-- No Requests -->
+    <app-empty-placeholder
+      *ngIf="!userBorrowRequests || userBorrowRequests.length === 0"
+    >
+      <span>
+        You have no active borrow requests <br />
+        Search for some announcements on the <a routerLink="/home">Home Page</a>
+      </span>
+    </app-empty-placeholder>
+  </div>
+
+  <!-- 2. My Lend Proposals -->
+  <div
+    class="card-container lend-proposals"
+    *ngIf="currentSubpage === SUBPAGE_LEND"
+  >
+    <h1 class="card-container-title">Received Lend Proposals</h1>
+    <!-- <app-announcement-card
+      *ngFor="let announcement of userAnnouncements"
+      [announcement]="announcement"
+      [categories]="categories"
+      [editable]="true"
+      (deletedEvent)="onAnnouncementDelete($event)"
+      (errorEvent)="onDeleteError($event)"
+    /> -->
+
+    <!-- No Proposals -->
+    <app-empty-placeholder
+      *ngIf="!userLendProposals || userLendProposals.length === 0"
+    >
+      <span class="empty-announcements-text">
+        You have no active lend proposals <br />
+        Wait for people to respond, or create some new announcements on the
+        <a routerLink="/listItem">List Item</a> page
       </span>
     </app-empty-placeholder>
   </div>

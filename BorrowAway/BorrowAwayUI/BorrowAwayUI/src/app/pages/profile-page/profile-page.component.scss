@@ -63,3 +63,26 @@
     }
   }
 }
+
+.profile-navbar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4vw;
+
+  width: 100%;
+  margin-top: 20px;
+
+  &-button {
+    background-color: $primary;
+    padding: 4px;
+
+    &:hover {
+      background-color: $primary-bright;
+    }
+
+    span {
+      margin-right: 5px;
+    }
+  }
+}
