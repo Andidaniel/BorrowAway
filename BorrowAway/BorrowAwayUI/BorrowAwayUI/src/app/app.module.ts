@@ -18,6 +18,7 @@ import {
   DxTextAreaModule,
   DxNumberBoxModule,
   DxGalleryModule,
+  DxDateBoxModule
 } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
@@ -59,6 +60,7 @@ import { AnnouncementCardComponent } from './shared/announcement-card/announceme
     DxTextAreaModule,
     DxNumberBoxModule,
     DxGalleryModule,
+    DxDateBoxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -4,54 +4,85 @@ import { Announcement } from 'src/app/Models/announcement';
 import { ButtonData } from 'src/app/Models/button-data';
 import { AnnouncementService } from 'src/app/Services/announcement.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { BorrowRequestService } from 'src/app/Services/borrow-request.service';
 import { CategoryService } from 'src/app/Services/category.service';
 
 @Component({
   selector: 'app-announcement',
   templateUrl: './announcement.component.html',
-  styleUrls: ['./announcement.component.scss']
+  styleUrls: ['./announcement.component.scss'],
 })
 export class AnnouncementComponent implements OnInit {
   constructor(
-    private _activatedRoute:ActivatedRoute,
-    private _announcementService:AnnouncementService,
-    private _categoryService:CategoryService,
-    private _authService:AuthService,
-    private _router:Router){}
+    private _activatedRoute: ActivatedRoute,
+    private _announcementService: AnnouncementService,
+    private _categoryService: CategoryService,
+    private _authService: AuthService,
+    private _requestService: BorrowRequestService,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
-    this.currentAnnouncement.id = this._activatedRoute.snapshot.params["id"];
-    this._announcementService.getAnnouncementById(this.currentAnnouncement.id!).subscribe({
-      next:(ann:any)=>{
-        this.currentAnnouncement = ann;
+    this.currentAnnouncement.id = this._activatedRoute.snapshot.params['id'];
+    this._announcementService
+      .getAnnouncementById(this.currentAnnouncement.id!)
+      .subscribe({
+        next: (ann: any) => {
+          this.currentAnnouncement = ann;
+          this._requestService
+            .getUnavailableDaysForAnnouncement(this.currentAnnouncement.id!)
+            .subscribe({
+              next: (dates: Date[]) => {
+                dates.forEach((d) => {
+                  const _date = new Date(d);
+                  this.unavailableDates.push(
+                    new Date(
+                      Date.UTC(
+                        _date.getFullYear(),
+                        _date.getMonth(),
+                        _date.getDate()
+                      )
+                    )
+                  );
+                });
 
-        this._categoryService.getCategoryById(this.currentAnnouncement.categoryId!).subscribe({
-          next:(cat:any)=>{
-            this.categoryName= cat.title;
-          },
-          error:(err:any)=>{
-            return '';
-          }
-        });
+                console.log(this.unavailableDates);
+              },
+            });
 
-        this._announcementService.getUserNameById(this.currentAnnouncement.userId!).subscribe({
-          next:(resp:any)=>{
-            this.posterName = resp.body;
-          }
-        })
+          this._categoryService
+            .getCategoryById(this.currentAnnouncement.categoryId!)
+            .subscribe({
+              next: (cat: any) => {
+                this.categoryName = cat.title;
+              },
+              error: (err: any) => {
+                return '';
+              },
+            });
 
-      },
-      error:(err:any)=>{
-        console.log(err);
-      }
-    });
-
+          this._announcementService
+            .getUserNameById(this.currentAnnouncement.userId!)
+            .subscribe({
+              next: (resp: any) => {
+                this.posterName = resp.body;
+              },
+            });
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
   }
+  public unavailableDates: Date[]=[];
+  public categoryName: string = '';
+  public posterName: string = '';
 
-  public categoryName:string ='';
-  public posterName:string = '';
+  public minStartDate: Date = new Date();
+  public startDate:Date | string | number =new Date();
+  public endDate:Date | string | number ;
 
-  public currentAnnouncement:Announcement =  {
-    id:null,
+  public currentAnnouncement: Announcement = {
+    id: null,
     title: null,
     description: null,
     numberOfImages: null,
@@ -99,10 +130,15 @@ export class AnnouncementComponent implements OnInit {
       this._router.navigateByUrl(redirectUrl);
       return;
     } else if (redirectUrl == 'editProfile') {
-      console.log("EditProfile clicked");
+      console.log('EditProfile clicked');
 
       return;
     }
+  }
+
+  public logChanges(){
+    console.log(this.startDate);
+
   }
 
 }

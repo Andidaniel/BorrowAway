@@ -28,7 +28,7 @@ namespace BorrowAwayAPI.Services
             announcementToSave.Location = announcementToAdd.Location;
             announcementToSave.CategoryId = announcementToAdd.CategoryId;
             announcementToSave.UserId = _dbContext.Users.First(u => u.Email.Equals(userEmail)).Id;
-            string downloadDirectory = @$".{Path.DirectorySeparatorChar}Image{Path.DirectorySeparatorChar}" + userEmail + "{Path.DirectorySeparatorChar}" + Guid.NewGuid();
+            string downloadDirectory = $".{Path.DirectorySeparatorChar}Images{Path.DirectorySeparatorChar}" + userEmail + $"{Path.DirectorySeparatorChar}" + Guid.NewGuid();
             Directory.CreateDirectory(downloadDirectory);
             announcementToSave.ImagesDirectoryPath = downloadDirectory;
 
