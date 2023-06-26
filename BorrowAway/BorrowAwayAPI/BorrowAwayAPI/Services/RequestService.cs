@@ -39,6 +39,74 @@ namespace BorrowAwayAPI.Services
 
         }
 
+        public async Task<bool> DenyRequest(int requestId)
+        {
+            var request = _dbContext.BorrowRequests.FirstOrDefault(r => r.Id == requestId);
+            request!.Status = "Approved";
+            _dbContext.Update(request);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DenyRequest(int requestId)
+        {
+            var request = _dbContext.BorrowRequests.FirstOrDefault(r => r.Id == requestId);
+            request!.Status = "Denied";
+            _dbContext.Update(request);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<List<RequestViewDTO>> GetAllRequestsForLoggedInUser(Guid userId)
+        {
+            List<Announcement> announcementsCreatedByUser = await _dbContext.Announcements.Where(a => a.UserId.Equals(userId)).Include(a => a.BorrowRequests).ToListAsync();
+            List<RequestViewDTO> requests = new List<RequestViewDTO>();
+            foreach (var announcement in announcementsCreatedByUser)
+            {
+                if (announcement.BorrowRequests.Count != 0)
+                {
+                    foreach (BorrowRequest request in announcement.BorrowRequests)
+                    {
+                        RequestViewDTO requestToAdd = new RequestViewDTO();
+                        requestToAdd.AnnouncementTitle = announcement.Title;
+                        requestToAdd.Status = request.Status;
+                        requestToAdd.Id = request.Id;
+                        requestToAdd.StartDate = request.StartDate;
+                        requestToAdd.EndDate = request.EndDate;
+                        requestToAdd.Requester = (await _dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(request.UserId)))!.FirstName;
+                        requests.Add(requestToAdd);
+                    }
+
+                }
+            }
+
+            return requests;
+        }
+
+        public async Task<List<RequestViewDTO>> GetAllRequestsMadeByLoggedInUser(Guid userId)
+        {
+            List<BorrowRequest> requests = await _dbContext.BorrowRequests
+                .Where(r => r.UserId.Equals(userId))
+                .Include(r => r.User)
+                .Include(r => r.Announcement)
+                .ThenInclude(a => a.User)
+                .ToListAsync();
+
+            List<RequestViewDTO> requestsToReturn = new List<RequestViewDTO>();
+            foreach (var request in requests)
+            {
+                RequestViewDTO requestToAdd = new RequestViewDTO();
+                requestToAdd.Id = request.Id;
+                requestToAdd.StartDate = request.StartDate;
+                requestToAdd.Status = request.Status;
+                requestToAdd.EndDate = request.EndDate;
+                requestToAdd.AnnouncementTitle = request.Announcement.Title;
+                requestToAdd.Requester = request.User.FirstName;
+                requestToAdd.Borrower = request.Announcement.User.FirstName;
+
+                requestsToReturn.Add(requestToAdd);
+            }
+            return requestsToReturn;
+        }
+
         public async Task<List<DateTime>> GetDisabledDatesForAnnouncement(int announcementId)
         {
             Announcement? result = await _dbContext.Announcements.Include(a => a.BorrowRequests).FirstOrDefaultAsync(a => a.Id == announcementId);
@@ -46,7 +114,7 @@ namespace BorrowAwayAPI.Services
 
             foreach (var request in result.BorrowRequests)
             {
-                if(request.Status == "Approved")
+                if (request.Status == "Approved")
                 {
                     DateTime currentDate = request.StartDate;
 
@@ -56,7 +124,7 @@ namespace BorrowAwayAPI.Services
                         currentDate = currentDate.AddDays(1);
                     }
                 }
-               
+
             }
 
             return daysInRange;
