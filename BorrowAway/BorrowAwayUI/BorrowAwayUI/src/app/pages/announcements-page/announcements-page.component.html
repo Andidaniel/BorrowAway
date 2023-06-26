@@ -16,4 +16,19 @@
       *ngFor="let announcement of announcements"
     />
   </div>
+
+  <!-- No Announcements -->
+  <div
+    class="empty-announcements"
+    *ngIf="!announcements || announcements.length === 0"
+  >
+    <img
+      class="empty-announcements-icon"
+      src="/assets/images/nothing-icon.png"
+    />
+    <span class="empty-announcements-text">
+      No Announcements Found <br />
+      <a routerLink="/home">Go Back</a>
+    </span>
+  </div>
 </div>
