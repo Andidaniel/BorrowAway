@@ -86,3 +86,138 @@
     }
   }
 }
+
+/// SUBPAGES
+.pending {
+  color: $warning;
+}
+
+.approved {
+  color: $success;
+}
+
+.denied {
+  color: $error;
+}
+
+// Borrow Subpage
+.borrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  &-request {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    height: 60px;
+    padding: 10px 20px;
+    border: 2px solid $primary;
+    border-radius: 4px;
+
+    &-icon {
+      color: $primary;
+      font-size: 48px;
+    }
+
+    &-information {
+      &-title,
+      &-subtitle {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      &-title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      &-subtitle {
+        .property {
+          display: flex;
+          align-items: center;
+
+          color: gray;
+          font-size: 14px;
+
+          span {
+            font-size: 13px;
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    &-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+}
+
+// Lend Subpage
+.lend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  &-opportunity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    height: 60px;
+    padding: 10px 20px;
+    border: 2px solid $primary;
+    border-radius: 4px;
+
+    &-icon {
+      color: $primary;
+      font-size: 48px;
+    }
+
+    &-information {
+      &-title,
+      &-subtitle {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      &-title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      &-subtitle {
+        .property {
+          display: flex;
+          align-items: center;
+
+          color: gray;
+          font-size: 14px;
+
+          span {
+            font-size: 13px;
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+
+    &-actions {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+}

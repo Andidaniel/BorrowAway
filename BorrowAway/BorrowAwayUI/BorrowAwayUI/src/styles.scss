@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "material-icons/iconfont/material-icons.css";
+@import "src/colors";
 
 html,
 body {
@@ -24,6 +25,62 @@ body {
   flex-direction: column;
   height: 100vh;
   font-family: Exo2Regular;
+}
+
+// Buttons
+.warning-button,
+.error-button,
+.success-button,
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+
+  padding: 5px;
+  border-radius: 4px;
+
+  transition: background-color 0.3s ease;
+
+  span {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.warning-button {
+  color: $warning;
+
+  &:hover {
+    background-color: $warning-transparent;
+  }
+}
+
+.success-button {
+  color: $success;
+
+  &:hover {
+    background-color: $success-transparent;
+  }
+}
+
+.primary-button {
+  color: $primary;
+
+  &:hover {
+    background-color: $primary-transparent;
+  }
+}
+
+.error-button {
+  color: $error;
+
+  &:hover {
+    background-color: $error-transparent;
+  }
 }
 
 @font-face {

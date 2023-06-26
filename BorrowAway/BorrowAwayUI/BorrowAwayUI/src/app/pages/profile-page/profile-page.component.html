@@ -52,15 +52,12 @@
       type="default"
     >
       <span class="material-icons-outlined">payments</span>
-      Lend Proposals</dx-button
+      Lend Opportunities</dx-button
     >
   </div>
 
   <!-- 0. My Announcements -->
-  <div
-    class="card-container announcements"
-    *ngIf="currentSubpage === SUBPAGE_ANNOUNCEMENTS"
-  >
+  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_ANNOUNCEMENTS">
     <h1 class="card-container-title">Your Announcements</h1>
     <app-announcement-card
       [announcement]="announcement"
@@ -83,19 +80,48 @@
   </div>
 
   <!-- 1. My Borrow Requests -->
-  <div
-    class="card-container borrow-requests"
-    *ngIf="currentSubpage === SUBPAGE_BORROW"
-  >
+  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_BORROW">
     <h1 class="card-container-title">Sent Borrow Requests</h1>
-    <!-- <app-announcement-card
-      *ngFor="let borrowRequest of userBorrowRequests"
-      [announcement]="announcement"
-      [categories]="categories"
-      [editable]="true"
-      (deletedEvent)="onAnnouncementDelete($event)"
-      (errorEvent)="onDeleteError($event)"
-    /> -->
+    <div class="borrow">
+      <div class="borrow-request" *ngFor="let request of userBorrowRequests">
+        <!-- Request Icon -->
+        <span class="borrow-request-icon material-icons-outlined"
+          >request_quote</span
+        >
+
+        <!-- Request Information -->
+        <div class="borrow-request-information">
+          <div class="borrow-request-information-title">
+            {{ request.announcementTitle }}
+            ({{ request.startDate | date }} - {{ request.endDate | date }})
+          </div>
+
+          <div class="borrow-request-information-subtitle">
+            <span class="property">
+              <span class="material-icons-outlined">account_circle</span>
+              {{ request.requester }}
+            </span>
+
+            <span class="property">
+              <span class="material-icons-outlined">currency_exchange</span>
+              {{ request.status }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Request Actions -->
+        <div class="borrow-request-actions">
+          <div (click)="onViewBorrowRequest(request)" class="primary-button">
+            <span class="material-icons-outlined">visibility</span>
+            View
+          </div>
+          <div (click)="onDeleteBorrowRequest(request)" class="error-button">
+            <span class="material-icons-outlined">delete</span>
+            Delete
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- No Requests -->
     <app-empty-placeholder
@@ -108,27 +134,66 @@
     </app-empty-placeholder>
   </div>
 
-  <!-- 2. My Lend Proposals -->
-  <div
-    class="card-container lend-proposals"
-    *ngIf="currentSubpage === SUBPAGE_LEND"
-  >
-    <h1 class="card-container-title">Received Lend Proposals</h1>
-    <!-- <app-announcement-card
-      *ngFor="let announcement of userAnnouncements"
-      [announcement]="announcement"
-      [categories]="categories"
-      [editable]="true"
-      (deletedEvent)="onAnnouncementDelete($event)"
-      (errorEvent)="onDeleteError($event)"
-    /> -->
+  <!-- 2. My Lend Opportunities -->
+  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_LEND">
+    <h1 class="card-container-title">Received Lend Opportunities</h1>
+    <div class="lend">
+      <div
+        class="lend-opportunity"
+        *ngFor="let opportunity of userBorrowRequests"
+      >
+        <!-- Request Icon -->
+        <span class="lend-opportunity-icon material-icons-outlined"
+          >payments</span
+        >
 
-    <!-- No Proposals -->
+        <!-- Request Information -->
+        <div class="lend-opportunity-information">
+          <div class="lend-opportunity-information-title">
+            {{ opportunity.announcementTitle }}
+            ({{ opportunity.startDate | date }} -
+            {{ opportunity.endDate | date }})
+          </div>
+
+          <div class="lend-opportunity-information-subtitle">
+            <span class="property">
+              <span class="material-icons-outlined">account_circle</span>
+              {{ opportunity.requester }}
+            </span>
+
+            <span class="property">
+              <span class="material-icons-outlined">currency_exchange</span>
+              {{ opportunity.status }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Request Actions -->
+        <div class="lend-opportunity-actions">
+          <div
+            (click)="onApproveLendOpportunity(opportunity)"
+            class="success-button"
+          >
+            <span class="material-icons-outlined">done</span>
+            Approve
+          </div>
+          <div
+            (click)="onDeleteBorrowRequest(opportunity)"
+            class="error-button"
+          >
+            <span class="material-icons-outlined">close</span>
+            Deny
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Opportunities -->
     <app-empty-placeholder
-      *ngIf="!userLendProposals || userLendProposals.length === 0"
+      *ngIf="!userLendOpportunities || userLendOpportunities.length === 0"
     >
       <span class="empty-announcements-text">
-        You have no active lend proposals <br />
+        You have no active lend opportunities <br />
         Wait for people to respond, or create some new announcements on the
         <a routerLink="/listItem">List Item</a> page
       </span>

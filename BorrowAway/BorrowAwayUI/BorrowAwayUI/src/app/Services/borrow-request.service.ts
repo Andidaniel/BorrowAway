@@ -35,4 +35,12 @@ export class BorrowRequestService {
       this._options
     );
   }
+
+  public getUserBorrowRequests(): Observable<any[]> {
+    return this.http.get<any[]>(this._apiEndpoint + `/GetRequestsMadeByUser`);
+  }
+
+  public getUserLendOpportunities(): Observable<any[]> {
+    return this.http.get<any[]>(this._apiEndpoint + `/GetRequestsForUser`);
+  }
 }

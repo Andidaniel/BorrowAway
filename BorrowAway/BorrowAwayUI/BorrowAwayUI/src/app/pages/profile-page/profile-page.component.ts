@@ -6,6 +6,7 @@ import { AnnouncementService } from '../../services/announcement.service';
 import { AuthService } from '../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
 import { BorrowRequest } from 'src/app/models/borrow-request';
+import { BorrowRequestService } from 'src/app/services/borrow-request.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -37,30 +38,41 @@ export class ProfilePageComponent {
   userEmail: string = '?';
   userAnnouncements: Announcement[] = [];
   userBorrowRequests: any[] = [];
-  userLendProposals: any[] = [];
+  userLendOpportunities: any[] = [];
 
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router,
+    private readonly _categoryService: CategoryService,
     private readonly _announcementService: AnnouncementService,
-    private readonly _categoryService: CategoryService
+    private readonly _borrowRequestService: BorrowRequestService
   ) {}
 
   ngOnInit(): void {
-    this._announcementService.getAllUserAnnouncements().subscribe((ann) => {
-      this.userAnnouncements = ann;
-    });
+    const userData = this._authService.getUserData();
+    this.userName = userData.name;
+    this.userEmail = userData.email;
 
     this._categoryService.getAllCategories().subscribe((cat) => {
       this.categories = cat;
     });
 
-    const userData = this._authService.getUserData();
-    this.userName = userData.name;
-    this.userEmail = userData.email;
+    this._announcementService.getAllUserAnnouncements().subscribe((ann) => {
+      this.userAnnouncements = ann;
+    });
+
+    this._borrowRequestService.getUserBorrowRequests().subscribe((requests) => {
+      this.userBorrowRequests = requests;
+    });
+
+    this._borrowRequestService
+      .getUserLendOpportunities()
+      .subscribe((opportunities) => {
+        this.userLendOpportunities = opportunities;
+      });
   }
 
-  onAnnouncementDelete(announcement: Announcement) {
+  public onAnnouncementDelete(announcement: Announcement) {
     let index = this.userAnnouncements.indexOf(announcement);
     if (index !== -1) {
       this.userAnnouncements.splice(index, 1);
@@ -68,8 +80,24 @@ export class ProfilePageComponent {
     }
   }
 
-  onDeleteError(errorMessage: string) {
+  public onDeleteError(errorMessage: string) {
     this.showErrorMessage(errorMessage);
+  }
+
+  public onViewBorrowRequest(request: any) {
+    // TODO
+  }
+
+  public onDeleteBorrowRequest(request: any) {
+    // TODO
+  }
+
+  public onApproveLendOpportunity(opportunity: any) {
+    // TODO
+  }
+
+  public onDennyLendOpportunity(opportunity: any) {
+    // TODO
   }
 
   public buttonClickedEventReceived(redirectUrl: string) {

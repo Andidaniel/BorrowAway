@@ -1,3 +1,4 @@
+@import "src/colors";
 
 .auth-container {
   min-width: 25vw;
@@ -12,27 +13,26 @@
 }
 
 @media (max-width: 1300px) {
-    .auth-container {
-      margin-right: 0;
-      width: 80vw;
-    }
+  .auth-container {
+    margin-right: 0;
+    width: 80vw;
+  }
 }
 
 @media (max-height: 850px) {
-    .auth-container {
-      .auth-header {
-        margin-top: 4vh;
-      }
-
-      .auth-form {
-        margin: 4vh 0;
-      }
-
-      .button-container {
-        margin-bottom: 4vh;
-      }
+  .auth-container {
+    .auth-header {
+      margin-top: 4vh;
     }
 
+    .auth-form {
+      margin: 4vh 0;
+    }
+
+    .button-container {
+      margin-bottom: 4vh;
+    }
+  }
 }
 
 .auth-header {
@@ -47,7 +47,7 @@
 
 .auth-title {
   width: 100%;
-  color: #fabc2a;
+  color: $warning;
   font-family: "Exo2Regular";
   font-weight: bold;
   font-size: x-large;
@@ -56,7 +56,7 @@
 .auth-subtitle {
   font-family: "Exo2Light";
   font-size: large;
-  color: #fabc2a;
+  color: $warning;
   justify-content: center;
   display: flex;
 }
@@ -73,7 +73,7 @@
 }
 
 .input-label {
-  color: #fabc2a;
+  color: $warning;
   font-weight: bold;
   font-family: "Exo2Regular";
 }
@@ -87,23 +87,22 @@
   margin-bottom: 10%;
 }
 
-.button-style{
+.button-style {
   width: 30%;
   height: 48px;
   font-weight: bold;
-  &:hover{
-    filter:contrast(125%);
+  &:hover {
+    filter: contrast(125%);
   }
-  &:active{
-    filter:contrast(75%);
+  &:active {
+    filter: contrast(75%);
   }
-  &.login{
+  &.login {
     color: aliceblue;
     background-color: #52d1dc;
   }
-  &.register{
-    background-color: #fabc2a;
+  &.register {
+    background-color: $warning;
     color: black;
   }
-
 }
