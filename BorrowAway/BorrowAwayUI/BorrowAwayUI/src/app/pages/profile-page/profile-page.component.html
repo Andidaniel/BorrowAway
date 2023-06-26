@@ -83,7 +83,15 @@
   <div class="card-container" *ngIf="currentSubpage === SUBPAGE_BORROW">
     <h1 class="card-container-title">Sent Borrow Requests</h1>
     <div class="borrow">
-      <div class="borrow-request" *ngFor="let request of userBorrowRequests">
+      <div
+        [ngClass]="{
+          pending: request.status === 'Pending',
+          approved: request.status === 'Approved',
+          denied: request.status === 'Denied',
+          'borrow-request': true
+        }"
+        *ngFor="let request of userBorrowRequests"
+      >
         <!-- Request Icon -->
         <span class="borrow-request-icon material-icons-outlined"
           >request_quote</span
@@ -115,7 +123,11 @@
             <span class="material-icons-outlined">visibility</span>
             View
           </div>
-          <div (click)="onDeleteBorrowRequest(request)" class="error-button">
+          <div
+            *ngIf="request.status !== 'Approved'"
+            (click)="onDeleteBorrowRequest(request)"
+            class="error-button"
+          >
             <span class="material-icons-outlined">delete</span>
             Delete
           </div>
@@ -139,8 +151,13 @@
     <h1 class="card-container-title">Received Lend Opportunities</h1>
     <div class="lend">
       <div
-        class="lend-opportunity"
-        *ngFor="let opportunity of userBorrowRequests"
+        [ngClass]="{
+          pending: opportunity.status === 'Pending',
+          approved: opportunity.status === 'Approved',
+          denied: opportunity.status === 'Denied',
+          'lend-opportunity': true
+        }"
+        *ngFor="let opportunity of userLendOpportunities"
       >
         <!-- Request Icon -->
         <span class="lend-opportunity-icon material-icons-outlined"
@@ -169,7 +186,10 @@
         </div>
 
         <!-- Request Actions -->
-        <div class="lend-opportunity-actions">
+        <div
+          *ngIf="opportunity.status === 'Pending'"
+          class="lend-opportunity-actions"
+        >
           <div
             (click)="onApproveLendOpportunity(opportunity)"
             class="success-button"
@@ -178,7 +198,7 @@
             Approve
           </div>
           <div
-            (click)="onDeleteBorrowRequest(opportunity)"
+            (click)="onDenyLendOpportunity(opportunity)"
             class="error-button"
           >
             <span class="material-icons-outlined">close</span>

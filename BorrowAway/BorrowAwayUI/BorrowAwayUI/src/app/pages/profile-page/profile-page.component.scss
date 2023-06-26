@@ -89,15 +89,30 @@
 
 /// SUBPAGES
 .pending {
-  color: $warning;
+  border-color: $warning !important;
+
+  .borrow-request-icon,
+  .lend-opportunity-icon {
+    color: $warning;
+  }
 }
 
 .approved {
-  color: $success;
+  border-color: $success !important;
+
+  .borrow-request-icon,
+  .lend-opportunity-icon {
+    color: $success;
+  }
 }
 
 .denied {
-  color: $error;
+  border-color: $error !important;
+
+  .borrow-request-icon,
+  .lend-opportunity-icon {
+    color: $error;
+  }
 }
 
 // Borrow Subpage

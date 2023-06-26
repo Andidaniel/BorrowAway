@@ -43,4 +43,31 @@ export class BorrowRequestService {
   public getUserLendOpportunities(): Observable<any[]> {
     return this.http.get<any[]>(this._apiEndpoint + `/GetRequestsForUser`);
   }
+
+  public deleteBorrowRequest(requestId: number): Observable<HttpEvent<string>> {
+    return this.http.delete<string>(
+      this._apiEndpoint + '/DeleteRequest/' + requestId,
+      this._options
+    );
+  }
+
+  public approveLendOpportunity(
+    opportunityId: number
+  ): Observable<HttpEvent<string>> {
+    return this.http.put<string>(
+      this._apiEndpoint + '/ApproveRequest/' + opportunityId,
+      {},
+      this._options
+    );
+  }
+
+  public denyLendOpportunity(
+    opportunityId: number
+  ): Observable<HttpEvent<string>> {
+    return this.http.put<string>(
+      this._apiEndpoint + '/DenyRequest/' + opportunityId,
+      {},
+      this._options
+    );
+  }
 }

@@ -85,19 +85,54 @@ export class ProfilePageComponent {
   }
 
   public onViewBorrowRequest(request: any) {
-    // TODO
+    this._router.navigateByUrl('announcement/' + request.announcementId);
   }
 
   public onDeleteBorrowRequest(request: any) {
-    // TODO
+    this._borrowRequestService.deleteBorrowRequest(request.id).subscribe({
+      next: () => {
+        let index = this.userBorrowRequests.indexOf(request);
+        if (index !== -1) {
+          this.userBorrowRequests.splice(index, 1);
+          this.showDeletedBorrowRequestMessage();
+        }
+      },
+      error: (err: any) => {
+        this.showErrorMessage(err.error);
+      },
+    });
   }
 
   public onApproveLendOpportunity(opportunity: any) {
-    // TODO
+    this._borrowRequestService
+      .approveLendOpportunity(opportunity.id)
+      .subscribe({
+        next: () => {
+          let index = this.userLendOpportunities.indexOf(opportunity);
+          if (index !== -1) {
+            this.userLendOpportunities[index].status = 'Approved';
+            this.showApproveMessage();
+          }
+        },
+        error: (err: any) => {
+          this.showErrorMessage(err.error);
+        },
+      });
   }
 
-  public onDennyLendOpportunity(opportunity: any) {
-    // TODO
+  public onDenyLendOpportunity(opportunity: any) {
+    this._borrowRequestService.denyLendOpportunity(opportunity.id).subscribe({
+      next: () => {
+        let index = this.userLendOpportunities.indexOf(opportunity);
+        if (index !== -1) {
+          this.userLendOpportunities[index].status = 'Denied';
+          this.showDenyMessage();
+        }
+      },
+      error: (err: any) => {
+        this.showErrorMessage(err.error);
+      },
+    });
   }
 
   public buttonClickedEventReceived(redirectUrl: string) {
@@ -139,7 +174,22 @@ export class ProfilePageComponent {
   public toastVisible: boolean = false;
 
   private showDeletedAnnouncementMessage(): void {
-    this.toastMessage = 'Announcement deleted successfully';
+    this.toastMessage = 'Announcement deleted';
+    this.toastType = 'success';
+    this.toastVisible = true;
+  }
+  private showDeletedBorrowRequestMessage(): void {
+    this.toastMessage = 'Borrow Request deleted';
+    this.toastType = 'success';
+    this.toastVisible = true;
+  }
+  private showApproveMessage(): void {
+    this.toastMessage = 'Lend Opportunity approved';
+    this.toastType = 'success';
+    this.toastVisible = true;
+  }
+  private showDenyMessage(): void {
+    this.toastMessage = 'Lend Opportunity denied';
     this.toastType = 'success';
     this.toastVisible = true;
   }

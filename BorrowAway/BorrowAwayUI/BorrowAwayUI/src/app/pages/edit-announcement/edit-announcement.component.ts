@@ -12,7 +12,7 @@ import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 @Component({
   selector: 'app-edit-announcement',
   templateUrl: './edit-announcement.component.html',
-  styleUrls: ['./edit-announcement.component.scss']
+  styleUrls: ['./edit-announcement.component.scss'],
 })
 export class EditAnnouncementComponent {
   constructor(
@@ -21,7 +21,7 @@ export class EditAnnouncementComponent {
     private _router: Router,
     private _categoryService: CategoryService,
     private _errorService: ErrorHandlingService,
-    private _activatedRoute:ActivatedRoute,
+    private _activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
     this._categoryService.getAllCategories().subscribe((cat) => {
@@ -31,16 +31,25 @@ export class EditAnnouncementComponent {
       });
     });
     this.announcement.id = this._activatedRoute.snapshot.params['id'];
-    this._announcementService.getAnnouncementById(this.announcement.id!).subscribe({
-      next:(ann:Announcement)=>{
-        this.announcement=ann;
-        this.image1Preview = this.announcement.imagesData[0]!=null ? this.announcement.imagesData[0]! : undefined;
-        this.image2Preview = this.announcement.imagesData[1]!=null ? this.announcement.imagesData[1]! : undefined;
-        this.image3Preview = this.announcement.imagesData[2]!=null ? this.announcement.imagesData[2]! : undefined;
-
-      }
-    })
-
+    this._announcementService
+      .getAnnouncementById(this.announcement.id!)
+      .subscribe({
+        next: (ann: Announcement) => {
+          this.announcement = ann;
+          this.image1Preview =
+            this.announcement.imagesData[0] != null
+              ? this.announcement.imagesData[0]!
+              : undefined;
+          this.image2Preview =
+            this.announcement.imagesData[1] != null
+              ? this.announcement.imagesData[1]!
+              : undefined;
+          this.image3Preview =
+            this.announcement.imagesData[2] != null
+              ? this.announcement.imagesData[2]!
+              : undefined;
+        },
+      });
   }
   @ViewChild('announcementForm', { static: false })
   announcementForm: DxFormComponent;
@@ -186,11 +195,11 @@ export class EditAnnouncementComponent {
     }
     this.announcement.numberOfImages = this.announcement.imagesData.length;
 
-    this._announcementService.postAnnouncement(this.announcement).subscribe({
+    this._announcementService.updateAnnouncement(this.announcement).subscribe({
       next: (response: any) => {
         this.showUpdatedAnnouncementMessage();
         setTimeout(() => {
-          this._router.navigateByUrl('home');
+          this._router.navigateByUrl('profile');
         }, 3000);
       },
       error: (err) => {
