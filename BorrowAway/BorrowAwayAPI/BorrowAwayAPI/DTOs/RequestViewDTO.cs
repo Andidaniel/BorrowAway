@@ -3,6 +3,7 @@
     public class RequestViewDTO
     {
         public int Id { get; set; }
+        public int? AnnouncementId { get; set; }
         public string? AnnouncementTitle { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

@@ -73,6 +73,8 @@ namespace BorrowAwayAPI.Services
                     foreach (BorrowRequest request in announcement.BorrowRequests)
                     {
                         RequestViewDTO requestToAdd = new RequestViewDTO();
+                        requestToAdd.AnnouncementId = request.AnnouncementId;
+
                         requestToAdd.AnnouncementTitle = announcement.Title;
                         requestToAdd.Status = request.Status;
                         requestToAdd.Id = request.Id;
@@ -101,6 +103,7 @@ namespace BorrowAwayAPI.Services
             foreach (var request in requests)
             {
                 RequestViewDTO requestToAdd = new RequestViewDTO();
+                requestToAdd.AnnouncementId = request.AnnouncementId;
                 requestToAdd.Id = request.Id;
                 requestToAdd.StartDate = request.StartDate;
                 requestToAdd.Status = request.Status;
