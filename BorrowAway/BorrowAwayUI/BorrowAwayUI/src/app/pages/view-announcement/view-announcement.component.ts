@@ -61,6 +61,7 @@ export class ViewAnnouncementComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _announcementService: AnnouncementService,
+    private _borrowRequestService: BorrowRequestService,
     private _categoryService: CategoryService,
     private _authService: AuthService,
     private _requestService: BorrowRequestService,
@@ -72,7 +73,20 @@ export class ViewAnnouncementComponent implements OnInit {
       icon: 'cart',
       text: 'Borrow',
       onClick(e: any) {
-        // TODO
+        that._borrowRequestService
+          .postBorrowRequest(
+            that.currentAnnouncement.id!,
+            that.startDate as Date,
+            that.endDate as Date
+          )
+          .subscribe({
+            next: (response: any) => {
+              that.onBorrowSuccess();
+            },
+            error: (err: any) => {
+              that.onBorrowError(err);
+            },
+          });
       },
     };
 
@@ -137,7 +151,10 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   public onDatesChange() {
-    if (!this.startDate || !this.endDate) return;
+    if (!this.startDate || !this.endDate) {
+      this.totalPrice = 0;
+      return;
+    }
 
     let days = this.getDaysBetweenDates(
       this.startDate as Date,
@@ -169,6 +186,16 @@ export class ViewAnnouncementComponent implements OnInit {
     }
   }
 
+  private onBorrowSuccess() {
+    this.borrowPopupVisible = false;
+    this.showBorrowSuccessMessage();
+  }
+
+  private onBorrowError(err: any) {
+    this.showBorrowErrorMessage(err.message);
+    console.error(err);
+  }
+
   private getDaysBetweenDates(startDate: Date, endDate: Date): number {
     // Convert both dates to UTC to ensure accurate calculations
     const utcStartDate = Date.UTC(
@@ -190,5 +217,21 @@ export class ViewAnnouncementComponent implements OnInit {
     const days = Math.floor(timeDifference / millisecondsPerDay);
 
     return days;
+  }
+
+  // Toast
+  public toastMessage: string = ' ';
+  public toastType: string = '';
+  public toastVisible: boolean = false;
+
+  private showBorrowSuccessMessage(): void {
+    this.toastMessage = 'Borrow request created';
+    this.toastType = 'success';
+    this.toastVisible = true;
+  }
+  private showBorrowErrorMessage(errorMessage: string): void {
+    this.toastMessage = errorMessage;
+    this.toastType = 'error';
+    this.toastVisible = true;
   }
 }

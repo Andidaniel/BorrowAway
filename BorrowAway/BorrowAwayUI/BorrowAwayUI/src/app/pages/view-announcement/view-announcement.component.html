@@ -55,6 +55,7 @@
       toolbar="bottom"
       location="before"
       [options]="borrowButtonOptions"
+      [disabled]="!startDate || !endDate"
     >
     </dxi-toolbar-item>
     <dxi-toolbar-item
@@ -94,4 +95,14 @@
       </div>
     </div>
   </dx-popup>
+
+  <!-- Toast -->
+  <dx-toast
+    [(visible)]="toastVisible"
+    [message]="toastMessage"
+    [type]="toastType"
+    height="50px"
+    width="auto"
+    style="align-items: center"
+  ></dx-toast>
 </div>
