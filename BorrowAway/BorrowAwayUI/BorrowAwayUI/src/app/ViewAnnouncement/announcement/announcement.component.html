@@ -19,23 +19,44 @@
           [loop]="false"
         ></dx-gallery>
         <h2 class="announcement-title">{{ currentAnnouncement.title }}</h2>
-        <p class="announcement-description">{{currentAnnouncement.description}}</p>
+        <p class="announcement-description">
+          {{ currentAnnouncement.description }}
+        </p>
       </div>
       <div class="announcement-details">
-
-          <p>
-            <strong>Creation Date:</strong>
-            {{ currentAnnouncement.creationDate | date:'dd-MM-yyyy'}}
-          </p>
-          <pre><strong>Contact:</strong> {{ currentAnnouncement.contactMethod }}
+        <p>
+          <strong>Creation Date:</strong>
+          {{ currentAnnouncement.creationDate | date : "dd-MM-yyyy" }}
+        </p>
+        <pre><strong>Contact:</strong> {{ currentAnnouncement.contactMethod }}
         </pre>
-          <p>
-            <strong>Price per Day:</strong>
-            {{ currentAnnouncement.pricePerDay }}
-          </p>
-          <p><strong>Posted By:</strong> {{ posterName }}</p>
-          <p><strong>Category:</strong> {{ categoryName}}</p>
-        </div>
+        <p>
+          <strong>Price per Day:</strong>
+          {{ currentAnnouncement.pricePerDay }}
+        </p>
+        <p><strong>Posted By:</strong> {{ posterName }}</p>
+        <p><strong>Category:</strong> {{ categoryName }}</p>
+        <p>
+          <strong>Reserve From: </strong>
+          <dx-date-box
+            type="date"
+            [(value)]="startDate"
+            [min]="minStartDate"
+            [disabledDates]="unavailableDates"
+            (onValueChanged)="logChanges()"
+          >
+          </dx-date-box>
+          <strong> To:</strong>
+          <dx-date-box
+            type="date"
+            [(value)]="endDate"
+            [min]="startDate"
+            [disabledDates]="unavailableDates"
+            (onValueChanged)="logChanges()"
+          >
+          </dx-date-box>
+        </p>
+      </div>
     </div>
   </div>
 </div>

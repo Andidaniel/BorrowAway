@@ -4,6 +4,7 @@ import { Announcement } from 'src/app/Models/announcement';
 import { ButtonData } from 'src/app/Models/button-data';
 import { AnnouncementService } from 'src/app/Services/announcement.service';
 import { AuthService } from 'src/app/Services/auth.service';
+import { BorrowRequestService } from 'src/app/Services/borrow-request.service';
 import { CategoryService } from 'src/app/Services/category.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class AnnouncementComponent implements OnInit {
     private _announcementService: AnnouncementService,
     private _categoryService: CategoryService,
     private _authService: AuthService,
+    private _requestService: BorrowRequestService,
     private _router: Router
   ) {}
   ngOnInit(): void {
@@ -26,6 +28,26 @@ export class AnnouncementComponent implements OnInit {
       .subscribe({
         next: (ann: any) => {
           this.currentAnnouncement = ann;
+          this._requestService
+            .getUnavailableDaysForAnnouncement(this.currentAnnouncement.id!)
+            .subscribe({
+              next: (dates: Date[]) => {
+                dates.forEach((d) => {
+                  const _date = new Date(d);
+                  this.unavailableDates.push(
+                    new Date(
+                      Date.UTC(
+                        _date.getFullYear(),
+                        _date.getMonth(),
+                        _date.getDate()
+                      )
+                    )
+                  );
+                });
+
+                console.log(this.unavailableDates);
+              },
+            });
 
           this._categoryService
             .getCategoryById(this.currentAnnouncement.categoryId!)
@@ -51,9 +73,13 @@ export class AnnouncementComponent implements OnInit {
         },
       });
   }
-
+  public unavailableDates: Date[] = [];
   public categoryName: string = '';
   public posterName: string = '';
+
+  public minStartDate: Date = new Date();
+  public startDate: Date | string | number = new Date();
+  public endDate: Date | string | number;
 
   public currentAnnouncement: Announcement = {
     id: null,

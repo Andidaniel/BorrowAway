@@ -28,7 +28,7 @@ namespace BorrowAwayAPI.Services
             announcementToSave.Location = announcementToAdd.Location;
             announcementToSave.CategoryId = announcementToAdd.CategoryId;
             announcementToSave.UserId = _dbContext.Users.First(u => u.Email.Equals(userEmail)).Id;
-            string downloadDirectory = @"./Images/" + userEmail + "/" + Guid.NewGuid();
+            string downloadDirectory = $".{Path.DirectorySeparatorChar}Images{Path.DirectorySeparatorChar}" + userEmail + $"{Path.DirectorySeparatorChar}" + Guid.NewGuid();
             Directory.CreateDirectory(downloadDirectory);
             announcementToSave.ImagesDirectoryPath = downloadDirectory;
 
@@ -61,10 +61,6 @@ namespace BorrowAwayAPI.Services
 
             _dbContext.Announcements.Add(announcementToSave);
             return await _dbContext.SaveChangesAsync() > 0;
-
-
-
-
         }
 
         public async Task<List<AnnouncementDTO>> GetAllAnnouncementsAsync()
@@ -87,7 +83,7 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -118,7 +114,7 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -147,7 +143,7 @@ namespace BorrowAwayAPI.Services
                 announcement.ImagesData = new List<string>();
                 for (int i = 0; i < announcementFromDb.NumberOfImages; i++)
                 {
-                    string path = announcementFromDb.ImagesDirectoryPath + $"/{i}.png";
+                    string path = announcementFromDb.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     announcement.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -185,7 +181,7 @@ namespace BorrowAwayAPI.Services
                 dtoToAdd.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -216,7 +212,7 @@ namespace BorrowAwayAPI.Services
                 dtoToAdd.ImagesData = new List<string>();
                 for (int i = 0; i < ann.NumberOfImages; i++)
                 {
-                    string path = ann.ImagesDirectoryPath + $"/{i}.png";
+                    string path = ann.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                     byte[] imageArray = System.IO.File.ReadAllBytes(path);
                     string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                     dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -263,7 +259,7 @@ namespace BorrowAwayAPI.Services
                     dtoToAdd.ImagesData = new List<string>();
                     for (int i = 0; i < ann.NumberOfImages; i++)
                     {
-                        string path = ann.ImagesDirectoryPath + $"/{i}.png";
+                        string path = ann.ImagesDirectoryPath + $"{Path.DirectorySeparatorChar}{i}.png";
                         byte[] imageArray = System.IO.File.ReadAllBytes(path);
                         string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                         dtoToAdd.ImagesData.Add("data:image/png;base64," + base64ImageRepresentation);
@@ -273,6 +269,26 @@ namespace BorrowAwayAPI.Services
             }
 
             return announcementDTOs;
+        }
+
+        public async Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO)
+        {
+            Announcement? announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == announcementDTO.Id);
+
+            announcementFromDb.Title = announcementDTO.Title;
+            announcementFromDb.PricePerDay = announcementDTO.PricePerDay;
+            announcementFromDb.Description = announcementDTO.Description;
+            announcementFromDb.ContactMethod = announcementDTO.ContactMethod;
+
+            _dbContext.Announcements.Update(announcementFromDb);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> DeleteAnnouncementAsync(int id)
+        {
+            var announcementToDelete = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == id);
+            _dbContext.Announcements.Remove(announcementToDelete);
+            return await _dbContext.SaveChangesAsync() > 0;
         }
     }
 }

@@ -18,6 +18,7 @@ import {
   DxTextAreaModule,
   DxNumberBoxModule,
   DxGalleryModule,
+  DxDateBoxModule
 } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
@@ -61,6 +62,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     DxTextAreaModule,
     DxNumberBoxModule,
     DxGalleryModule,
+    DxDateBoxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

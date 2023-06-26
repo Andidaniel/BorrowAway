@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BorrowAwayAPI.Migrations
 {
     [DbContext(typeof(BorrowAwayDbContext))]
-    [Migration("20230625223620_PostgresInitial")]
-    partial class PostgresInitial
+    [Migration("20230625234027_DB")]
+    partial class DB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
