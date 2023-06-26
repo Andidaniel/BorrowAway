@@ -133,3 +133,19 @@
     }
   }
 }
+
+.borrow-popup {
+  &-form {
+    margin: 20px 0;
+    background-color: $primary-transparent;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
+  &-total {
+    width: 100%;
+    text-align: center;
+    color: $primary;
+    margin-top: 20px;
+  }
+}

@@ -48,6 +48,7 @@
     [showCloseButton]="false"
     container=".dx-viewport"
     [(visible)]="borrowPopupVisible"
+    class="borrow-popup"
   >
     <dxi-toolbar-item
       widget="dxButton"
@@ -66,7 +67,7 @@
     <div *dxTemplate="let data of 'content'">
       When would you want to borrow "{{ currentAnnouncement.title }}"?
       <br />
-      <p>
+      <div class="borrow-popup-form">
         <strong>Reserve From: </strong>
         <dx-date-box
           type="date"
@@ -75,6 +76,7 @@
           [disabledDates]="unavailableDates"
         >
         </dx-date-box>
+        <br />
         <strong> To:</strong>
         <dx-date-box
           type="date"
@@ -83,7 +85,9 @@
           [disabledDates]="unavailableDates"
         >
         </dx-date-box>
-      </p>
+
+        <div class="borrow-popup-total"><strong> Total:</strong> $10000</div>
+      </div>
     </div>
   </dx-popup>
 </div>
