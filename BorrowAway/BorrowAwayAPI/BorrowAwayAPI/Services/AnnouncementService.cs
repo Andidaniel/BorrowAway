@@ -271,7 +271,7 @@ namespace BorrowAwayAPI.Services
             return announcementDTOs;
         }
 
-        public async Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO)
+        public async Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO, string userEmail)
         {
             Announcement? announcementFromDb = await _dbContext.Announcements.FirstOrDefaultAsync(a => a.Id == announcementDTO.Id);
 
@@ -279,6 +279,38 @@ namespace BorrowAwayAPI.Services
             announcementFromDb.PricePerDay = announcementDTO.PricePerDay;
             announcementFromDb.Description = announcementDTO.Description;
             announcementFromDb.ContactMethod = announcementDTO.ContactMethod;
+
+            Directory.Delete(announcementFromDb.ImagesDirectoryPath, true);
+
+            string downloadDirectory = $".{Path.DirectorySeparatorChar}Images{Path.DirectorySeparatorChar}" + userEmail + $"{Path.DirectorySeparatorChar}" + Guid.NewGuid();
+            Directory.CreateDirectory(downloadDirectory);
+            announcementFromDb.ImagesDirectoryPath = downloadDirectory;
+
+            if (announcementFromDb.NumberOfImages > 0)
+            {
+
+                int index = 0;
+                foreach (var img in announcementDTO.ImagesData)
+                {
+                    string uniqueFileName = index.ToString().ToLower() + ".png";
+                    index++;
+                    string filePath = Path.Combine(downloadDirectory, uniqueFileName);
+                    byte[] bytes = Convert.FromBase64String(
+                        img
+                        .Substring(
+                            img
+                            .LastIndexOf(',') + 1));
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        using (var memoryStream = new MemoryStream(bytes))
+                        {
+                            memoryStream.CopyTo(stream);
+                        }
+                    }
+                }
+
+            }
 
             _dbContext.Announcements.Update(announcementFromDb);
             return await _dbContext.SaveChangesAsync() > 0;

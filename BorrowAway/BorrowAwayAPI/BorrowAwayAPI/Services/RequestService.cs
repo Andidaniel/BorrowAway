@@ -47,6 +47,13 @@ namespace BorrowAwayAPI.Services
             return await _dbContext.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteRequest(int requestId)
+        {
+            BorrowRequest requestToDelete = await _dbContext.BorrowRequests.FirstOrDefaultAsync(r => r.Id == requestId);
+            _dbContext.BorrowRequests.Remove(requestToDelete);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> DenyRequest(int requestId)
         {
             var request = _dbContext.BorrowRequests.FirstOrDefault(r => r.Id == requestId);

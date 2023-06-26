@@ -12,7 +12,7 @@ namespace BorrowAwayAPI.Services.Interfaces
         Task<List<AnnouncementDTO>> GetAllAnnouncementsByCategory(int categoryId);
         Task<List<AnnouncementDTO>> GetAllAnnouncementsBySearchText(string searchText);
         Task<AnnouncementDTO> GetAnnouncementById(int id);
-        Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO);
+        Task<bool> UpdateAnnouncement(AnnouncementDTO announcementDTO, string userEmail);
         Task<bool> DeleteAnnouncementAsync(int id);
     }
 }

@@ -111,7 +111,18 @@ namespace BorrowAwayAPI.Controllers
         [HttpPut("UpdateAnnouncement")]
         public async Task<ActionResult<string>> UpdateAnnouncement([FromBody] AnnouncementDTO announcementDTO)
         {
-            bool result = await _announcementService.UpdateAnnouncement(announcementDTO);
+            
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+            var userId = await _authService.GetUserIdByEmail(userEmail);
+
+            if (userId != announcementDTO.UserId)
+            {
+                return Unauthorized();
+            }
+
+
+
+            bool result = await _announcementService.UpdateAnnouncement(announcementDTO, userEmail);
             if (result == true)
             {
                 return Ok("Updated");

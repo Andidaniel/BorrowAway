@@ -37,6 +37,7 @@ import { AnnouncementsPageComponent } from './pages/announcements-page/announcem
 import { AnnouncementCardComponent } from './shared/announcement-card/announcement-card.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { EmptyPlaceholderComponent } from './shared/empty-placeholder/empty-placeholder.component';
+import { EditAnnouncementComponent } from './pages/edit-announcement/edit-announcement.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EmptyPlaceholderComponent } from './shared/empty-placeholder/empty-plac
     AnnouncementCardComponent,
     ProfilePageComponent,
     EmptyPlaceholderComponent,
+    EditAnnouncementComponent,
   ],
   imports: [
     BrowserModule,
