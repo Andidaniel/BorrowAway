@@ -1,6 +1,9 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +21,9 @@ import {
   DxTextAreaModule,
   DxNumberBoxModule,
   DxGalleryModule,
-  DxDateBoxModule
+  DxDateBoxModule,
+  DxPopupModule,
+  DxTemplateModule,
 } from 'devextreme-angular';
 
 import { FormsModule } from '@angular/forms';
@@ -62,7 +67,9 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     DxTextAreaModule,
     DxNumberBoxModule,
     DxGalleryModule,
-    DxDateBoxModule
+    DxDateBoxModule,
+    DxPopupModule,
+    DxTemplateModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

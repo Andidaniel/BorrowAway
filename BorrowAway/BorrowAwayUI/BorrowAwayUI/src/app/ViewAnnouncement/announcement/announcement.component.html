@@ -43,7 +43,6 @@
             [(value)]="startDate"
             [min]="minStartDate"
             [disabledDates]="unavailableDates"
-            (onValueChanged)="logChanges()"
           >
           </dx-date-box>
           <strong> To:</strong>
@@ -52,7 +51,6 @@
             [(value)]="endDate"
             [min]="startDate"
             [disabledDates]="unavailableDates"
-            (onValueChanged)="logChanges()"
           >
           </dx-date-box>
         </p>

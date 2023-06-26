@@ -12,7 +12,27 @@ export class AnnouncementCardComponent {
   @Input() clickFunction: any;
   @Input() editable: boolean = false;
 
-  constructor(private _router: Router) {}
+  deletePopupVisible: boolean = false;
+  deleteButtonOptions: any;
+  closeButtonOptions: any;
+
+  constructor(private _router: Router) {
+    this.deleteButtonOptions = {
+      icon: 'trash',
+      text: 'Delete',
+      onClick(e: any) {
+        console.log('ANNOUNCEMENT DELETED'); // TODO
+      },
+    };
+    this.closeButtonOptions = {
+      icon: 'remove',
+      text: 'Cancel',
+      onClick(e: any) {
+        this.deletePopupVisible = false;
+        console.log(this.deletePopupVisible); // TODO
+      },
+    };
+  }
 
   getCategoryNameById(id: number): string {
     const category = this.categories.find((c) => c.id === id);
@@ -34,7 +54,7 @@ export class AnnouncementCardComponent {
   onDelete() {
     if (this.editable === false) return;
 
-    console.log('DELETE');
-    // TODO
+    this.deletePopupVisible = true;
+    console.log(this.deletePopupVisible);
   }
 }
