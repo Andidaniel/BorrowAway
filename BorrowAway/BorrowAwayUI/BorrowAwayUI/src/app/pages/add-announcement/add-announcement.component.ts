@@ -10,11 +10,11 @@ import { CategoryService } from 'src/app/services/category.service';
 import { ErrorHandlingService } from 'src/app/services/error-handling.service';
 
 @Component({
-  selector: 'app-add-post',
-  templateUrl: './add-post.component.html',
-  styleUrls: ['./add-post.component.scss'],
+  selector: 'app-add-announcement',
+  templateUrl: './add-announcement.component.html',
+  styleUrls: ['./add-announcement.component.scss'],
 })
-export class AddPostComponent implements OnInit {
+export class AddAnnouncementComponent implements OnInit {
   constructor(
     private _announcementService: AnnouncementService,
     private _authService: AuthService,

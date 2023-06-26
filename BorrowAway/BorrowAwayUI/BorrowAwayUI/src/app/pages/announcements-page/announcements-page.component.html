@@ -4,10 +4,12 @@
     (buttonClickedEvent)="buttonClickedEventReceived($event)"
   ></app-top-bar>
 
-  <!-- Latest Announcements -->
+  <!-- Title -->
+  <h1 class="announcements-title">Announcements</h1>
+  <h3 class="announcements-subtitle">{{ filterStatus }} {{ filterValue }}</h3>
+
+  <!-- Announcements -->
   <div class="card-container">
-    <h1 class="card-container-title">Announcements</h1>
-    <h3 class="card-container-subtitle">Filtered on: Masturbation</h3>
     <app-announcement-card
       [announcement]="announcement"
       [categories]="categories"

@@ -4,8 +4,8 @@ import { RequestsTestComponent } from './pages/auth-page/requests-test/requests-
 import { AuthComponent } from './pages/auth-page/auth/auth.component';
 import { AuthGuard, LoginPageGuard } from './guards/auth.guard';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { AddPostComponent } from './pages/add-post/add-post.component';
-import { AnnouncementComponent } from './pages/announcement/announcement.component';
+import { AddAnnouncementComponent } from './pages/add-announcement/add-announcement.component';
+import { ViewAnnouncementComponent } from './pages/view-announcement/view-announcement.component';
 import { AnnouncementsPageComponent } from './pages/announcements-page/announcements-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
@@ -33,12 +33,12 @@ const routes: Routes = [
   {
     path: 'listItem',
     canActivate: [AuthGuard],
-    component: AddPostComponent,
+    component: AddAnnouncementComponent,
   },
   {
     path: 'announcement/:id',
     canActivate: [AuthGuard],
-    component: AnnouncementComponent,
+    component: ViewAnnouncementComponent,
   },
   {
     path: '**',

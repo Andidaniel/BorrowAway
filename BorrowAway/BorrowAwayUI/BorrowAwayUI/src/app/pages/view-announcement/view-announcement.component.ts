@@ -9,10 +9,10 @@ import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-announcement',
-  templateUrl: './announcement.component.html',
-  styleUrls: ['./announcement.component.scss'],
+  templateUrl: './view-announcement.component.html',
+  styleUrls: ['./view-announcement.component.scss'],
 })
-export class AnnouncementComponent implements OnInit {
+export class ViewAnnouncementComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _announcementService: AnnouncementService,

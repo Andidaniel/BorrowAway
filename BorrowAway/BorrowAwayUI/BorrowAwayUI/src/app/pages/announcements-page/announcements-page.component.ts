@@ -33,6 +33,12 @@ export class AnnouncementsPageComponent {
   announcements: Announcement[] = [];
   categories: any[] = [];
 
+  private readonly STATUS_ALL = 'All Announcements';
+  private readonly STATUS_SEARCH = 'Search By: ';
+  private readonly STATUS_CATEGORY = 'Filter By: ';
+  filterStatus: string = this.STATUS_ALL;
+  filterValue: string = '';
+
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router,
@@ -42,11 +48,21 @@ export class AnnouncementsPageComponent {
   ) {}
 
   ngOnInit(): void {
+    this._categoryService.getAllCategories().subscribe((cat) => {
+      this.categories = cat;
+      this.filterAnnouncements();
+    });
+  }
+
+  filterAnnouncements() {
     const searchPredicate = this._activatedRoute.snapshot.queryParams['search'];
     const categoryId = this._activatedRoute.snapshot.queryParams['category'];
 
     // search predicate filter
     if (searchPredicate) {
+      this.filterStatus = this.STATUS_SEARCH;
+      this.filterValue = searchPredicate;
+
       this._announcementService
         .getAnnouncementBySearchPredicate(searchPredicate)
         .subscribe((ann) => {
@@ -56,6 +72,9 @@ export class AnnouncementsPageComponent {
 
     // category filter
     else if (categoryId) {
+      this.filterStatus = this.STATUS_CATEGORY;
+      this.filterValue = this.getCategoryNameById(+categoryId);
+
       this._announcementService
         .getAnnouncementByCategoryId(categoryId)
         .subscribe((ann) => {
@@ -65,14 +84,18 @@ export class AnnouncementsPageComponent {
 
     // no filter (get all)
     else {
+      this.filterStatus = this.STATUS_ALL;
+      this.filterValue = '';
+
       this._announcementService.getAllAnnouncements().subscribe((ann) => {
         this.announcements = ann;
       });
     }
+  }
 
-    this._categoryService.getAllCategories().subscribe((cat) => {
-      this.categories = cat;
-    });
+  getCategoryNameById(id: number): string {
+    const category = this.categories.find((c) => c.id === id);
+    return category ? category.title : '';
   }
 
   public buttonClickedEventReceived(redirectUrl: string) {
