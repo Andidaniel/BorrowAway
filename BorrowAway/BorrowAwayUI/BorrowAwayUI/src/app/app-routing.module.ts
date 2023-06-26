@@ -7,6 +7,7 @@ import { HomePageComponent } from './HomePage/home-page/home-page.component';
 import { AddPostComponent } from './AddPost/add-post/add-post.component';
 import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
 import { AnnouncementsPageComponent } from './announcements-page/announcements-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,11 @@ const routes: Routes = [
     path: 'announcements',
     canActivate: [AuthGuard],
     component: AnnouncementsPageComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    component: ProfilePageComponent,
   },
   {
     path: 'listItem',

@@ -20,7 +20,7 @@ export class AddPostComponent implements OnInit {
     private _authService: AuthService,
     private _router: Router,
     private _categoryService: CategoryService,
-    private _errorService:ErrorHandlingService
+    private _errorService: ErrorHandlingService
   ) {}
   ngOnInit(): void {
     this._categoryService.getAllCategories().subscribe((cat) => {
@@ -44,7 +44,7 @@ export class AddPostComponent implements OnInit {
     },
     {
       buttonText: 'Profile',
-      redirectUrl: 'editProfile',
+      redirectUrl: 'profile',
       iconName: 'account_circle',
     },
     {
@@ -71,8 +71,8 @@ export class AddPostComponent implements OnInit {
     } else if (redirectUrl == 'home') {
       this._router.navigateByUrl(redirectUrl);
       return;
-    } else if (redirectUrl == 'editProfile') {
-      console.log(this.categorySelectBoxData);
+    } else if (redirectUrl == 'profile') {
+      this._router.navigateByUrl(redirectUrl);
       return;
     }
   }
@@ -85,7 +85,7 @@ export class AddPostComponent implements OnInit {
   public image3Preview: string | undefined;
 
   public announcement: Announcement = {
-    id:0,
+    id: 0,
     title: null,
     description: null,
     numberOfImages: null,
@@ -174,10 +174,8 @@ export class AddPostComponent implements OnInit {
     }
     this.announcement.numberOfImages = this.announcement.imagesData.length;
 
-
     this._announcementService.postAnnouncement(this.announcement).subscribe({
       next: (response: any) => {
-
         this.showCreatedAnnouncementMessage();
         setTimeout(() => {
           this._router.navigateByUrl('home');

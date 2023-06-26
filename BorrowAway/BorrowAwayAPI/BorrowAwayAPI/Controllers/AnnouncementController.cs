@@ -3,6 +3,8 @@ using BorrowAwayAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.IO;
+using System;
 
 namespace BorrowAwayAPI.Controllers
 {
@@ -95,6 +97,8 @@ namespace BorrowAwayAPI.Controllers
         [HttpGet("SearchAnnouncements")]
         public async Task<ActionResult<List<AnnouncementDTO>>> SearchAnnouncementsByString([FromQuery] string searchText)
         {
+            var slash = Path.DirectorySeparatorChar;
+            Console.WriteLine(slash);
             List<AnnouncementDTO> result = await _announcementService.GetAllAnnouncementsBySearchText(searchText);
             if (result.Count != 0)
             {

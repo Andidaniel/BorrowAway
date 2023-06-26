@@ -29,6 +29,7 @@ import { AddPostComponent } from './AddPost/add-post/add-post.component';
 import { AnnouncementComponent } from './ViewAnnouncement/announcement/announcement.component';
 import { AnnouncementsPageComponent } from './announcements-page/announcements-page.component';
 import { AnnouncementCardComponent } from './shared/announcement-card/announcement-card.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AnnouncementCardComponent } from './shared/announcement-card/announceme
     AnnouncementComponent,
     AnnouncementsPageComponent,
     AnnouncementCardComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

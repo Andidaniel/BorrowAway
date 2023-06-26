@@ -9,49 +9,54 @@ import { CategoryService } from 'src/app/Services/category.service';
 @Component({
   selector: 'app-announcement',
   templateUrl: './announcement.component.html',
-  styleUrls: ['./announcement.component.scss']
+  styleUrls: ['./announcement.component.scss'],
 })
 export class AnnouncementComponent implements OnInit {
   constructor(
-    private _activatedRoute:ActivatedRoute,
-    private _announcementService:AnnouncementService,
-    private _categoryService:CategoryService,
-    private _authService:AuthService,
-    private _router:Router){}
+    private _activatedRoute: ActivatedRoute,
+    private _announcementService: AnnouncementService,
+    private _categoryService: CategoryService,
+    private _authService: AuthService,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
-    this.currentAnnouncement.id = this._activatedRoute.snapshot.params["id"];
-    this._announcementService.getAnnouncementById(this.currentAnnouncement.id!).subscribe({
-      next:(ann:any)=>{
-        this.currentAnnouncement = ann;
+    this.currentAnnouncement.id = this._activatedRoute.snapshot.params['id'];
+    this._announcementService
+      .getAnnouncementById(this.currentAnnouncement.id!)
+      .subscribe({
+        next: (ann: any) => {
+          this.currentAnnouncement = ann;
 
-        this._categoryService.getCategoryById(this.currentAnnouncement.categoryId!).subscribe({
-          next:(cat:any)=>{
-            this.categoryName= cat.title;
-          },
-          error:(err:any)=>{
-            return '';
-          }
-        });
+          this._categoryService
+            .getCategoryById(this.currentAnnouncement.categoryId!)
+            .subscribe({
+              next: (cat: any) => {
+                this.categoryName = cat.title;
+              },
+              error: (err: any) => {
+                return '';
+              },
+            });
 
-        this._announcementService.getUserNameById(this.currentAnnouncement.userId!).subscribe({
-          next:(resp:any)=>{
-            this.posterName = resp.body;
-          }
-        })
-
-      },
-      error:(err:any)=>{
-        console.log(err);
-      }
-    });
-
+          this._announcementService
+            .getUserNameById(this.currentAnnouncement.userId!)
+            .subscribe({
+              next: (resp: any) => {
+                this.posterName = resp.body;
+              },
+            });
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
   }
 
-  public categoryName:string ='';
-  public posterName:string = '';
+  public categoryName: string = '';
+  public posterName: string = '';
 
-  public currentAnnouncement:Announcement =  {
-    id:null,
+  public currentAnnouncement: Announcement = {
+    id: null,
     title: null,
     description: null,
     numberOfImages: null,
@@ -71,7 +76,7 @@ export class AnnouncementComponent implements OnInit {
     },
     {
       buttonText: 'Profile',
-      redirectUrl: 'editProfile',
+      redirectUrl: 'profile',
       iconName: 'account_circle',
     },
     {
@@ -98,11 +103,9 @@ export class AnnouncementComponent implements OnInit {
     } else if (redirectUrl == 'home') {
       this._router.navigateByUrl(redirectUrl);
       return;
-    } else if (redirectUrl == 'editProfile') {
-      console.log("EditProfile clicked");
-
+    } else if (redirectUrl == 'profile') {
+      this._router.navigateByUrl(redirectUrl);
       return;
     }
   }
-
 }

@@ -64,4 +64,9 @@ export class AnnouncementService {
       this._apiEndpoint + `/SearchAnnouncements?searchText=${searchPredicate}`
     );
   }
+  public getAllUserAnnouncements(): Observable<Announcement[]> {
+    return this.http.get<Announcement[]>(
+      this._apiEndpoint + '/GetAllByUserEmail'
+    );
+  }
 }

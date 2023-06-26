@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonData } from '../Models/button-data';
+import { Announcement } from '../Models/announcement';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AnnouncementService } from '../Services/announcement.service';
 import { AuthService } from '../Services/auth.service';
 import { CategoryService } from '../Services/category.service';
-import { Announcement } from '../Models/announcement';
 
 @Component({
-  selector: 'app-announcements-page',
-  templateUrl: './announcements-page.component.html',
-  styleUrls: ['./announcements-page.component.scss'],
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.scss'],
 })
-export class AnnouncementsPageComponent {
+export class ProfilePageComponent {
   buttonsData: ButtonData[] = [
     {
       buttonText: 'Home',
@@ -19,9 +19,9 @@ export class AnnouncementsPageComponent {
       iconName: 'home',
     },
     {
-      buttonText: 'Profile',
-      redirectUrl: 'profile',
-      iconName: 'account_circle',
+      buttonText: 'List Item',
+      redirectUrl: 'listItem',
+      iconName: 'add_circle_outline',
     },
     {
       buttonText: 'Log Out',
@@ -30,49 +30,30 @@ export class AnnouncementsPageComponent {
     },
   ];
 
-  announcements: Announcement[] = [];
+  userName: string = '?';
+  userEmail: string = '?';
+  userAnnouncements: Announcement[] = [];
   categories: any[] = [];
 
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router,
-    private readonly _activatedRoute: ActivatedRoute,
     private readonly _announcementService: AnnouncementService,
     private readonly _categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
-    const searchPredicate = this._activatedRoute.snapshot.queryParams['search'];
-    const categoryId = this._activatedRoute.snapshot.queryParams['category'];
-
-    // search predicate filter
-    if (searchPredicate) {
-      this._announcementService
-        .getAnnouncementBySearchPredicate(searchPredicate)
-        .subscribe((ann) => {
-          this.announcements = ann;
-        });
-    }
-
-    // category filter
-    else if (categoryId) {
-      this._announcementService
-        .getAnnouncementByCategoryId(categoryId)
-        .subscribe((ann) => {
-          this.announcements = ann;
-        });
-    }
-
-    // no filter (get all)
-    else {
-      this._announcementService.getAllAnnouncements().subscribe((ann) => {
-        this.announcements = ann;
-      });
-    }
+    this._announcementService.getAllUserAnnouncements().subscribe((ann) => {
+      this.userAnnouncements = ann;
+    });
 
     this._categoryService.getAllCategories().subscribe((cat) => {
       this.categories = cat;
     });
+
+    const userData = this._authService.getUserData();
+    this.userName = userData.name;
+    this.userEmail = userData.email;
   }
 
   public buttonClickedEventReceived(redirectUrl: string) {
@@ -92,7 +73,7 @@ export class AnnouncementsPageComponent {
     } else if (redirectUrl == 'home') {
       this._router.navigateByUrl(redirectUrl);
       return;
-    } else if (redirectUrl == 'profile') {
+    } else if (redirectUrl == 'listItem') {
       this._router.navigateByUrl(redirectUrl);
       return;
     }

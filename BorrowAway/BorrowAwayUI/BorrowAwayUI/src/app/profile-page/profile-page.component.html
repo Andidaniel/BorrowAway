@@ -1,0 +1,43 @@
+<div class="app-container">
+  <app-top-bar
+    [buttonsData]="buttonsData"
+    (buttonClickedEvent)="buttonClickedEventReceived($event)"
+  ></app-top-bar>
+
+  <!-- Profile Header -->
+
+  <div class="profile-container">
+    <div class="profile">
+      <img class="profile-icon" src="/assets/images/profile-icon.png" />
+      <div class="profile-data">
+        <span class="profile-welcome">Welcome back</span>
+        <span class="profile-data-name">{{ userName }}</span>
+        <span class="profile-data-email">{{ userEmail }}</span>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- My Announcements -->
+  <div class="card-container">
+    <h1 class="card-container-title">Your Announcements</h1>
+    <app-announcement-card
+      [announcement]="announcement"
+      [categories]="categories"
+      *ngFor="let announcement of userAnnouncements"
+    />
+    <div
+      class="empty-announcements"
+      *ngIf="!userAnnouncements || userAnnouncements.length === 0"
+    >
+      <img
+        class="empty-announcements-icon"
+        src="/assets/images/nothing-icon.png"
+      />
+      <span class="empty-announcements-text">
+        You currently have no active announcements</span
+      >
+    </div>
+  </div>
+</div>

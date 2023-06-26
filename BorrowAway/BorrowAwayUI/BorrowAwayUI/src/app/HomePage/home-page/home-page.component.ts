@@ -36,13 +36,13 @@ export class HomePageComponent implements OnInit {
 
   buttonsData: ButtonData[] = [
     {
-      buttonText: 'List item',
+      buttonText: 'List Item',
       redirectUrl: 'listItem',
       iconName: 'add_circle_outline',
     },
     {
       buttonText: 'Profile',
-      redirectUrl: 'editProfile',
+      redirectUrl: 'profile',
       iconName: 'account_circle',
     },
     {
@@ -84,7 +84,7 @@ export class HomePageComponent implements OnInit {
     } else if (redirectUrl == 'listItem') {
       this._router.navigateByUrl(redirectUrl);
       return;
-    } else if (redirectUrl == 'editProfile') {
+    } else if (redirectUrl == 'profile') {
       this._router.navigateByUrl(redirectUrl);
       return;
     }
