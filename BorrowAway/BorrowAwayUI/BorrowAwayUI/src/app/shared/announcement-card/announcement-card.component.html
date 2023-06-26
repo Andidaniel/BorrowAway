@@ -50,7 +50,7 @@
     [dragEnabled]="false"
     [hideOnOutsideClick]="true"
     [showCloseButton]="false"
-    container=".app-container"
+    container=".dx-viewport"
     [(visible)]="deletePopupVisible"
   >
     <dxi-toolbar-item
@@ -67,8 +67,6 @@
       [options]="closeButtonOptions"
     >
     </dxi-toolbar-item>
-    <!-- <dxo-position at="bottom" my="center" [of]="positionOf" collision="fit"> -->
-    <!-- </dxo-position> -->
     <div *dxTemplate="let data of 'content'">
       Are you sure you want to delete your announcement for "{{
         announcement.title

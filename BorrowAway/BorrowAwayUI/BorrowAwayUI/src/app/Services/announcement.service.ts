@@ -69,4 +69,10 @@ export class AnnouncementService {
       this._apiEndpoint + '/GetAllByUserEmail'
     );
   }
+  public deleteAnnouncement(id: number): Observable<HttpEvent<string>> {
+    return this.http.delete<string>(
+      this._apiEndpoint + '/DeleteAnnouncement/' + id,
+      this._options
+    );
+  }
 }

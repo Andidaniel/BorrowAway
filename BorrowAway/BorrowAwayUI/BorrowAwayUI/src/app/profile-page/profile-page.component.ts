@@ -56,6 +56,18 @@ export class ProfilePageComponent {
     this.userEmail = userData.email;
   }
 
+  onAnnouncementDelete(announcement: Announcement) {
+    let index = this.userAnnouncements.indexOf(announcement);
+    if (index !== -1) {
+      this.userAnnouncements.splice(index, 1);
+      this.showDeletedAnnouncementMessage();
+    }
+  }
+
+  onDeleteError(errorMessage: string) {
+    this.showErrorMessage(errorMessage);
+  }
+
   public buttonClickedEventReceived(redirectUrl: string) {
     if (redirectUrl == '') {
       this._authService.logoutUser().subscribe({
@@ -77,5 +89,21 @@ export class ProfilePageComponent {
       this._router.navigateByUrl(redirectUrl);
       return;
     }
+  }
+
+  // Toast
+  public toastMessage: string = ' ';
+  public toastType: string = '';
+  public toastVisible: boolean = false;
+
+  private showDeletedAnnouncementMessage(): void {
+    this.toastMessage = 'Announcement deleted successfully';
+    this.toastType = 'success';
+    this.toastVisible = true;
+  }
+  private showErrorMessage(errorMessage: string): void {
+    this.toastMessage = errorMessage;
+    this.toastType = 'error';
+    this.toastVisible = true;
   }
 }

@@ -5,8 +5,11 @@
   ></app-top-bar>
 
   <!-- Profile Header -->
-
   <div class="profile-container">
+    <img
+      class="profile-container-decoration"
+      src="/assets/images/objects1.png"
+    />
     <div class="profile">
       <img class="profile-icon" src="/assets/images/profile-icon.png" />
       <div class="profile-data">
@@ -15,6 +18,10 @@
         <span class="profile-data-email">{{ userEmail }}</span>
       </div>
     </div>
+    <img
+      class="profile-container-decoration"
+      src="/assets/images/objects2.png"
+    />
   </div>
 
   <hr />
@@ -26,6 +33,8 @@
       [announcement]="announcement"
       [categories]="categories"
       [editable]="true"
+      (deletedEvent)="onAnnouncementDelete($event)"
+      (errorEvent)="onDeleteError($event)"
       *ngFor="let announcement of userAnnouncements"
     />
     <div
@@ -41,4 +50,14 @@
       >
     </div>
   </div>
+
+  <!-- Toast -->
+  <dx-toast
+    [(visible)]="toastVisible"
+    [message]="toastMessage"
+    [type]="toastType"
+    height="50px"
+    width="auto"
+    style="align-items: center"
+  ></dx-toast>
 </div>
