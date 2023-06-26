@@ -129,7 +129,8 @@
     align-items: center;
     gap: 10px;
 
-    height: 60px;
+    width: 80vw;
+    min-height: 60px;
     padding: 10px 20px;
     border: 2px solid $primary;
     border-radius: 4px;
@@ -140,6 +141,8 @@
     }
 
     &-information {
+      flex: auto;
+
       &-title,
       &-subtitle {
         display: flex;
@@ -171,6 +174,7 @@
     &-actions {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
       gap: 10px;
     }
   }
@@ -190,7 +194,8 @@
     align-items: center;
     gap: 10px;
 
-    height: 60px;
+    width: 80vw;
+    min-height: 60px;
     padding: 10px 20px;
     border: 2px solid $primary;
     border-radius: 4px;
@@ -201,6 +206,8 @@
     }
 
     &-information {
+      flex: auto;
+
       &-title,
       &-subtitle {
         display: flex;
@@ -232,6 +239,7 @@
     &-actions {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
       gap: 10px;
     }
   }
