@@ -31,11 +31,12 @@ import { LoginFormComponent } from './pages/auth-page/login-form/login-form.comp
 import { RegisterFormComponent } from './pages/auth-page/register-form/register-form.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { TopBarComponent } from './shared/top-bar/top-bar.component';
-import { AddPostComponent } from './pages/add-post/add-post.component';
-import { AnnouncementComponent } from './pages/announcement/announcement.component';
+import { AddAnnouncementComponent } from './pages/add-announcement/add-announcement.component';
+import { ViewAnnouncementComponent } from './pages/view-announcement/view-announcement.component';
 import { AnnouncementsPageComponent } from './pages/announcements-page/announcements-page.component';
 import { AnnouncementCardComponent } from './shared/announcement-card/announcement-card.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { EmptyPlaceholderComponent } from './shared/empty-placeholder/empty-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -46,11 +47,12 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     RegisterFormComponent,
     HomePageComponent,
     TopBarComponent,
-    AddPostComponent,
-    AnnouncementComponent,
+    AddAnnouncementComponent,
+    ViewAnnouncementComponent,
     AnnouncementsPageComponent,
     AnnouncementCardComponent,
     ProfilePageComponent,
+    EmptyPlaceholderComponent,
   ],
   imports: [
     BrowserModule,

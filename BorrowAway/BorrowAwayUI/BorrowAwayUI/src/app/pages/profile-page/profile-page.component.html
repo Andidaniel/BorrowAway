@@ -37,18 +37,16 @@
       (errorEvent)="onDeleteError($event)"
       *ngFor="let announcement of userAnnouncements"
     />
-    <div
-      class="empty-announcements"
+
+    <!-- No Announcements -->
+    <app-empty-placeholder
       *ngIf="!userAnnouncements || userAnnouncements.length === 0"
     >
-      <img
-        class="empty-announcements-icon"
-        src="/assets/images/nothing-icon.png"
-      />
       <span class="empty-announcements-text">
-        You currently have no active announcements</span
-      >
-    </div>
+        You currently have no active announcements <br />
+        Create one from the <a routerLink="/listItem">List Item</a> menu
+      </span>
+    </app-empty-placeholder>
   </div>
 
   <!-- Toast -->
