@@ -108,7 +108,7 @@ namespace BorrowAwayAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("UpdateAnnouncement")]
+        [HttpPut("UpdateAnnouncement")]
         public async Task<ActionResult<string>> UpdateAnnouncement([FromBody] AnnouncementDTO announcementDTO)
         {
             bool result = await _announcementService.UpdateAnnouncement(announcementDTO);
