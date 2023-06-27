@@ -40,6 +40,8 @@ export class ProfilePageComponent {
   userBorrowRequests: any[] = [];
   userLendOpportunities: any[] = [];
 
+  public loading: boolean = true;
+
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router,
@@ -59,6 +61,7 @@ export class ProfilePageComponent {
 
     this._announcementService.getAllUserAnnouncements().subscribe((ann) => {
       this.userAnnouncements = ann;
+      this.loading = false;
     });
 
     this._borrowRequestService.getUserBorrowRequests().subscribe((requests) => {

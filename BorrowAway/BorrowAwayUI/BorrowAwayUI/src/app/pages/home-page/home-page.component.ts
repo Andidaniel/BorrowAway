@@ -24,8 +24,11 @@ export class HomePageComponent implements OnInit {
   categories: any[] = [];
   searchBoxText: string;
 
+  public loading: boolean = true;
+
   ngOnInit(): void {
     this._announcementService.getLastSixAnnouncements().subscribe((ann) => {
+      this.loading = false;
       this.announcements = ann;
     });
 

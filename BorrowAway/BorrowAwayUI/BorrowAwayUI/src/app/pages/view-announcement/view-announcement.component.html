@@ -7,7 +7,7 @@
   </app-top-bar>
 
   <!-- Announcement Card -->
-  <div class="announcement-container">
+  <div *ngIf="!loading" class="announcement-container">
     <div class="product-img">
       <img [src]="image" *ngFor="let image of currentAnnouncement.imagesData" />
     </div>
@@ -21,6 +21,10 @@
         <h2>
           <span class="material-icons-outlined"> account_circle </span>
           {{ posterName }}
+        </h2>
+        <h2>
+          <span class="material-icons-outlined"> email </span>
+          {{ currentAnnouncement.contactMethod }}
         </h2>
         <p>
           {{ currentAnnouncement.description }}
@@ -36,6 +40,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Loading -->
+  <app-loading *ngIf="loading" />
 
   <!-- Borrow Popup -->
   <dx-popup

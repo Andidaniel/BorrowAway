@@ -45,7 +45,7 @@
       </div>
 
       <!-- Latest Announcements -->
-      <div class="card-container">
+      <div *ngIf="!loading" class="card-container">
         <h1 class="card-container-title">Latest Announcements</h1>
         <app-announcement-card
           [announcement]="announcement"
@@ -53,6 +53,9 @@
           *ngFor="let announcement of announcements"
         />
       </div>
+
+      <!-- Loading -->
+      <app-loading *ngIf="loading" />
     </div>
   </div>
 </div>

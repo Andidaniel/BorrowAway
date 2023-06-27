@@ -56,8 +56,14 @@
     >
   </div>
 
+  <!-- Loading -->
+  <app-loading *ngIf="loading" />
+
   <!-- 0. My Announcements -->
-  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_ANNOUNCEMENTS">
+  <div
+    class="card-container"
+    *ngIf="!loading && currentSubpage === SUBPAGE_ANNOUNCEMENTS"
+  >
     <h1 class="card-container-title">Your Announcements</h1>
     <app-announcement-card
       [announcement]="announcement"
@@ -80,7 +86,10 @@
   </div>
 
   <!-- 1. My Borrow Requests -->
-  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_BORROW">
+  <div
+    class="card-container"
+    *ngIf="!loading && currentSubpage === SUBPAGE_BORROW"
+  >
     <h1 class="card-container-title">Sent Borrow Requests</h1>
     <div class="borrow">
       <div
@@ -147,7 +156,10 @@
   </div>
 
   <!-- 2. My Lend Opportunities -->
-  <div class="card-container" *ngIf="currentSubpage === SUBPAGE_LEND">
+  <div
+    class="card-container"
+    *ngIf="!loading && currentSubpage === SUBPAGE_LEND"
+  >
     <h1 class="card-container-title">Received Lend Opportunities</h1>
     <div class="lend">
       <div

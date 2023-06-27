@@ -22,6 +22,8 @@ export class ViewAnnouncementComponent implements OnInit {
   public endDate: Date | string | number;
   public totalPrice: number = 0;
 
+  public loading: boolean = true;
+
   public currentAnnouncement: Announcement = {
     id: null,
     title: null,
@@ -105,6 +107,7 @@ export class ViewAnnouncementComponent implements OnInit {
       .getAnnouncementById(this.currentAnnouncement.id!)
       .subscribe({
         next: (ann: any) => {
+          this.loading = false;
           this.currentAnnouncement = ann;
           this._requestService
             .getUnavailableDaysForAnnouncement(this.currentAnnouncement.id!)
@@ -145,6 +148,7 @@ export class ViewAnnouncementComponent implements OnInit {
             });
         },
         error: (err: any) => {
+          this.loading = false;
           console.log(err);
         },
       });
