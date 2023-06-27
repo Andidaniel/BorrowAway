@@ -59,20 +59,38 @@ export class ProfilePageComponent {
       this.categories = cat;
     });
 
-    this._announcementService.getAllUserAnnouncements().subscribe((ann) => {
-      this.userAnnouncements = ann;
-      this.loading = false;
+    this._announcementService.getAllUserAnnouncements().subscribe({
+      next: (ann: any) => {
+        this.userAnnouncements = ann;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        this.loading = false;
+        console.error(err);
+      },
     });
 
-    this._borrowRequestService.getUserBorrowRequests().subscribe((requests) => {
-      this.userBorrowRequests = requests;
+    this._borrowRequestService.getUserBorrowRequests().subscribe({
+      next: (requests: any) => {
+        this.userBorrowRequests = requests;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        this.loading = false;
+        console.error(err);
+      },
     });
 
-    this._borrowRequestService
-      .getUserLendOpportunities()
-      .subscribe((opportunities) => {
+    this._borrowRequestService.getUserLendOpportunities().subscribe({
+      next: (opportunities: any) => {
         this.userLendOpportunities = opportunities;
-      });
+        this.loading = false;
+      },
+      error: (err: any) => {
+        this.loading = false;
+        console.error(err);
+      },
+    });
   }
 
   public onAnnouncementDelete(announcement: Announcement) {
