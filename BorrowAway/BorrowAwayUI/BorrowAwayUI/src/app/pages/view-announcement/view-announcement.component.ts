@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import jwtDecode from 'jwt-decode';
 import { Announcement } from 'src/app/models/announcement';
 import { ButtonData } from 'src/app/models/button-data';
 import { AnnouncementService } from 'src/app/services/announcement.service';
@@ -16,12 +17,12 @@ export class ViewAnnouncementComponent implements OnInit {
   public unavailableDates: Date[] = [];
   public categoryName: string = '';
   public posterName: string = '';
-
+  public myContext = this;
   public minStartDate: Date = new Date();
   public startDate: Date | string | number = new Date();
   public endDate: Date | string | number;
   public totalPrice: number = 0;
-
+  public loggedInUserName: string;
   public loading: boolean = true;
 
   public currentAnnouncement: Announcement = {
@@ -102,6 +103,13 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let token: string | null = localStorage.getItem('token');
+    if (token != null) {
+      const decodedToken: any = jwtDecode(token);
+      this.loggedInUserName = decodedToken.name;
+    }
+
+    this.maxEndDate = this.getMaxEndDate(new Date(this.startDate));
     this.currentAnnouncement.id = this._activatedRoute.snapshot.params['id'];
     this._announcementService
       .getAnnouncementById(this.currentAnnouncement.id!)
@@ -164,7 +172,34 @@ export class ViewAnnouncementComponent implements OnInit {
       this.startDate as Date,
       this.endDate as Date
     );
-    this.totalPrice = days * this.currentAnnouncement.pricePerDay!;
+    this.totalPrice = (days + 1) * this.currentAnnouncement.pricePerDay!;
+  }
+
+  public onStartDateChanged() {
+    if (!this.startDate) {
+      this.totalPrice = 0;
+      return;
+    }
+    this.endDate = this.startDate;
+    this.maxEndDate = this.getMaxEndDate(new Date(this.startDate));
+  }
+  public maxEndDate: Date | null = null;
+
+  public getMaxEndDate(givenDate: Date) {
+    let foundDate = null;
+
+    for (let i = 0; i < this.unavailableDates.length; i++) {
+      const currentDate = this.unavailableDates[i];
+
+      if (
+        currentDate > givenDate &&
+        (foundDate === null || currentDate < foundDate)
+      ) {
+        foundDate = currentDate;
+      }
+    }
+
+    return foundDate;
   }
 
   public buttonClickedEventReceived(redirectUrl: string) {
@@ -193,6 +228,9 @@ export class ViewAnnouncementComponent implements OnInit {
   private onBorrowSuccess() {
     this.borrowPopupVisible = false;
     this.showBorrowSuccessMessage();
+    setTimeout(() => {
+      this._router.navigateByUrl('profile');
+    }, 3000);
   }
 
   private onBorrowError(err: any) {
@@ -229,7 +267,7 @@ export class ViewAnnouncementComponent implements OnInit {
   public toastVisible: boolean = false;
 
   private showBorrowSuccessMessage(): void {
-    this.toastMessage = 'Borrow request created';
+    this.toastMessage = 'Borrow request created. Redirecting...';
     this.toastType = 'success';
     this.toastVisible = true;
   }

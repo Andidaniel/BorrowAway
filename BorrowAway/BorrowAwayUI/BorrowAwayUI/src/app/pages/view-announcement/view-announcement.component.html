@@ -10,6 +10,7 @@
   <div *ngIf="!loading" class="announcement-container">
     <div class="product-img">
       <img [src]="image" *ngFor="let image of currentAnnouncement.imagesData" />
+      <p *ngIf="currentAnnouncement.imagesData.length==0"> NO IMAGES PROVIDED</p>
     </div>
     <div class="product-info">
       <div class="product-text">
@@ -26,6 +27,10 @@
           <span class="material-icons-outlined"> email </span>
           {{ currentAnnouncement.contactMethod }}
         </h2>
+        <h2>
+          <span class="material-icons-outlined">pin_drop</span>
+          {{currentAnnouncement.location}}
+        </h2>
         <p>
           {{ currentAnnouncement.description }}
         </p>
@@ -34,7 +39,7 @@
         <p>
           $<span>{{ currentAnnouncement.pricePerDay }}</span> / day
         </p>
-        <button (click)="borrowPopupVisible = true" type="button">
+        <button [disabled]="loggedInUserName == posterName" (click)="borrowPopupVisible = true" type="button">
           Borrow
         </button>
       </div>
@@ -83,6 +88,7 @@
           [min]="minStartDate"
           [disabledDates]="unavailableDates"
           (onValueChanged)="onDatesChange()"
+          (onValueChanged)="onStartDateChanged()"
         >
         </dx-date-box>
         <br />
@@ -91,6 +97,7 @@
           type="date"
           [(value)]="endDate"
           [min]="startDate"
+          [max]="maxEndDate!"
           [disabledDates]="unavailableDates"
           (onValueChanged)="onDatesChange()"
         >
