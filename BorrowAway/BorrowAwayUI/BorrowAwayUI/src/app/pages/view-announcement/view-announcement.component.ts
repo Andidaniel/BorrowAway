@@ -70,6 +70,11 @@ export class ViewAnnouncementComponent implements OnInit {
     private _requestService: BorrowRequestService,
     private _router: Router
   ) {
+    let token: string | null = localStorage.getItem('token');
+    if (token != null) {
+      const decodedToken: any = jwtDecode(token);
+      this.loggedInUserName = decodedToken.name;
+    }
     const that = this;
 
     this.borrowButtonOptions = {
@@ -103,11 +108,7 @@ export class ViewAnnouncementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let token: string | null = localStorage.getItem('token');
-    if (token != null) {
-      const decodedToken: any = jwtDecode(token);
-      this.loggedInUserName = decodedToken.name;
-    }
+
 
     this.maxEndDate = this.getMaxEndDate(new Date(this.startDate));
     this.currentAnnouncement.id = this._activatedRoute.snapshot.params['id'];

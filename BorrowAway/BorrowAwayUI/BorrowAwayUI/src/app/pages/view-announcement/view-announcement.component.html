@@ -39,7 +39,7 @@
         <p>
           $<span>{{ currentAnnouncement.pricePerDay }}</span> / day
         </p>
-        <button [disabled]="loggedInUserName == posterName" (click)="borrowPopupVisible = true" type="button">
+        <button *ngIf="!(loggedInUserName==posterName)" (click)="borrowPopupVisible = true" type="button">
           Borrow
         </button>
       </div>
